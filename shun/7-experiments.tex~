@@ -1,0 +1,290 @@
+\section{Simulation Results}
+
+To demonstrate the feasibility of SemiAIM as well as evaluate the
+hypothesis that SemiAIM can offer substantial improvements over
+traffic signals and FCFS-Signal, we modified the AIM4 simulator at
+\url{http://www.cs.utexas.edu/~aim} to simulate the behavior of
+vehicles in the constraint-based reservation system and measured the
+average delays of vehicles under (1) AIM, (2) SemiAIM, and (3) traffic
+signals with optimized signal timing. In all experiments,
+we spawn vehicles in each lane according to a Poisson distribution with the
+expectation of 360 vehicles per hour. We denote this setting as
+traffic level = 360 vehicles/hour/lane.\footnote{We choose this
+traffic level as being high enough to cause significant delays at
+signals, but light enough to allow for benefits even if cars are not
+precisely controlled. Figure~\ref{fig:figure5} examines higher traffic
+levels.} We assume the intersection is fully observable to the intersection
+manager.
+
+The traffic signal phase plan is shown in Table~\ref{table:phase}.
+According to this plan, there is a 30 second green phase for traffic
+coming from East and West, followed by a 3 second yellow phase and a 5
+second red phase. Then, there is a 8 second green phase for traffic
+from South direction only, followed by a 3 second yellow phase and a
+5 second red phase, etc.
+
+\begin{table}
+\caption{The traffic signal phase plan.}
+\label{table:phase}
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+Direction & Green Phase & Yellow Phase & Red Phase \\
+\hline
+  East-West & 30s & 3s & 5s \\
+  South & \ 8s & 3s & 5s \\
+  East & 10s & 1s & 5s \\
+  North-South & 40s & 3s & 5s \\
+  West & 10s & 1s & 5s \\
+  North & \ 8s & 3s & 5s \\
+\hline
+\end{tabular}
+\end{table}
+
+The experiments were conducted in a $3 \times 3$ intersection (3 lanes
+in each direction).  In all cases, we measure the average vehicle
+delay, where delay is computed as the increase in travel time compared
+to traversing the intersection without slowing down at all, as if no
+other vehicles were on the road. Thus, lower delays correspond to
+better performance.  We use this setting, which is similar to that in
+\cite{bib:Dresner08Multiagent}, for comparison purposes. For all the
+vehicles, both the static buffer and the edge time buffer are 0.25
+meters (see \cite{bib:Dresner08Multiagent} for details), when
+auto-controlled.  No such constraint is relevant to human. However,
+there can be an alert to human drivers if the detected distance to
+another vehicle is too small.
+
+In the first experiment, the traffic consisted of all five types of
+vehicles we defined in Section~\ref{sec:vehicles}.  We gradually
+increased the percentage of autonomous vehicles while keeping the
+traffic level at 360 vehicles/hour/lane.  We compared two variants of
+SemiAIM using optimized traffic signals such that all vehicles must
+follow the traffic signals.  For Figures 1 and 2, the experiments only
+contain two types of vehicles---autonomous vehicles (Type A) and the
+type of vehicles specified in the legends. Along the x axis, the ratio
+of autonomous vehicles starts at 1 and the ratio of semi-autonomous
+vehicles start at 0. Then the ratio of semi-autonomous vehicles
+increases and that of autonomous ones decreases.  In
+Figure~\ref{fig:figure1}, we isolate the features for different types
+of semi-autonomous vehicles and only consider one at a time.  The
+vehicles with communication devices outperform the vehicles with
+either type of cruise control. So, keeping a constant speed, as an
+approximation of the performance of autonomous vehicles' chance, is
+not as valuable as letting the intersection manager to know when the
+vehicle is going to enter the intersection.
+
+% (in contrast to what's shown in Table~\ref{table:1}). 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\columnwidth]{figures/figure_1.png}
+\caption{Comparison on different features of semi-autonomous vehicles
+, traffic level = 360 vehicles/lane/hour. The simulation time is 1800
+seconds. Each data point is an average of the delay times over 30 runs.}
+\label{fig:figure1}
+
+\mbox{}
+
+\centering
+\includegraphics[width=0.8\columnwidth]{figures/figure_2.png}
+\caption{Autonomous vehicles vs. Human-Driven vehicles, traffic level
+= 360 vehicles/lane/hour. The simulation time is 1800 seconds.
+Each data point is an average of the delay times over 30 runs.}
+\label{fig:figure2}
+
+\end{figure}
+
+% Figure~\ref{fig:figure1} shows that as the number of autonomous
+% vehicles increases, the average delay decreases. In particular, when
+% most vehicles are autonomous, the average delay is close to zero.  In
+% the second experiment, we created a traffic consisting of
+% human-controlled vehicles and two kinds of semi-autonomous vehicles
+% but no autonomous vehicles.  We measured the average delay of all
+% vehicles when we gradually increased the percentage of semi-autonomous
+% vehicles.  Then we compared SemiAIM with optimized traffic signals.
+% The results in Figure~\ref{fig:figure2} shows that as the number of
+% semi-autonomous vehicles increases, the average delay decreases under
+% SemiAIM.  While the decrease is not as dramatic as the decrease when
+% the percentage of autonomous vehicles is near 100\% in
+% Figure~\ref{fig:figure1}, SemiAIM can reduce about 43\% of the average
+% delay when most vehicles are semi-autonomous.
+
+Next we compare the performance of different types of
+vehicles---recall that each type of vehicles can have several
+features. We can observe that vehicles with more features can
+achieve less delay time. Even without any autonomous vehicles,
+the combination of semi-autonomous vehicles and human-driven vehicles
+can reduce the delay time by 40\%, when compared to all human-driven
+vehicles (Figure~\ref{fig:figure2}).
+
+In addition, we compared the performance in traffic with a mixture of
+different types of vehicles.  We conducted two experiments to test 1)
+the effect of gradually shifting from human-driven vehicles to
+autonomous and semi-autonomous vehicles, and 2) the effect of shifting
+from semi-autonomous vehicles to fully autonomous vehicles.  The
+schedule for shifting is indicated in Tables~\ref{table:3}
+and~\ref{table:4}, which can be used to interpret the mix of vehicles
+along the x-axes of Figures~\ref{fig:figure3} and~\ref{fig:figure4}
+respectively.
+
+\begin{enumerate}
+
+\item Gradually replace human-driven vehicles with semi-autonomous
+  vehicles. The result shows that with appearance of more autonomous
+  and semi-autonomous vehicles (i.e.\ fewer human-driven vehicles), the
+  delay time decreases. The result is shown in
+  Figure~\ref{fig:figure3}.
+
+\item Gradually replace semi-autonomous vehicles with fully autonomous
+  vehicles. The result shows that when the percentage of human
+  vehicles is fixed, the delay time decreases with appearance
+  of more autonomous vehicles (i.e.\ fewer semi-autonomous vehicles).
+  The result is shown in Figure~\ref{fig:figure4}.
+
+\end{enumerate}
+
+The performance of semi-autonomous vehicles can be significantly
+better than human-driven vehicles in small traffic level. In
+Figure~\ref{fig:figure5}, we increase the traffic level to 540
+vehicles/hour/lane. At this traffic level, congestion appears.  It is
+true that semi-autonomous would not ``harm'' normal traffic which
+follows traffic signals, but they have almost no chance to enter the
+intersection in phases other than green ones. This makes it appear as
+almost no improvement upon traditional traffic light policy.
+
+This result confirms our hypothesis that while semi-autonomous
+vehicles can significantly bridge the gap between the time when all
+vehicles are human-driven to that when most are autonomous. There will
+likely always remain strong benefits of full autonomy, especially for
+high traffic levels.  Nevertheless, for mid-levels of traffic, the
+benefits of semi-autonomy can be large.
+
+
+\begin{table}[t]
+\caption{The distribution of semi-autonomous vehicles in Figure~\ref{fig:figure3}.}
+\label{table:3}
+\centering
+\begin{tabular}{|c|c|c|}
+    \hline
+    Type H&  Type SA-*&    Type A\\
+    \hline
+    90&       9&    1\\
+    \hline
+    87&     11&    2\\
+    \hline
+    84&     13&    3\\
+    \hline
+     ...&   ...&   ...\\
+    \hline
+         0&     69&  31\\
+    \hline
+\end{tabular}
+
+\mbox{}
+
+\caption{The distribution of semi-autonomous vehicles in Figure~\ref{fig:figure4}.}
+\label{table:4}
+\centering
+\begin{tabular}{|c|c|c|}
+    \hline
+     Type H&  Type SA-*&    Type A\\
+    \hline
+     10&     85&    5\\
+    \hline
+     10&     80&  10\\
+    \hline
+     10&     75&  15\\
+    \hline
+      ...&  ...&  ...\\
+    \hline
+        10&       5&  85\\
+    \hline
+\end{tabular}
+
+\end{table}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\columnwidth]{figures/figure_3.png}
+\caption{The average delay time in different percentage of semi-autonomous
+  vehicles and autonomous vehicles. The combination of each point is
+  specified in Table \ref{table:3}. Traffic level = 360 vehicles/lane/hour.
+  Simulation time is 1800 seconds.}
+\label{fig:figure3}
+
+\mbox{}
+
+\centering
+\includegraphics[width=0.8\columnwidth]{figures/figure_4.png}
+\caption{The average delay time in different percentage of human
+driven vehicles and semi-autonomous vehicles.  The combination of
+each point is specified in Table \ref{table:3}.  traffic level = 360
+vehicles/lane/hour. Simulation time is 1800 seconds.}
+\label{fig:figure4}
+
+\mbox{}
+
+\centering
+\includegraphics[width=0.8\columnwidth]{figures/figure_5.png}
+\caption{Comparison on different features of semi-autonomous vehicles,
+traffic level = 540 vehicles/lane/hour. Simulation time is 3600 seconds.}
+\label{fig:figure5}
+\end{figure}
+
+
+
+% To demonstrate the feasibility of SemiAIM as well as evaluate the
+% hypothesis that SemiAIM can offer substantial improvements over
+% traffic signals and FCFS-Signal, we modified the AIM4 simulator at
+% \url{http://www.cs.utexas.edu/~aim} to simulate the behavior of
+% vehicles in the constraint-based reservation system and measured the
+% average delays of vehicles under (1) AIM, (2) SemiAIM, and (3) traffic
+% signals with optimized signal timing.
+
+% \begin{figure}[t]
+%   \centering
+%   \includegraphics[width=2.4in]{figures/figure2}
+%   \caption{Average delay vs. the ratio of semi-autonomous vehicles
+% to human-controlled vehicles. T.
+%     L. = 720 veh./hour/lane.}
+%   \label{fig:figure2}
+%   \vspace{-.1in}
+% \end{figure}
+
+% The experiments were conducted in a $3 \times 3$ intersection.  In the first
+% experiment, the traffic consisted of human-controlled vehicles and
+% fully autonomous vehicles only. We gradually increased the percentage
+% of autonomous vehicles while keeping the traffic level at 720
+% vehicles/hour/lane. We compared two variants of SemiAIM with optimized
+% traffic signals in which all vehicles must follow the traffic signals.
+% Figure~\ref{fig:figure1} shows that as the number of autonomous
+% vehicles increases, the average delay decreases. In particular, when
+% most vehicles are autonomous, the average delay is close to zero.  In
+% the second experiment, we created a traffic consisting of
+% human-controlled vehicles and two kinds of semi-autonomous vehicles
+% but no autonomous vehicles.  We measured the average delay of all
+% vehicles when we gradually increased the percentage of semi-autonomous
+% vehicles.  Then we compared SemiAIM with optimized traffic signals.
+% The results in Figure~\ref{fig:figure2} shows that as the number of
+% semi-autonomous vehicles increases, the average delay decreases under
+% SemiAIM.  While the decrease is not as dramatic as the decrease when
+% the percentage of autonomous vehicles is near 100\% in
+% Figure~\ref{fig:figure1}, SemiAIM can reduce about 43\% of the average
+% delay when most vehicles are semi-autonomous.
+
+
+% There are four types of
+% vehicles in the simulation:
+% (1) Human-Controlled Vehicles,
+% (2) Semi-Autonomous Vehicles with simple cruise control,
+% (3) Semi-Autonomous Vehicles with adaptive cruise control, and
+% (4) Fully Autonomous Vehicles.
+
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:

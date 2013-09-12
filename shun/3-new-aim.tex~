@@ -1,0 +1,100 @@
+\section{Constraint-based Reservation Systems}
+
+SemiAIM extends AIM by allowing human-driven vehicles and
+semi-autonomous vehicles to make reservations in the same way as
+autonomous vehicles.  The key idea of SemiAIM is to turn AIM into a
+\emph{constraint-based reservation system}, which allows vehicles to
+make reservations in terms of constraints over (1) their driving
+profile such as their arrival time and arrival velocity, and (2) the
+relationships with other vehicles.  In AIM, a reservation request is a
+$5$-tuple $\langle l_1, l_2, t_0, v_0, p\rangle$, where $l_1$ is the
+entry lane, $l_2$ is the exit lane, $t_0$ is the arrival time, $v_0$
+is the arrival velocity, and $p$ is the physical characteristics of
+the vehicle.  This information allows the Intersection Manager (IM) to
+compute the exact trajectory of the vehicle in the intersection and
+reserve tiles for the vehicle on the trajectory.  However, this
+computation \emph{assumes} the vehicle can be controlled precisely in
+the intersection so that it can meet the reservation constraints
+exactly.
+
+Human drivers cannot control their vehicles as precisely, and
+semi-autonomous vehicles may only be able to control certain aspects
+of their trajectories.  However, their partial control may be
+sufficient for our purposes.  For example, vehicles with cruise
+control are capable of precisely controlling their speed, even if a
+human is steering.  Thus reservations for moving straight through the
+intersection may be able to be followed precisely.  Similarly,
+vehicles with adaptive cruise control can maintain a certain distance
+from the vehicle in front, so they may be able to meet reservations
+that are specified relative to the traversal times of other vehicles.
+These examples motivate the need for a new reservation system that
+relaxes the assumption of exact trajectories so as to allow
+semi-autonomous vehicles to make reservations.
+
+To this end, we propose a new constraint language to facilitate
+communications between vehicles and IMs.  If a vehicle expresses its
+reservation request in this language, the IM will be able to interpret
+the request and determine whether it is possible to reserve a matching
+set of tiles.  For example, a semi-autonomous vehicle
+with simple cruise control can make a reservation stating that it is
+approaching the intersection at 30mph and will arrive at the
+intersection between 10:15:05am and 10:15:10am, and it will go
+straight through the intersection.  Upon receiving this reservation
+request, the IM will determine the set of tiles along \emph{all} possible
+trajectories of the vehicle and check whether any of these tiles have
+been reserved by other vehicles.  If none of these tiles is reserved,
+the IM sends a confirmation message to the vehicle and the human
+driver will then turn on the cruise control accordingly.  While this
+maneuver may seem dangerous when there are other vehicles in the
+intersection, the human driver can propose a request with more relaxed
+constraints that allows him/her to enter the intersection comfortably
+and safely, and the IM can guarantee there is no collision. If the
+human driver fails to enter the intersection according to the proposed
+reservation or the driver does not have any equipment to make
+reservations, the human driver must follow the traffic signals at the
+intersection.
+
+% \begin{figure}[t]
+%   \centering
+%   \includegraphics[width=2.45in]{figures/figure1}
+%   \caption{Average delay vs. the ratio of autonomous vehicles
+% to human-controlled vehicles. Traffic
+%     level = 720 veh./hour/lane.}
+%   \label{fig:original}
+%   \vspace{-.3in}
+% \end{figure}
+
+For semi-autonomous vehicles with \emph{adaptive} cruise control, a
+reservation request, called an anchor request, proposes that it will
+follow the vehicle with a vehicle tag GXC345 in front of it and
+maintains a following distance of $5m$.  To determine the set of tiles
+for this vehicle, the IM in SemiAIM has to derive the trajectories
+from the reservation request of the vehicle GXC345.  Hence, the IM in
+SemiAIM will retain all reservation requests in symbolic forms.  If
+the vehicle GXC345 is also a semi-autonomous vehicle whose request
+depends on other requests, the IM has to deduce the trajectories by
+constraint propagation.  Cyclic dependences may occur if vehicles send
+requests simultaneously. The IM must break the cycle to prevent
+deadlock and let all vehicles enter the intersection eventually.
+Anchor reservation requests are described in more details in
+Section~\ref{sec:request}.
+
+
+% \begin{figure}[t]
+% \centering \fbox{\sf \footnotesize
+% \begin{minipage}{3.2in}
+% \begin{flushleft}
+% \newcommand{\TT}{\hspace*{1em}}
+% Procedure \textbf{UpdateEvasionPlanDB}($I$) \\
+% \end{flushleft}
+% \end{minipage}}
+% \caption{This is an algorithm.}
+% \label{fig:algm}
+% \end{figure}
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:

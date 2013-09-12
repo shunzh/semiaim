@@ -1,0 +1,134 @@
+\section{Related Work}
+
+The main context of our work is an extension to the FCFS policy
+proposed by Dresner and Stone~\cite{bib:Dresner08Multiagent}. Their
+experimental results indicated that a mixture of human-driven vehicles
+and autonomous vehicles is possible, and leads to better performance
+than having all human-driven vehicles, which is the current status
+quo.  However, their experiments indicated that the impact of
+autonomous vehicles was relatively small until almost all (90-95\%) of
+the vehicles on the road are autonomous.  Our extension to embrace
+semi-autonomous vehicles shows significant performance benefits all
+along the technology presentation curve.
+
+Our work is similar to the analysis of adaptive cruise control
+performance by Jerath and Brennan, who showed that by introducing
+adaptive cruise control vehicles into traffic, the vehicles would have
+a more \textit{condense} performance, thus increasing the efficiency
+of traffic~\cite{bib:Jerath10adaptive}.  When compared to our work,
+there are two key differences.  First, we are focusing on the
+intersection---a place more critical both from the points of view of
+congestion and safety, while the analysis of Jerath and Brennan is
+focused on highways.  Second, we study five types of vehicles,
+compared to the three types considered by Jerath and Brennan.
+
+Although we are not aware of any other work that is directly concerned
+with the interaction of semi-autonomous and autonomous vehicles,
+research on vehicular autonomy in general has made significant
+progress in recent years.  This was in part due to a series of robotic
+car competitions such as the \emph{DARPA Grand
+Challenges}~\cite{DARPAGrandChallenge}.  These competitions
+accelerated the development of autonomous vehicles to the point where
+the technical problem of open-road autonomous driving is considered by
+some to be essentially solved~\cite{JAIR08-dresner}.  When pushed to
+extremes, autonomous vehicles can even out-perform many human drivers
+in carrying out intricate maneuvers~\cite{Squatriglia2010}. The
+non-technical barrier for the adaptation of autonomous vehicles are
+largely traffic laws and regulations, though this is also being
+overcome~\cite{calo2011-nevada}.
+
+The vast majority of research on autonomous vehicles focuses on how to
+ensure they run on existing road infrastructure; there is limited
+literature on understanding changes to road infrastructure that can
+facilitate vehicular autonomy.  One such project on jointly optimizing
+autonomous vehicles and road infrastructure is the PATH program, which
+relies on magnetic markers in the roadway for measuring steering angle
+and vehicle movements~\cite{bib:Shladover91Automated}.  The Autonomous
+Intersection Management~(AIM) protocol~\cite{JAIR08-dresner, trr11,
+Quinlan10MixReality} is a vehicle-to-infrastructure (V2I) mechanism in
+which vehicles request space-time in the intersection for their
+trajectories prior to arriving at the intersection; a server at the
+intersection handles these requests, granting or rejecting
+reservations using a grid-based collision detection scheme. This
+protocol is enhanced to reduce network traffic and increase safety
+using spatial-temporal buffers surrounding the vehicles~\cite{trr11}.
+
+Vehicle-to-Vehicle (V2V) forms of autonomous intersection management
+have also been investigated~\cite{naumann97:intersection,
+ATT08-vanmiddlesworth}.  In this form, no centralized server is
+required (i.e., there is no single point of failure) and vehicles
+coordinate in a peer-to-peer fashion when crossing the
+intersection. Naumann {\em et al.} investigated a distributed policy
+that uses virtual ``tokens'' that a vehicle must possess to cross
+certain contested areas of the
+intersection~\cite{naumann97:intersection} and formally evaluated it
+using petri-nets.  VanMiddlesworth {\em et al.} developed a protocol
+that enables vehicles to ``call ahead'' to reserve space-time in the
+intersection~\cite{ATT08-vanmiddlesworth}. Their protocol outperformed
+the traditional stop sign in light traffic. 
+Anchor requests we introduced in this paper can be implemented
+using V2V communications.
+
+% We implemented a slightly
+% simplified version of the protocol in~\cite{ATT08-vanmiddlesworth}
+% that does not use estimated time of arrival and demonstrated that it
+% also outperforms a stop sign in light traffic.
+
+Other researchers have investigated autonomous intersections using
+real systems involving multiple mobile vehicles.  For example, Kolodko
+and Vlacic used golf-cart-like Imara vehicles in evaluating an
+autonomous intersection~\cite{Kolodko03:INRIA}.  In their study, all
+vehicles must come to a complete stop at the intersection irrespective
+of traffic conditions.  Our work differs from this, and all other
+previous research by incorporating semi-autonomous vehicles into the
+mix, along with autonomous and human-driven cars.
+
+
+
+% \section{Related Work}
+
+% The main context of our work is an extension to the FCFS policy
+% proposed by Dresner and Stone~\cite{bib:Dresner08Multiagent}. Their
+% experimental results indicated that a mixture of human-driven vehicles
+% and autonomous vehicles is possible, and leads to better performance
+% than having all human-driven vehicles, which is the current status
+% quo.  However, their experiments indicated that the impact of
+% autonomous vehicles was relatively small until almost all (90-95\%) of
+% the vehicles on the road are autonomous.  Our extension to embrace
+% semi-autonomous vehicles, shows significant performance benefits all
+% along the technology presentation curve.
+
+% Our work is similar to the analysis of adaptive cruise control
+% performance by Jerath and Brennan~\cite{bib:Jerath10adaptive}.  Jerath
+% and Brennan showed that by introducing adaptive cruise control
+% vehicles into traffic, the vehicles would have a more
+% \textit{condense} performance, thus increasing the efficiency of
+% traffic.  There are two key differences.  First, we are focusing on
+% the intersection---a place more critical both from the points of view
+% of congestion and safety, while the analysis of Jerath and Brennan is
+% focused on highways.  Second, we study five types of vehicles,
+% compared to the three types considered by Jerath and Brennan.  
+
+
+
+
+%The
+%features of these types of vehicles are various. We are able to see
+%which features would increase the efficiency of the intersection the
+%most.
+
+
+% We did not require platooning in our analysis. Vehicles appear randomly
+% at the spawning point of each lane. This is also the case for other
+% policies that we are going to compare with in this paper.  Our
+% analysis is also universal, not restricted to any manufacture. We will
+% list the features of each type of semi-autonomous vehicles. Any type
+% of cruise control vehicle or adaptive cruise control vehicle that
+% satisfy these features can all be applied to the policy mentioned in
+% our paper.
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:

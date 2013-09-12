@@ -1,0 +1,154 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out
+                                                          % if you need a4paper
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4
+                                                          % paper
+\usepackage{times,helvet,courier}
+\usepackage{amssymb,amsmath,latexsym}
+\usepackage{graphics,graphicx}
+\usepackage{subfigure}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{paralist}
+\usepackage{layout}
+\usepackage{url}
+\usepackage{mathptmx} % assumes new font selection scheme installed
+\usepackage{epsfig} % for postscript graphics files
+\usepackage{pdfsync}
+\usepackage{subfigure}
+
+
+\IEEEoverridecommandlockouts                              % This command is only
+                                                          % needed if you want to
+                                                          % use the \thanks command
+\overrideIEEEmargins
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\veh}{\ensuremath{v}}
+\newcommand{\vin}{\textsf{id}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Helper functions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{small_ind_s_itemize}{\begin{list}{$\bullet$}
+{\setlength{\rightmargin}{0em}
+\setlength{\leftmargin}{1em}
+\setlength{\itemsep}{0em}
+\setlength{\topsep}{0em}
+\setlength{\parsep}{0em}}}{\end{list}}
+
+\newtheorem{defn}{Definition}          % definition
+\newtheorem{thm}{Theorem}              % theorem
+
+\newcommand{\commentc}[1]{{\bf **Chiu: #1**}}
+\newcommand{\commentn}[1]{{\bf **Shun: #1**}}
+\newcommand{\commentp}[1]{{\bf **Peter: #1**}}
+
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+%\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+
+\title{\LARGE \bf
+Semi-Autonomous Intersection Management
+}
+
+%\author{ \parbox{3 in}{\centering Huibert Kwakernaak*
+%         \thanks{*Use the $\backslash$thanks command to put information here}\\
+%         Faculty of Electrical Engineering, Mathematics and Computer Science\\
+%         University of Twente\\
+%         7500 AE Enschede, The Netherlands\\
+%         {\tt\small h.kwakernaak@autsubmit.com}}
+%         \hspace*{ 0.5 in}
+%         \parbox{3 in}{ \centering Pradeep Misra**
+%         \thanks{**The footnote marks may be inserted manually}\\
+%        Department of Electrical Engineering \\
+%         Wright State University\\
+%         Dayton, OH 45435, USA\\
+%         {\tt\small pmisra@cs.wright.edu}}
+%}
+
+\author{Tsz-Chiu Au, Shun Zhang and Peter Stone}
+
+% \author{Huibert Kwakernaak$^{1}$ and Pradeep Misra$^{2}$% <-this % stops a space
+% \thanks{*This work was not supported by any organization}% <-this % stops a space
+% \thanks{$^{1}$H. Kwakernaak is with Faculty of Electrical Engineering, Mathematics and Computer Science,
+%         University of Twente, 7500 AE Enschede, The Netherlands
+%         {\tt\small h.kwakernaak at papercept.net}}%
+% \thanks{$^{2}$P. Misra is with the Department of Electrical Engineering, Wright State University,
+%         Dayton, OH 45435, USA
+%         {\tt\small p.misra at ieee.org}}%
+% }
+
+
+\begin{document}
+
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+Autonomous Intersection Management (AIM) is a reservation-based
+intersection control protocol that leverages the capacities of
+autonomous vehicles to dramatically reduce traffic delay at
+intersections. AIM is designed for the time when all, or most, of the
+vehicles on the road are autonomous.  But we anticipate that there
+will be a long transition period during which many cars are still
+driven by human drivers and/or most vehicles have some but not all
+capabilities of fully autonomous vehicles.  In fact, this transition
+period has silently begun---adaptive cruise control systems and lane
+departure warning systems have become widely available as optional
+equipment on luxury production vehicles since the late '90s.  In this
+paper, we introduce a new protocol called \emph{Semi-Autonomous
+Intersection Management} (SemiAIM), which allows vehicles with
+partially-autonomous features such as adaptive cruise control to make
+reservations in AIM.  We demonstrate the feasibility for vehicles with
+limited autonomy to make reservations to enter an intersection in
+AIM-like style.  Our simulation results show that traffic delay of
+semi-autonomous vehicles in SemiAIM can be greatly reduced.
+\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\sloppy
+\input{1-introduction.tex}
+\input{2-old-aim.tex}
+\input{3-new-aim.tex}
+\input{4-semi-auto.tex}
+\input{6-messages.tex}
+\input{7-experiments.tex}
+\input{8-related.tex}
+\input{9-conclusions.tex}
+
+\bibliographystyle{IEEEtran}
+\bibliography{bib/ref,bib/chiu,bib/intelligent_vehicles,bib/intersection,bib/peter}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
