@@ -35,6 +35,26 @@ which reservation tiles will be occupied by the vehicle.  If the
 vehicle's space-time request has no conflict, the reservation is
 successful; otherwise, the reservation request will be rejected.
 
+A apparent drawback of FCFS policy is that it's designed only for
+autonomous vehicles. It would fail if any human-driven vehicle
+appears. Dresner and Stone did propose a hybrid protocol called
+FCFS-Signal\footnote{It was originally called ``FCFS-Light.''} which
+allows human-driven vehicles to share the road with autonomous
+vehicles at intersections in AIM~\cite{bib:Dresner07Sharing}. However,
+their approach has two major drawbacks.  First, the benefits of
+FCFS-Signal over conventional traffic signals are relatively small
+until 90-95\% of the vehicles on the road are autonomous.  Second, and
+most important for this paper, FCFS-Signal cannot take advantages of
+the limited autonomous capabilities of semi-autonomous vehicles. There
+are useful features that human-driven vehicles could have, that AIM
+manager has overlooked. To remedy these issues, this paper introduces
+a new autonomous intersection system called \emph{SemiAIM} that works
+not only with autonomous vehicles but also with human-driven vehicles
+and semi-autonomous vehicles.  \commentn {There was a paragraph in
+introduction part describing FCFS-Signal - it was called FCFS-light in
+Dresner's paper. I agree it's better to put it here. So I moved it
+here and modified it.}
+
 Empirical results in simulation demonstrated that the 
 reservation system with FCFS can dramatically improve the intersection
 efficiency when compared to traditional intersection control
@@ -45,6 +65,16 @@ of magnitude in comparison to traffic signals and stop signs.  This
 reduction of delays can translate into less traffic
 congestion~\cite{bib:Au10Motion,bib:Quinlan10Bringing}, which in turn
 leads to better fuel efficiency and lower emissions.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\columnwidth]{figures/demo.png}
+\caption{Demonstration of simulator. }
+\label{fig:demo}
+\end{figure}
+
+\commentn{TODO}
+In Figure~\ref{fig:demo}, 
 
 \commentp{Since we have extra space, there can be a screenshot added
 here.  Also, it would be worthwhile including a description of

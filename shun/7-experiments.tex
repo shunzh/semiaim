@@ -68,36 +68,67 @@ can be an alert to human drivers if the detected distance to another
 vehicle is too small.\commentp{I don't think that last sentence is
 needed - unless it becomes a part of the official protocol for
 semi-autonomous vehicles.}
+\commentn{TODO I moved this to future work.}
 
 In the first experiment, the traffic consisted of all five types of
-vehicles we defined in Section~\ref{sec:vehicles}.  We gradually
-increased the percentage of autonomous vehicles while keeping the
-traffic level at 360 vehicles/hour/lane.  We compared two variants of
-SemiAIM using optimized traffic signals such that all vehicles must
-follow the traffic signals.  For Figures 1 and 2, the experiments only
-contain two types of vehicles---autonomous vehicles (Type A) and the
-type of vehicles specified in the legends.\commentp{Why are the legends different?  One uses the type acronyms, and one spells them out...}
-Along the x axis, the ratio
-of autonomous vehicles starts at 1 and the ratio of semi-autonomous
-vehicles start at 0. Then the ratio of semi-autonomous vehicles
-increases and that of autonomous ones decreases.
-\commentp{An example is needed here.  What exactly is going on when the x-axis is .4 (for example), in the line labled Type H?  How many autonomous, semi-autonomous, and human-driven cars?  This paragraph isn't clear yet.}
-In
-Figure~\ref{fig:figure1}, we isolate the features for different types
-of semi-autonomous vehicles and only consider one at a time.  The
-vehicles with communication devices outperform the vehicles with
-either type of cruise control. 
-\commentp{Again, an example would help.  I don't understand from this description or the caption what's going on in the graph.}
-So, keeping a constant speed, as an
-approximation of the performance of autonomous vehicles' chance, is
-not as valuable as letting the intersection manager to know when the
-vehicle is going to enter the intersection.\commentp{I don't understand this last sentence.}
+vehicles we defined in Section~\ref{sec:vehicles}. The results are in
+Figure~\ref{fig:figure2}. The experiments only compare two types of
+vehicles at the same time---human-driven vehicles (Type H) and the
+type of vehicles specified in the legends. We gradually increased the
+percentage of (semi-)autonomous vehicles while keeping the traffic
+level at 360 vehicles/hour/lane.
 
+For example, for the line of Type SA-ACC vehicles, at origin point,
+there are 0\% SA-ACC vehicles and 100\% human-driven vehicles. At the
+point of ratio = 1, there are 100\% SA-ACC vehicles and 0\%
+human-driven vehicles. At the point of ratio = 0.4, there are 40\%
+SA-ACC vehicles and 60\% human-driven vehicles. As described in the
+legend, the traffic level is 360 vehicles/hour/lane, so it can be
+easily calculated how many vehicles of a certain type are spawned at
+each lane.
+
+It can be observed that semi-autonomous with more features have better
+performance - this is shown in Table~\ref{table:type}. For example,
+SA-ACC vehicles have three features, while SA-CC only have two of
+them. Now we want to examine how semi-autonomous vehicles attribute
+their performance to each feature they have. Therefore, in
+Figure~\ref{fig:figure1}, we isolate the features for different types
+of semi-autonomous vehicles and only consider one at a time. From this
+perspective, Figure~\ref{fig:figure2} make comparison between sets of
+features, while Figure~\ref{fig:figure1} compares features themselves.
+
+The setup of this experiment is same as Figure~\ref{figure2}, but we
+only allow a certain vehicle have one feature. For example, the line
+of Adaptive Cruise Control Only, we simulate a vehicle that only has
+Adaptive Cruise Control.
+
+We observe that the feature of communication device is more
+significant than other features, in terms of the contribution of
+reducing delay time. Intuitively, for a vehicle with cruise control or
+adaptive cruise control, if it misses the chance to enter
+intersection, it has to wait for the next green phase. For vehicles
+with communication devices, they could always enter when the tiles
+they required are clear.
+
+\commentn{I basicially rewrote this part. Your inline comments were
+erased. You questioned why we use different legends for two figures. I
+also changed the order of Figure~\ref{fig:figure1} and
+Figure~\ref{fig:figure2}. The first one is a very obvious comparison,
+and the second one is comparing different features that
+semi-autonomous vehicles could have. }
 
 
 % (in contrast to what's shown in Table~\ref{table:1}). 
 
 \begin{figure}
+
+\centering
+\includegraphics[width=0.8\columnwidth]{figures/figure_2.png}
+\caption{(Semi-)Autonomous vehicles vs. Human-Driven vehicles, traffic
+level = 360 vehicles/lane/hour. The simulation time is 1800 seconds.
+Each data point is an average of the delay times over 30 runs.}
+\label{fig:figure2}
+
 \centering
 \includegraphics[width=0.8\columnwidth]{figures/figure_1.png}
 \caption{Comparison on different features of semi-autonomous vehicles
@@ -106,13 +137,6 @@ seconds. Each data point is an average of the delay times over 30 runs.}
 \label{fig:figure1}
 
 \mbox{}
-
-\centering
-\includegraphics[width=0.8\columnwidth]{figures/figure_2.png}
-\caption{Autonomous vehicles vs. Human-Driven vehicles, traffic level
-= 360 vehicles/lane/hour. The simulation time is 1800 seconds.
-Each data point is an average of the delay times over 30 runs.}
-\label{fig:figure2}
 
 \end{figure}
 
@@ -130,14 +154,6 @@ Each data point is an average of the delay times over 30 runs.}
 % the percentage of autonomous vehicles is near 100\% in
 % Figure~\ref{fig:figure1}, SemiAIM can reduce about 43\% of the average
 % delay when most vehicles are semi-autonomous.
-
-Next, in Figure~\ref{fig:figure2}, we compare the performance of
-different types of vehicles---recall that each type of vehicles can
-have several features. We can observe that vehicles with more features
-can achieve lower delay. Even without any autonomous vehicles, the
-combination of semi-autonomous vehicles and human-driven vehicles can
-reduce the delay time by 40\%, when compared to all human-driven
-vehicles.\commentp{How can we see that in the graph?}
 
 In addition, we compared the performance in traffic with a mixture of
 different types of vehicles.  We conducted two experiments to test 1)
@@ -184,7 +200,8 @@ high traffic levels.  Nevertheless, for lower levels of traffic, the
 benefits of semi-autonomy can be large.
 
 
-\commentp{These tables should include a column indicating what point on the x-axis each row falls.}
+\commentp{These tables should include a column indicating what point
+on the x-axis each row falls.} \commentn{Added.}
 
 \begin{table}[t]
 \caption{The distribution of semi-autonomous vehicles in Figure~\ref{fig:figure3}.}
@@ -192,7 +209,7 @@ benefits of semi-autonomy can be large.
 \centering
 \begin{tabular}{|c|c|c|}
     \hline
-    Type H&  Type SA-*&    Type A\\
+    Type H&  Type SA-* (x-axis)&    Type A\\
     \hline
     90&       9&    1\\
     \hline
@@ -213,7 +230,7 @@ benefits of semi-autonomy can be large.
 \centering
 \begin{tabular}{|c|c|c|}
     \hline
-     Type H&  Type SA-*&    Type A\\
+     Type H&  Type SA-* (x-axis)&    Type A\\
     \hline
      10&     85&    5\\
     \hline
@@ -262,6 +279,7 @@ traffic level = 540 vehicles/lane/hour. Simulation time is 3600 seconds.}
 one or two experiments along the lines of the future work mentioned in
 the last paragraph of the paper. - what happens if there are different
 amounts of traffic in different directions?}
+\commentn{TODO to add.}
 
 
 % To demonstrate the feasibility of SemiAIM as well as evaluate the
