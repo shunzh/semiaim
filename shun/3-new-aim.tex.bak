@@ -25,7 +25,7 @@ cruise control are capable of precisely controlling their speed, even
 if a human is steering.  Thus reservations for moving straight through
 the intersection may be able to be followed precisely.  Similarly,
 vehicles with adaptive cruise control can maintain a certain distance
-from the vehicle in front, so they could be able to meet reservations
+from the vehicle in front, so they chould be able to meet reservations
 that are specified relative to the traversal times of other vehicles.
 These examples motivate the need for a new reservation system that
 relaxes the assumption of exact trajectories so as to allow
@@ -75,7 +75,7 @@ from the reservation request of the vehicle GXC345.  Hence, the IM in
 SemiAIM will retain all reservation requests in symbolic forms.  If
 the vehicle GXC345 is also a semi-autonomous vehicle whose request
 depends on other requests, the IM has to deduce the trajectories by
-constraint propagation.  Cyclic dependencies may occur if vehicles send
+constraint propagation.  Cyclic dependences may occur if vehicles send
 requests simultaneously.\commentp{Won't it be clear which car is
 behind the other?  There should never be a proposal to go in *front*
 of another car, right?} The IM must break the cycle to prevent

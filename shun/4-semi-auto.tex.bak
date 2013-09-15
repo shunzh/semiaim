@@ -76,8 +76,8 @@ types of requests that can be defined using constraints.  These
 requests could also be used by fully autonomous vehicles, so there's
 no reason that it needs to happen after section IV.  We can then
 emphasize that the traditional AIM system can also be implemented
-using these constraint-based requests (since a normal "fixed arrival,
-fixed trajectory" request is also possible).}
+using these contraint-based requests (since a normal "fixed arrival,
+fixed tranjectory" request is also possible).}
 
 \end{itemize}
 

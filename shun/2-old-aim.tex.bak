@@ -47,13 +47,12 @@ until 90-95\% of the vehicles on the road are autonomous.  Second, and
 most important for this paper, FCFS-Signal cannot take advantages of
 the limited autonomous capabilities of semi-autonomous vehicles. There
 are useful features that human-driven vehicles could have, that AIM
-managers have overlooked. To remedy these issues, this paper
-introduces a new autonomous intersection system called \emph{SemiAIM}
-that works not only with autonomous vehicles but also with
-human-driven vehicles and semi-autonomous vehicles.  \commentn {There
-was a paragraph in introduction part describing FCFS-Signal - it was
-called FCFS-light in Dresner's paper. I agree it's better to put it
-here.}
+manager has overlooked. To remedy these issues, this paper introduces
+a new autonomous intersection system called \emph{SemiAIM} that works
+not only with autonomous vehicles but also with human-driven vehicles
+and semi-autonomous vehicles.  \commentn {There was a paragraph in
+introduction part describing FCFS-Signal - it was called FCFS-light in
+Dresner's paper. I agree it's better to put it here.}
 
 Empirical results in simulation demonstrated that the 
 reservation system with FCFS can dramatically improve the intersection
@@ -74,7 +73,7 @@ Semi-Autonomous Intersection Management. }
 \label{fig:demo}
 \end{figure}
 
-In Figure~\ref{fig:demo}, we show a demonstration of the simulator for
+In Figure~\ref{fig:demo}, we show a demostration of the simulator for
 this paper. There are different types of vehicles we'll introduce in
 Section~\ref{sec:vehicles}.
 

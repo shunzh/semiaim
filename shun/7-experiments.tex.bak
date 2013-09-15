@@ -38,15 +38,15 @@ Section~\ref{sec:vechiles}. The concrete implementation is as follows.
 \item{Type SA-ACC: IM tries to reserve the tiles the vehicle needs to
 occupy directly following the vehicle in front of it, if they are
 heading for same destination lane. If tiles successfully reserved,
-IM grants confirmation, otherwise rejects.}
+then IM grants confirmation, otherwise rejects.}
 
 \item{Type SA-CC: IM tries to reserve the tiles the vehicle needs to
 occupy if it moves in constant velocity and not making a turn. If
-tiles successfully reserved, IM grants confirmation, otherwise
+tiles successfully reserved, then IM grants confirmation, otherwise
 rejects.}
  
 \item{Type SA-Com: IM tries to reserve ALL the tiles in the trajectory
-that a vehicle would occupy. If tiles successfully reserved, IM
+that a vehicle would occupy. If tiles successfully reserved, then IM
 grants confirmation, otherwise rejects.}
 
 \end{enumerate}
@@ -87,10 +87,12 @@ better performance.  This measure is the same one used in
 \cite{bib:Dresner08Multiagent}. For all the vehicles, both the static
 buffer and the edge time buffer are 0.25 meters (see
 \cite{bib:Dresner08Multiagent} for details), when auto-controlled.  No
-such constraint is relevant to human-driven vehicles.\commentp{I don't
-think that last sentence is needed - unless it becomes a part of the
-official protocol for semi-autonomous vehicles.} \commentn{I think I
-can just delete it.}
+such constraint is relevant to human-driven vehicles. However, there
+can be an alert to human drivers if the detected distance to another
+vehicle is too small.\commentp{I don't think that last sentence is
+needed - unless it becomes a part of the official protocol for
+semi-autonomous vehicles.}
+\commentn{TODO I moved this to future work.}
 
 In the first experiment, the traffic consisted of all five types of
 vehicles we defined in Section~\ref{sec:vehicles}. The results are in
@@ -132,11 +134,12 @@ intersection, it has to wait for the next green phase. For vehicles
 with communication devices, they could always enter when the tiles
 they required are clear.
 
-\commentn{I basically rewrote this part. You questioned why we use
-different legends for two figures. I also changed the order of
-Figure~\ref{fig:figure1} and Figure~\ref{fig:figure2}. The first one
-is a very obvious comparison, and the second one is comparing
-different features that semi-autonomous vehicles could have. }
+\commentn{I basicially rewrote this part. Your inline comments were
+erased. You questioned why we use different legends for two figures. I
+also changed the order of Figure~\ref{fig:figure1} and
+Figure~\ref{fig:figure2}. The first one is a very obvious comparison,
+and the second one is comparing different features that
+semi-autonomous vehicles could have. }
 
 
 % (in contrast to what's shown in Table~\ref{table:1}). 

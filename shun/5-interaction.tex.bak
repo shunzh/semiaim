@@ -97,7 +97,7 @@ request confirmed.
 \begin{enumerate}
 
 \item Propose a whole-row request. If keeping the current velocity it
-  can traverse the intersection, then request confirmed.
+  can traversethe intersection, then request confirmed.
 
 \item If denied, decelerate to stop, and retry step 1 or pass control
   to the human.
