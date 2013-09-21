@@ -42,4 +42,5 @@ view: $(MasterFilename).pdf
 
 clean:
 	rm -f *.idx *.ilg *.ind *.out *.toc *.aux *.log *.bbl *.blg *lof *.lot *.dvi *.ps *.pdf missfont.log texput.log *.pdfsync *~
+	rm -rf auto
 
