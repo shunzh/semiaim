@@ -52,13 +52,16 @@ grants confirmation, otherwise rejects.}
 
 \end{enumerate}
 
-The traffic signal phase plan we use is shown in
-Table~\ref{table:phase}.\commentp{how was this plan arrived at?  Why isn't it symmetric? (why 30s for East-West but 40s for North-South?)}
-According to this plan, there is a 30 second
-green phase for traffic coming from East and West, followed by a 3
-second yellow phase and a 5 second red phase. Then, there is a 8
-second green phase for traffic from South direction only, followed by
-a 3 second yellow phase and a 5 second red phase, etc.
+We experimentally generated the \emph{optimized} traffic signal phase
+plan in Table~\ref{table:phase} by using randomized greedy search in
+the parameters space with random restart.  According to this plan,
+there is a 30 second green phase for traffic coming from East and
+West, followed by a 3 second yellow phase and a 5 second red
+phase. Then, there is a 8 second green phase for traffic from South
+direction only, followed by a 3 second yellow phase and a 5 second red
+phase, etc.
+
+% \commentp{how was this plan arrived at?  Why isn't it symmetric? (why 30s for East-West but 40s for North-South?)}
 
 \begin{table}
 \caption{The traffic signal phase plan.}
@@ -79,19 +82,20 @@ Direction & Green Phase & Yellow Phase & Red Phase \\
 \end{table}
 
 The experiments were conducted in a $3 \times 3$ intersection (3 lanes
-in each direction).\commentp{Since there's space, we can show a
-screenshot.}  In all cases, we measure the average vehicle delay,
-where delay is computed as the increase in travel time compared to
-traversing the intersection without slowing down at all, as if no
-other vehicles were on the road. Thus, lower delays correspond to
-better performance.  This measure is the same one used in
-\cite{bib:Dresner08Multiagent}. For all the vehicles, both the static
-buffer and the edge time buffer are 0.25 meters (see
-\cite{bib:Dresner08Multiagent} for details), when auto-controlled.  No
-such constraint is relevant to human-driven vehicles.\commentp{I don't
-think that last sentence is needed - unless it becomes a part of the
-official protocol for semi-autonomous vehicles.} \commentn{I think I
-can just delete it.}
+in each direction) as shown in Figure~\ref{fig:demo}.  In all cases,
+we measure the average vehicle delay, where delay is computed as the
+increase in travel time compared to traversing the intersection
+without slowing down at all, as if no other vehicles were on the
+road. Thus, lower delays correspond to better performance.  This
+measure is the same one used in \cite{bib:Dresner08Multiagent}. For
+all the vehicles, both the static buffer and the edge time buffer are
+0.25 meters (see \cite{bib:Dresner08Multiagent} for details), when
+auto-controlled.
+
+% No such constraint is relevant to human-driven
+% vehicles.\commentp{I don't think that last sentence is needed - unless
+% it becomes a part of the official protocol for semi-autonomous
+% vehicles.} \commentn{I think I can just delete it.}
 
 In the first experiment, the traffic consisted of all five types of
 vehicles we defined in Section~\ref{sec:vehicles}. The results are in
@@ -111,7 +115,7 @@ easily calculated how many vehicles of a certain type are spawned at
 each lane.
 
 It can be observed that semi-autonomous with more features have better
-performance - this is shown in Table~\ref{table:type}. For example,
+performance---this is shown in Table~\ref{table:type}. For example,
 SA-ACC vehicles have three features, while SA-CC only have two of
 them. Now we want to examine how semi-autonomous vehicles attribute
 their performance to each feature they have. Therefore, in
@@ -120,25 +124,25 @@ of semi-autonomous vehicles and only consider one at a time. From this
 perspective, Figure~\ref{fig:figure2} make comparison between sets of
 features, while Figure~\ref{fig:figure1} compares features themselves.
 
-The setup of this experiment is same as Figure~\ref{fig:figure2}, but we
-only allow a certain vehicle have one feature. For example, the line
-of Adaptive Cruise Control Only, we simulate a vehicle that only has
-Adaptive Cruise Control.
+The setup of this experiment is same as Figure~\ref{fig:figure2}, but
+we only allow a certain vehicle have one feature. For example, the
+line of Adaptive Cruise Control Only, we simulate a vehicle that only
+has Adaptive Cruise Control.  As can be seen, the feature of
+communication device is more important than other features in terms of
+reducing delay time.  It implies that being able to communicate
+is fundamental to the efficiency of intersections.
 
-We observe that the feature of communication device is more
-significant than other features, in terms of the contribution of
-reducing delay time. Intuitively, for a vehicle with cruise control or
-adaptive cruise control, if it misses the chance to enter
-intersection, it has to wait for the next green phase. For vehicles
-with communication devices, they could always enter when the tiles
-they required are clear.
+% Intuitively, for a vehicle with cruise control or
+% adaptive cruise control, if it misses the chance to enter
+% intersection, it has to wait for the next green phase. For vehicles
+% with communication devices, they could always enter when the tiles
+% they required are clear.
 
-\commentn{I basically rewrote this part. You questioned why we use
-different legends for two figures. I also changed the order of
-Figure~\ref{fig:figure1} and Figure~\ref{fig:figure2}. The first one
-is a very obvious comparison, and the second one is comparing
-different features that semi-autonomous vehicles could have. }
-
+% \commentn{I basically rewrote this part. You questioned why we use
+% different legends for two figures. I also changed the order of
+% Figure~\ref{fig:figure1} and Figure~\ref{fig:figure2}. The first one
+% is a very obvious comparison, and the second one is comparing
+% different features that semi-autonomous vehicles could have. }
 
 % (in contrast to what's shown in Table~\ref{table:1}). 
 
@@ -221,9 +225,8 @@ likely always remain strong benefits of full autonomy, especially at
 high traffic levels.  Nevertheless, for lower levels of traffic, the
 benefits of semi-autonomy can be large.
 
-
-\commentp{These tables should include a column indicating what point
-on the x-axis each row falls.} \commentn{Added.}
+% \commentp{These tables should include a column indicating what point
+% on the x-axis each row falls.} \commentn{Added.}
 
 \begin{table}[t]
 \caption{The distribution of semi-autonomous vehicles in Figure~\ref{fig:figure3}.}
@@ -297,11 +300,11 @@ traffic level = 540 vehicles/lane/hour. Simulation time is 3600 seconds.}
 \label{fig:figure5}
 \end{figure}
 
-\commentp{If we end up with more space to use, it would be good to do
-one or two experiments along the lines of the future work mentioned in
-the last paragraph of the paper. - what happens if there are different
-amounts of traffic in different directions?}
-\commentn{This is mentioned in the future work.}
+% \commentp{If we end up with more space to use, it would be good to do
+% one or two experiments along the lines of the future work mentioned in
+% the last paragraph of the paper. - what happens if there are different
+% amounts of traffic in different directions?}
+% \commentn{This is mentioned in the future work.}
 
 
 % To demonstrate the feasibility of SemiAIM as well as evaluate the

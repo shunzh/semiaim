@@ -18,9 +18,21 @@ interface so as to allow drivers to drive as they do today if they do
 not signal their intention for a semi-autonomous reservation.  It is
 also important that there is a clear indicator (such as a green light)
 installed in the car which indicates when the request has been
-confirmed.  The driver must then actively pass control to the driver
-agent, again by pressing the single button.  In this way, the driver
-will not be surprised by any sudden autonomous actions of the vehicle.
+confirmed.  The driver must then actively pass control to the
+computer, again by pressing the single button.  In this way, the
+driver will not be surprised by any sudden autonomous actions of the
+vehicle.  Figure~\ref{fig:interaction} shows the interactions between
+human drivers, driver agents, and the Intersection Manager.
+Since vehicles are semi-autonomous, only some control will be passed
+to the driver agent when the vehicle is passing the intersection.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/interaction}
+\caption{The interactions between human drivers, driver agents, and
+the Intersection Manager.}
+\label{fig:interaction}
+\end{figure}
 
 In Type SA-Com vehicles, the driver can safely enter the intersection
 when the request is confirmed. If the request is confirmed and the
@@ -55,11 +67,12 @@ the driver agent and IM in a manner similar to how it is done in AIM.
 \item No equipment is \emph{required} on any car.  Like FCFS-Signal in
 AIM, Semi-AIM is fully compatible with ``classic'' human-driven cars
 that have no communications equipment.
+
 \end{itemize}
 
-\commentp{It would be useful in this section to add a flowchart or
-some other representation of how and when control passes between the
-car and the person.}
+% \commentp{It would be useful in this section to add a flowchart or
+% some other representation of how and when control passes between the
+% car and the person.}
 
 % \section{Definitions}
 

@@ -63,21 +63,24 @@ communicate instructions to the driver when necessary.  For example,
 at a red signal, the IM could inform the driver that it is now safe to
 enter the intersection.  A vehicle with such a feature could propose a
 \textit{whole-row request} to reserve an entire lane in the
-intersection for the vehicle.  \commentp{As described in Section III? (see next comment), this request is a...}, This is a very strong request
-and is only likely to be confirmed in very light traffic in which an
-entire ``row'' is available.
+intersection for the vehicle.  This is a very strong request and is
+only likely to be confirmed in very light traffic in which an entire
+``row'' is available.
 
-\commentp{This is a significant weakness of the paper.  "Whole-row
-request", "constant-velocity request", and "anchor request" haven't
-been defined yet.  They're used below, but really only "anchor
-request" is defined later in the paper (section VI).  I think it makes
-more sense to merge section VI into section III and clearly define the
-types of requests that can be defined using constraints.  These
-requests could also be used by fully autonomous vehicles, so there's
-no reason that it needs to happen after section IV.  We can then
-emphasize that the traditional AIM system can also be implemented
-using these constraint-based requests (since a normal "fixed arrival,
-fixed trajectory" request is also possible).}
+% \commentp{As described in Section III? (see next comment), this
+%   request is a...}
+
+% \commentp{This is a significant weakness of the paper.  "Whole-row
+% request", "constant-velocity request", and "anchor request" haven't
+% been defined yet.  They're used below, but really only "anchor
+% request" is defined later in the paper (section VI). I think it makes
+% more sense to merge section VI into section III and clearly define the
+% types of requests that can be defined using constraints.  These
+% requests could also be used by fully autonomous vehicles, so there's
+% no reason that it needs to happen after section IV.  We can then
+% emphasize that the traditional AIM system can also be implemented
+% using these constraint-based requests (since a normal "fixed arrival,
+% fixed trajectory" request is also possible).}
 
 \end{itemize}
 
@@ -94,6 +97,23 @@ signals if engaging the equipment is too distracting at any given
 time.  Table~\ref{table:type} summarizes the equipment being used on
 different types of the semi-autonomous vehicles that we consider.
 
+\begin{table}
+\centering
+\caption{Features of semi-autonomous vehicles.}
+\label{table:type}
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  Vehicle Type & Communication & Cruise & Adaptive \\
+               & device & control & cruise control \\
+  \hline
+  SA-ACC & X & X & X  \\
+  \hline
+  SA-CC & X & X &  \\
+  \hline
+  SA-Com & X & &  \\
+  \hline
+\end{tabular}
+\end{table}
 
 \noindent \textbf{Type SA-ACC Vehicles} can utilize all of the above
 equipment to make a reservation:
@@ -155,6 +175,7 @@ with magenta. This is a red phase for all lanes, Some Type A vehicles
 are permitted to enter the intersection.
 
 
+
 % Our vehicle types
 % SA-ACC, SA-CC, and SA-Com have combinations of these features as
 % summarized in 
@@ -167,23 +188,6 @@ are permitted to enter the intersection.
 
 % \item \textbf{Communication device} (Used Types SA-ACC, SA-CC, and SA-Com vehicles).
 
-
-\begin{table*}
-\centering
-\caption{The semi-autonomous vehicle types considered in this paper.}
-\label{table:type}
-\begin{tabular}{|c|c|c|c|}
-  \hline
-  Vehicle Type & Communication device & Cruise control & Adaptive cruise control \\
-  \hline
-  SA-ACC & X & X & X  \\
-  \hline
-  SA-CC & X & X &  \\
-  \hline
-  SA-Com & X & &  \\
-  \hline
-\end{tabular}
-\end{table*}
 
 
 %%% Local Variables: 

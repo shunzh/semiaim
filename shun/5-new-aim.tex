@@ -76,13 +76,18 @@ from the reservation request of the vehicle GXC345.  Hence, the IM in
 SemiAIM will retain all reservation requests in symbolic forms.  If
 the vehicle GXC345 is also a semi-autonomous vehicle whose request
 depends on other requests, the IM has to deduce the trajectories by
-constraint propagation.  Cyclic dependencies may occur if vehicles send
-requests simultaneously.\commentp{Won't it be clear which car is
-behind the other?  There should never be a proposal to go in *front*
-of another car, right?} The IM must break the cycle to prevent
-deadlock and let all vehicles enter the intersection eventually.
-Anchor reservation requests are described in more detail, along with
-constraint-based requests in general, in Section~\ref{sec:request}.
+constraint propagation.  Anchor reservation requests are described in
+more detail, along with constraint-based requests in general, in
+Section~\ref{sec:request}.
+
+
+% Cyclic dependencies may occur if vehicles send
+% requests simultaneously.
+% \commentp{Won't it be clear which car is
+% behind the other?  There should never be a proposal to go in *front*
+% of another car, right?} 
+% The IM must break the cycle to prevent
+% deadlock and let all vehicles enter the intersection eventually.
 
 
 % \begin{figure}[t]
