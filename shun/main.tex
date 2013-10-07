@@ -167,19 +167,15 @@ Paper  XXX
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-Autonomous Intersection
-Management~\cite{bib:Dresner08Multiagent} (AIM) is a reservation-based
-intersection control protocol that leverages the capacities of
-autonomous vehicles to dramatically reduce traffic delay at
-intersections. AIM was designed for the time when all, or most, of the
-vehicles on the road are \emph{fully} autonomous.  In this paper, we
-anticipate that there will be a long transition period during which
-many cars are still driven by human drivers and/or most vehicles have
-some but not all capabilities of fully autonomous vehicles.  In fact,
-this transition period has already begun---adaptive cruise control
-systems and lane departure warning systems have become widely
-available as optional equipment on luxury production vehicles since
-the late 1990s.  In order to accommodate this transition, this paper
+Autonomous Intersection Management~\cite{bib:Dresner08Multiagent}
+(AIM) is a reservation-based intersection control protocol that
+leverages the capacities of autonomous vehicles to dramatically reduce
+traffic delay at intersections. AIM was designed for the time when
+all, or most, of the vehicles on the road are \emph{fully} autonomous.
+In this paper, we anticipate that there will be a long transition
+period during which many cars are still driven by human drivers and/or
+most vehicles have some but not all capabilities of fully autonomous
+vehicles.In order to accommodate this transition, this paper
 introduces a new multiagent protocol called \emph{Semi-Autonomous
 Intersection Management} (SemiAIM), which allows vehicles with
 partially-autonomous features such as adaptive cruise control to make
@@ -190,6 +186,13 @@ effectiveness.  Our results show that the delay of semi-autonomous
 vehicles in SemiAIM can be greatly reduced compared to human-driven
 vehicles, and can be close to the delay of fully autonomous vehicles.
 \end{abstract}
+
+
+% In fact, this transition period has already begun---adaptive cruise
+% control systems and lane departure warning systems have become widely
+% available as optional equipment on luxury production vehicles since
+% the late 1990s.
+
 
 
 % Note that the category section should be completed after reference to the ACM Computing Classification Scheme available at
@@ -221,14 +224,15 @@ vehicles, and can be close to the delay of fully autonomous vehicles.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \sloppy
-\input{1-introduction.tex}
-\input{2-old-aim.tex}
-\input{3-new-aim.tex}
-\input{4-semi-auto.tex}
-\input{6-messages.tex}
-\input{7-experiments.tex}
-\input{8-related.tex}
-\input{9-conclusions.tex}
+\input{1-introduction}
+\input{2-old-aim}
+\input{3-semi-auto}
+\input{4-interfaces}
+\input{5-new-aim}
+\input{6-messages}
+\input{7-experiments}
+\input{8-related}
+\input{9-conclusions}
 
 % \bibliographystyle{IEEEtran}
 \bibliographystyle{abbrv}

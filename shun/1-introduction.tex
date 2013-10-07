@@ -1,4 +1,5 @@
 \section{Introduction}
+\label{sec:introduction}
 
 Recent robotic car competitions and demonstrations have convincingly
 shown that autonomous vehicles are feasible with the current
@@ -51,7 +52,17 @@ full specification of the first SemiAIM multiagent protocol; and 3)
 detailed empirical results demonstrating the effectiveness of this
 protocol, especially in moderate traffic levels with a mix of
 human-driven, semi-autonomous, and fully autonomous vehicles.  The
-remainder of the paper is organized as follows.\ldots
+remainder of the paper is organized as follows.  Section~\ref{sec:aim}
+outlines the architecture of AIM which forms the basis of SemiAIM.
+Section~\ref{sec:vehicles} categorizes semi-autonomous vehicles that
+work with SemiAIM.  Section~\ref{sec:interface} discusses the design
+of the user interface for drivers on semi-autonomous vehicles to
+interact with SemiAIM.  Section~\ref{sec:constraint} describes the
+constraint-based reservation systems, a generalization of AIM for
+semi-autonomous vehicles.  Section~\ref{sec:simulation} presents the
+results of the simulation experiments we used to evaluates SemiAIM.
+The related work and the conclusion are given in
+Section~\ref{sec:related} and \ref{sec:conclusions}, respectively.
 
 % In this paper, we introduce a new protocol called
 % \emph{Semi-Autonomous Intersection Management} (SemiAIM), which allows
