@@ -1,74 +1,259 @@
 \section{Semi-Autonomous Vehicles}
 \label{sec:vehicles}
 
-Dresner and Stone proposed the FCFS-signal policy, which makes AIM
-compatible with human drivers~\cite{bib:Dresner07Sharing}.  According
+Dresner and Stone proposed the FCFS-signal policy which makes AIM
+compatible with human drivers~\cite{bib:Dresner07Sharing}. According
 to their study, when more than 5-10\% of traffic is comprised of
 human-driven vehicles, the average delay time of all vehicles
-increases significantly.  For one thing, the human-driven vehicles
-themselves may not enter the intersection during red signal phases.
-But more importantly, they prevent the autonomous vehicles from
-obtaining reservations when they are behind such stalled vehicles.  To
-allow more efficient management of traffic at intersections, we
-consider human-driven vehicles with additional communication features
-to facilitate interaction with the IM and other vehicles. In this
-paper, we use the term \emph{semi-autonomous vehicles} to refer to
-both the vehicles with simple/adaptive cruise control and human-driven
-vehicles with additional communication capabilities. We consider the
-following categories of vehicles.
+increases significantly.  The reason for this phenomenon is twofold.
+First, human-driven vehicles cannot enter the intersection during red
+signal phases, because they are \emph{not allowed} to make any
+reservation.  Second, as a consequence of the first, autonomous
+vehicles often fails to obtain reservations when they are
+behind the human-driven vehicles stalled at red signals.  These issues
+stem from the fact that FCFS-signal only allows fully autonomous
+vehicles to enter intersections during red signal phases.
+SemiAIM sets out to overcome these issues by allowing
+\emph{semi-autonomous vehicles} to use the reservation system
+to enter an intersection during red signal phases as well.
 
-\begin{itemize}
+In this paper, we use the term \emph{semi-autonomous vehicles} to
+refer to vehicles with limited autonomous driving and wireless
+communication capabilities.  While these vehicles are not fully
+autonomous, they are assumed to be able to follow a \emph{limited}
+number of predictable trajectories at intersections more precisely
+than human drivers.  This ability allows them to utilize our
+constraint-based reservation system to make reservations in the same
+manner as fully autonomous vehicles.
 
-\item \textbf{Autonomous vehicles (Type A).} These are fully
-autonomous vehicles that can be totally controlled by computers.
+Our proposed reservation system is general enough to accept
+reservation requests from \emph{any} semi-autonomous vehicles that are
+capable of following some trajectories and communicating with the IM.
+To facilitate our discussion, we will focus on semi-autonomous
+vehicles which use the following set of equipment that is readily
+available today.
 
-\item \textbf{Semi-autonomous vehicles (Type SA).}
-Although they are driven by humans,
-they have some devices that can assist human drivers and
-can communicate with the IM. In this paper, 
-we consider three concrete types of SA vehicles, 
-as specified in this section.
+\begin{small_ind_s_itemize}
 
-\item \textbf{Human-driven vehicles (Type H).}
-These vehicles are exactly the same as the ones on today's
-roads. They are completely controlled by humans and have no
-communication with the IM.
+\item \textbf{Communication device (Com)}:
+a component in a vehicle's on-board electronic system that enables the
+vehicle to wirelessly communicate with the transportation
+infrastructure including the IM.  The communication is bidirectional:
+the messages sent from the IM is presented to the human driver on
+the LCD screen of an on-board navigation system or on a smartphone, and
+the human driver makes decisions on the user interface of the device.
+The device is also hooked up with the odometer, GPS, and other sensors
+such that it can send these sensing information along with the request
+messages to the IM.
 
-\end{itemize}
+\item \textbf{Simple Cruise control (CC)}:
+An optional speed control subsystem in vehicles' drivetrain that
+automatically controls the vehicle speed by taking over the throttle
+of the vehicles.  With the help of cruise control systems, vehicles
+can maintain a steady constant velocity more precisely than human
+drivers can manually.
 
-Moreover, we classify semi-autonomous vehicles according to the
-equipment on the vehicles. We consider the following set of
-equipment that can be put on a semi-autonomous vehicle.  This
-equipment is based on technology that is readily available today.
+\item \textbf{Adaptive cruise control (ACC)}:
+an advanced cruise control system that automatically adjusts the speed
+of a vehicle in order to maintain a certain distance from vehicles
+ahead. To achieve this car-following maneuver,
+ACC uses on-board distance sensors coupled with cruise control
+in a feedback loop.
 
-\begin{itemize}
+% This feature is currently available
+% as an option in some high-end vehicles.
 
-\item \textbf{Adaptive cruise control} A vehicle can be set to follow
-another vehicle in front of it.  This feature is currently available
-as an option in some high-end vehicles. A vehicle with this feature
-can propose an \textit{anchor request} that will be discussed in
-Section~\ref{sec:request}.  The IM considers whether it can safely
-traverse the intersection by following the vehicle in front of it.
+% A vehicle with this feature
+% can propose an \textit{anchor request} that will be discussed in
+% Section~\ref{sec:anchor}.  The IM considers whether it can safely
+% traverse the intersection by following the vehicle in front of it.
 
-\item \textbf{Simple Cruise control} A vehicle can be set to maintain
-a constant velocity by turning on cruise control. This is a technology
-that is widely available today. A vehicle with this feature can
-propose a \textit{constant-velocity request}. The IM considers whether
-it can traverse the intersection by keeping a constant velocity.
 
-\item \textbf{Communication device} This is a device, which can be a
-smart-phone or on-board navigation system, that can communicate with
-the Intersection Manager.  It can gather data from the vehicle, and
-communicate instructions to the driver when necessary.  For example,
-at a red signal, the IM could inform the driver that it is now safe to
-enter the intersection.  A vehicle with such a feature could propose a
-\textit{whole-row request} to reserve an entire lane in the
-intersection for the vehicle.  This is a very strong request and is
-only likely to be confirmed in very light traffic in which an entire
-``row'' is available.
+% This is a technology that is widely available today. 
 
-% \commentp{As described in Section III? (see next comment), this
-%   request is a...}
+% A vehicle with this feature can
+% propose a \textit{constant-velocity request}. The IM considers whether
+% it can traverse the intersection by keeping a constant velocity.
+
+
+% This is a device, which can be a
+% smart-phone or on-board navigation system, that can communicate with
+% the Intersection Manager.  It can gather data from the vehicle, and
+% communicate instructions to the driver when necessary.  For example,
+% at red signals the IM can inform the driver that it is now safe to
+% enter the intersection via the communication device.
+
+% A vehicle with such a feature could propose a
+% \textit{whole-row request} to reserve an entire lane in the
+% intersection for the vehicle.  This is a very strong request and is
+% only likely to be confirmed in very light traffic in which an entire
+% ``row'' is available.
+
+\end{small_ind_s_itemize}
+
+All of this equipment gives semi-autonomous vehicles \emph{some} of
+the functionality of autonomous vehicles, though human drivers still
+retain some control of the vehicles.  We can equip a semi-autonomous
+vehicle with more than one of these devices.  Next, we introduce three
+types of semi-autonomous vehicles that we envision utilizing this
+equipment.
+
+\begin{small_ind_s_itemize}
+\item \textbf{Type SA-ACC Vehicles}: Utilizing adaptive cruise
+control to enter an intersection by either moving straight through the
+intersection or following another vehicle.
+\item \textbf{Type SA-CC Vehicles}: Using simple cruise control only
+to enter an intersection at a constant velocity in a straight line.
+\item \textbf{Type SA-Com Vehicles}: Reserve an entire lane in an
+intersection such that the human driver can get through the
+intersection without the help of any autonomous control device; thus
+only the communication device is needed.
+\end{small_ind_s_itemize}
+
+Table~\ref{table:type} summarizes the equipment being used on
+different types of these semi-autonomous vehicles.  As can be seen, a
+vehicle can utilize several devices at the same time.  In general,
+having additional equipment provides additional potential advantages
+over manually driven cars.  Since adaptive cruise control can work as
+simple cruise control, Type SA-ACC vehicles subsume Type SA-CC
+vehicles, which in turn subsume Type SA-Com vehicles because the human
+driver can always opt to simply follow the traffic signals without
+using cruise control if engaging the equipment is too distracting at
+any given time.
+
+\begin{table}
+\centering
+\caption{Features of semi-autonomous vehicles.}
+\label{table:type}
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  Vehicle Type & Communication & Cruise & Adaptive \\
+               & Device & Control & Cruise Control \\
+  \hline
+  SA-ACC & X & X & X  \\
+  \hline
+  SA-CC & X & X &  \\
+  \hline
+  SA-Com & X & &  \\
+  \hline
+\end{tabular}
+\end{table}
+
+Figure~\ref{fig:simulator} shows a screenshot of the SemiAIM simulator
+we developed to simulate semi-autonomous vehicles at intersections.\footnote{Modified from the open-source AIM4 simulator: \url{http://www.cs.utexas.edu/~aim}}.
+In this figure, the yellow vehicles are fully autonomous, the green
+vehicles are Type SA-ACC, the blue vehicles are Type SA-CC, the white
+vehicles are Type SA-Com, and the magenta vehicles are human-driven
+vehicles.  Notice that although the traffic signals at the
+intersection are red (see the red dots at the edges of the
+intersection), fully autonomous vehicles can still enter the
+intersection. In fact, all vehicles except the human-driven vehicles
+are eligible to enter the intersection as long as they get
+reservations from the IM.
+
+
+
+
+
+% \noindent \textbf{Type SA-ACC Vehicles} can utilize all of the above
+% equipment to make a reservation:
+% \begin{enumerate}
+%   \setlength{\itemsep}{1pt}
+%   \setlength{\parskip}{0pt}
+%   \setlength{\parsep}{0pt}
+
+% \item Such a vehicle can propose an anchor request. If the vehicle in
+% front of it is autonomous or semi-autonomous and is going in the same
+% direction, then if they can both get reservations, the request is
+% confirmed. The vehicle can follow the front vehicle and enter the
+% intersection.
+
+% \item If the anchor request is denied, it can propose a
+% constant-velocity request. If keeping the current velocity it can
+% safely traverse the intersection, the request is confirmed.
+
+% \item If the constant-velocity request is denied, it can propose a
+% whole-row request. If there is no conflict and the vehicle can enter
+% the intersection directly, the request is confirmed.
+
+% \item If denied again, the car must decelerate enough to be able to
+% stop before the intersection.  It can retry step 3 or pass control to
+% the human.
+
+% \end{enumerate}
+
+% \noindent
+% \textbf{Type SA-CC Vehicles} mainly utilize simple cruise control as follows.
+% \begin{enumerate}
+%   \setlength{\itemsep}{1pt}
+%   \setlength{\parskip}{0pt}
+%   \setlength{\parsep}{0pt}
+% \item Such a vehicle can propose a constant-velocity request. If it
+% can enter the intersection by keeping the current velocity, the
+% request is confirmed.
+
+% \item If the constant-velocity request is denied, it can propose a whole-row
+%   request. If the entire lane is available, the request is confirmed.
+
+% \item If denied again, the car must decelerate enough to be able to
+% stop before the intersection.  It can retry step 2 or pass control to
+% the human.
+
+% \end{enumerate}
+
+% \noindent
+% \textbf{Type SA-Com Vehicles} utilize only communication devices
+% to make reservations:
+% \begin{enumerate}
+%   \setlength{\itemsep}{1pt}
+%   \setlength{\parskip}{0pt}
+%   \setlength{\parsep}{0pt}
+% \item Such a vehicle can propose a whole-row request.  If the entire
+% lane is available, the request is confirmed.
+
+% \item If denied again, the car must decelerate enough to be able to
+% stop before the intersection.  It can retry step 1 or pass control to
+% the human.
+
+% \end{enumerate}
+
+
+% \begin{small_ind_s_itemize}
+
+% \item \textbf{Autonomous vehicles (Type A).} These are fully
+% autonomous vehicles that can be totally controlled by computers.
+
+% \item \textbf{Semi-autonomous vehicles (Type SA).}
+% Although they are driven by humans, they have some devices that can
+% assist human drivers and can communicate with the IM. In this paper,
+% we consider three concrete types of SA vehicles, as specified in this
+% section.
+
+% \item \textbf{Human-driven vehicles (Type H).}
+% These vehicles are exactly the same as the ones on today's roads. They
+% are completely controlled by humans and have no communication with the
+% IM.
+
+% \end{small_ind_s_itemize}
+
+
+
+
+% simple/adaptive cruise control and/or
+% human-driven vehicles with additional communication capabilities.
+
+% To allow more efficient management of traffic at intersections, we
+% consider human-driven vehicles with additional communication features
+% to facilitate interaction with the IM and other vehicles.
+
+% While our proposed reservation system is general enough to handle many
+% different kinds of semi-autonomous vehicles, our discussion will focus
+% on the following categories of vehicles.
+
+% \item \textbf{Simple Cruise control} (Used by Types SA-ACC and SA-CC
+%   vehicles).
+
+% \item \textbf{Communication device} (Used Types SA-ACC, SA-CC, and SA-Com vehicles).
 
 % \commentp{This is a significant weakness of the paper.  "Whole-row
 % request", "constant-velocity request", and "anchor request" haven't
@@ -82,110 +267,9 @@ only likely to be confirmed in very light traffic in which an entire
 % using these constraint-based requests (since a normal "fixed arrival,
 % fixed trajectory" request is also possible).}
 
-\end{itemize}
-
-All of this equipment gives semi-autonomous vehicles \emph{some} of
-the functionality of autonomous vehicles, even though human drivers
-still retain some control of the vehicles.  Next, we introduce several
-types of semi-autonomous vehicles that we envision utilizing this
-equipment.  For each, we summarize how the semi-autonomous vehicle can
-interact with the IM when authorized to do so by the driver.  In
-general, having additional equipment provides additional potential
-advantages over manually driven cars.  But we emphasize that in all
-cases, the human driver can always opt to simply follow the traffic
-signals if engaging the equipment is too distracting at any given
-time.  Table~\ref{table:type} summarizes the equipment being used on
-different types of the semi-autonomous vehicles that we consider.
-
-\begin{table}
-\centering
-\caption{Features of semi-autonomous vehicles.}
-\label{table:type}
-\begin{tabular}{|c|c|c|c|}
-  \hline
-  Vehicle Type & Communication & Cruise & Adaptive \\
-               & device & control & cruise control \\
-  \hline
-  SA-ACC & X & X & X  \\
-  \hline
-  SA-CC & X & X &  \\
-  \hline
-  SA-Com & X & &  \\
-  \hline
-\end{tabular}
-\end{table}
-
-\noindent \textbf{Type SA-ACC Vehicles} can utilize all of the above
-equipment to make a reservation:
-\begin{enumerate}
-
-\item Such a vehicle can propose an anchor request. If the vehicle in
-front of it is (semi-)autonomous and is going in the same direction,
-then if they can both get reservations, the request is confirmed. The
-vehicle can follow the front vehicle and enter the intersection.
-
-\item If the anchor request is denied, it can propose a
-constant-velocity request. If keeping the current velocity it can
-safely traverse the intersection, the request is confirmed.
-
-\item If the constant-velocity request is denied, it can propose a
-whole-row request. If there is no conflict and the vehicle can enter
-the intersection directly, the request is confirmed.
-
-\item If denied again, the car must decelerate enough to be able to
-stop before the intersection.  It can retry step 3 or pass control to
-the human.
-
-\end{enumerate}
-
-\noindent
-\textbf{Type SA-CC Vehicles} mainly utilize simple cruise control as follows.
-\begin{enumerate}
-
-\item Such a vehicle can propose a constant-velocity request. If it
-can enter the intersection by keeping the current velocity, the
-request is confirmed.
-
-\item If the constant-velocity request is denied, it can propose a whole-row
-  request. If the entire lane is available, the request is confirmed.
-
-\item If denied again, the car must decelerate enough to be able to
-stop before the intersection.  It can retry step 2 or pass control to
-the human.
-
-\end{enumerate}
-
-\noindent
-\textbf{Type SA-Com Vehicles} utilize only communication devices
-to make reservations:
-\begin{enumerate}
-
-\item Such a vehicle can propose a whole-row request.  If the entire
-lane is available, the request is confirmed.
-
-\item If denied again, the car must decelerate enough to be able to
-stop before the intersection.  It can retry step 1 or pass control to
-the human.
-
-\end{enumerate}
-
-In Figure~\ref{fig:demo}, we color Type A vehicles yellow, Type SA-ACC vehicles
-green, Type SA-CC vehicles blue, Type SA-Com vehicles white and Type H
-vehicles magenta. The figure shows that although there is a red phase for every
-lane, some Type A vehicles are permitted to enter the intersection.
-
-
-% Our vehicle types
-% SA-ACC, SA-CC, and SA-Com have combinations of these features as
-% summarized in 
-
-% Adaptive cruise control
-% Used by Type SA-ACC vehicles,
-
-% \item \textbf{Simple Cruise control} (Used by Types SA-ACC and SA-CC
-%   vehicles).
-
-% \item \textbf{Communication device} (Used Types SA-ACC, SA-CC, and SA-Com vehicles).
+% us
+% to design a new reservation systems that allows semi-autonomous
+% vehicles to make reservations 
 
 
 

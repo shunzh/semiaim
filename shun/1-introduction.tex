@@ -6,7 +6,7 @@ shown that autonomous vehicles are feasible with the current
 generation of hardware~\cite{mybib:Darpa07Urban}. Looking ahead to the
 time when autonomous cars will be common, Dresner and Stone proposed a
 new intersection control protocol called \emph{Autonomous Intersection
-  Management} (AIM) and showed that by leveraging the control and
+Management} (AIM) and showed that by leveraging the control and
 network capabilities of autonomous vehicles it is possible to design
 an intersection control protocol that is much more efficient than
 traffic signals~\cite{bib:Dresner08Multiagent}.  By removing human
@@ -18,33 +18,41 @@ intersection, thus effectively reducing the delay of vehicles by
 orders of magnitude compared to traffic
 signals~\cite{bib:Fajardo12Automated}.
 
-The main motivation for SemiAim is that we anticipate that there will
-be a long transition period during which most vehicles have some but
-not all capabilities of fully autonomous vehicles.  In fact, this
-transition period has already begun. Since the late 1990s, adaptive
-cruise control systems and lane departure warning systems have become
-widely available as optional equipment on luxury production vehicles.
-Today's automatic parking systems such as those in the Toyota Prius
-and various BMW models can perform parallel parking with little or no
-human intervention. The National Highway Traffic Safety Administration
-defines five levels of vehicle automation~\cite{NHTSA2013}. In this
-paper, semi-autonomous vehicles meet the criteria of limited
-self-driving automation (Level 3). Fully autonomous vehicles are
-equivalent with full self-driving automation (Level 4).  Hence, there
-is an opportunity to develop an intersection control protocol that
-works with these semi-autonomous vehicles.  More importantly, there is
-a high likelihood that human-driven vehicles, semi-autonomous
-vehicles, and fully autonomous vehicles will \emph{coexist} on the
-road in the future.  SemiAIM takes advantages of this trend and allows
-autonomous intersections to handle a traffic mixture with different
-types of vehicles.
+AIM is designed for the time when vehicles are autonomous.  We,
+however, anticipate that there will be a long transition period during
+which most vehicles have some but not all capabilities of fully
+autonomous vehicles.  In fact, this transition period has already
+begun. Since the late 1990s, adaptive cruise control systems and lane
+departure warning systems have become widely available as optional
+equipment on luxury production vehicles.  Today's automatic parking
+systems such as those in the Toyota Prius and various BMW models can
+perform parallel parking with little or no human intervention.  While
+AIM provides a significant efficiency improvement at intersections
+when all cars are autonomous, the benefits are minimal even when as
+few as 10\% of the vehicles are driven by humans (Figure 16
+in~\cite{bib:Dresner08Multiagent}).  The requirement that most, if not
+all, vehicles are fully autonomous is a key obstacle to the adoption
+of AIM-like intersection control when most vehicles are not fully
+autonomous.
 
-Another motivation for SemiAim is the drawback of AIM.  The AIM policy
-has a significant improvement on the efficiency of intersection, but
-that requires the ratio of fully autonomous vehicles exceed 95\% of
-all type of vehicles. Even if the ratio of fully autonomous vehicles
-exceeds 90\%, there is no significant difference from traffic signal
-policy (Figure 16 in~\cite{bib:Dresner08Multiagent}). 
+The National Highway Traffic Safety Administration acknowledges that
+fully autonomous vehicles represent just the top level in five levels
+of vehicle automation~\cite{bib:NHTSA13Preliminary}. Indeed, they
+define a level below this top level with vehicles that have limited
+self-driving automation.  The main motivation of this paper is to
+propose a new reservation-based intersection control system called
+\emph{Semi-Autonomous Intersection Management (SemiAIM)} that can
+accomodate both fully autonomous vehicles and such
+\emph{semi-autonomous} vehicles. There is a high likelihood that
+human-driven vehicles, semi-autonomous vehicles, and fully autonomous
+vehicles will \emph{coexist} on the road in the future.  SemiAIM takes
+advantages of this trend and allows autonomous intersections to handle
+a traffic mixture with different types of vehicles.
+
+% In this paper, semi-autonomous vehicles meet the criteria of limited
+% self-driving automation (Level 3).
+
+% Another motivation for SemiAim is the drawback of AIM.  
 
 The main contributions of this paper are 1) the introduction of the
 concept of Semi-Autonomous Intersection Management (SemiAIM); 2) a
@@ -63,6 +71,38 @@ semi-autonomous vehicles.  Section~\ref{sec:simulation} presents the
 results of the simulation experiments we used to evaluates SemiAIM.
 The related work and the conclusion are given in
 Section~\ref{sec:related} and \ref{sec:conclusions}, respectively.
+
+
+% The main motivation for SemiAim is that we anticipate that there will
+% be a long transition period during which most vehicles have some but
+% not all capabilities of fully autonomous vehicles.  In fact, this
+% transition period has already begun. Since the late 1990s, adaptive
+% cruise control systems and lane departure warning systems have become
+% widely available as optional equipment on luxury production vehicles.
+% Today's automatic parking systems such as those in the Toyota Prius
+% and various BMW models can perform parallel parking with little or no
+% human intervention. The National Highway Traffic Safety Administration
+% defines five levels of vehicle automation~\cite{NHTSA2013}. In this
+% paper, semi-autonomous vehicles meet the criteria of limited
+% self-driving automation (Level 3). Fully autonomous vehicles are
+% equivalent with full self-driving automation (Level 4).  Hence, there
+% is an opportunity to develop an intersection control protocol that
+% works with these semi-autonomous vehicles.  More importantly, there is
+% a high likelihood that human-driven vehicles, semi-autonomous
+% vehicles, and fully autonomous vehicles will \emph{coexist} on the
+% road in the future.  SemiAIM takes advantages of this trend and allows
+% autonomous intersections to handle a traffic mixture with different
+% types of vehicles.
+
+% Another motivation for SemiAim is the drawback of AIM.  The AIM policy
+% has a significant improvement on the efficiency of intersection, but
+% that requires the ratio of fully autonomous vehicles exceed 95\% of
+% all type of vehicles. Even if the ratio of fully autonomous vehicles
+% exceeds 90\%, there is no significant difference from traffic signal
+% policy (Figure 16 in~\cite{bib:Dresner08Multiagent}). 
+
+
+
 
 % In this paper, we introduce a new protocol called
 % \emph{Semi-Autonomous Intersection Management} (SemiAIM), which allows
