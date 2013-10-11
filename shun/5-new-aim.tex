@@ -204,21 +204,21 @@ particular trajectory, a constraint-based request is an
 interprets a constraint-based request as a description of a set of
 \emph{possible} trajectories that the vehicle may follow, and reserves
 all the tiles on the possible trajectories.  Once the IM receives a
-request, it will conduct an internal simulation of the vehicle
+request, it conducts an internal simulation of the vehicle
 movement, as described in \cite{bib:Dresner08Multiagent}, to determine
 the tiles on the possible trajectories, and determine whether the
 tiles are available.
 
-Our hypothesis is that constraint-based requests with more restrictive
-will perform better because SemiAIM reserves less tiles for them,
+Our hypothesis is that more restrictive constraint-based requests 
+will perform better because SemiAIM reserves fewer tiles for them,
 meaning that some types of semi-autonomous vehicles will work better
-with SemiAIM.  We will test this hypothesis in
+with SemiAIM.  We test this hypothesis in
 Section~\ref{sec:simulation}.
 
 \subsection{Anchor Requests}
 \label{sec:anchor}
 
-Semi-autonomous vehicles with adaptive cruise control use a special
+Semi-autonomous vehicles with adaptive cruise control can use a special
 constraint-based request called \emph{anchor requests} to make
 reservations. An anchor request is $\langle {\sf Type}, \texttt{vin},
 d \rangle$, where ${\sf Type}$ is the vehicle type, \texttt{vin} is
@@ -227,16 +227,16 @@ distance from the vehicle of \texttt{vin}.  For example, an anchor
 request $\langle \texttt{truck-with-acc}, \texttt{GXC345}, {\tt 5m}
 \rangle$ states that the vehicle will follow the vehicle with a
 vehicle id {\tt GXC345} and maintain a following distance of $5m$.
-This request is special because this request depends on the confirmed
-reservation of the vehicle $\veh$ of \texttt{vin}. If $\veh$ does not
+This request is different from the previous types because it depends on the confirmed
+reservation of the vehicle $\veh$ with id \texttt{vin}. If $\veh$ does not
 have a reservation, the IM will reject the anchor request; otherwise,
-the IM will copy the request of $\veh$ and modify the request with the
+the IM will copy the request of $\veh$ and modify the request with 
 following distance $d$.
 
 Currently anchor requests are designed specifically for
-semi-autonomous vehicles with adaptive cruise control.  This
-formulation is general enough to allow some sophisticated cooperative
-maneuver such as platooning~\cite{bib:Sheikholeslam90Longitudinal}.
+semi-autonomous vehicles with adaptive cruise control.  However, this
+formulation is general enough to enable some sophisticated cooperative
+maneuvers such as platooning~\cite{bib:Sheikholeslam90Longitudinal}.
 
 
 % Effectively, the IM considers the two
