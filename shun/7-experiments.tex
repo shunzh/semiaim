@@ -6,7 +6,6 @@ hypothesis that SemiAIM can offer substantial improvements over
 traffic signals and FCFS-Signal, we conducted a series of experiments
 with the modified AIM4 simulator that simulates the behavior of
 vehicles in the constraint-based reservation system.
-
 The implementation of fully autonomous vehicles (Type A) and
 human-driven vehicles (Type H) can be referenced from
 \cite{bib:Dresner08Multiagent}.  The concrete implementations of the
@@ -379,38 +378,40 @@ that reserve less tiles will perform better.  The setup of this
 experiment is the same as Experiment~1 except that 1) a vehicle can
 only use one particular types of requests when making reservations;
 and 2) two traffic levels are examined.  The three request types we
-considered are: the anchor requests, the constant-velocity requests,
-the and whole-row requests. As a comparison, we included the AIM
-request used by fully autonomous vehicles to make reservations under
+considered are: anchor requests, constant-velocity requests, and
+whole-row requests. As a comparison, we included \emph{AIM requests}
+which are used by fully autonomous vehicles to make reservations under
 AIM. Each request types need a (semi-)autonomous vehicle as a
-substrate.  Anchor requests, require vehicles to be equipped with ACC;
+substrate.  Anchor requests require vehicles to be equipped with ACC;
 constant-velocity requests need vehicles with simple cruise control;
-The whole-row requests need vehicles with some communication devices;
-and the AIM requests require the vehicle to be fully autonomous.  Note
-that these vehicles are not exactly SA-ACC, SA-CC, and SA-Com, since
-they will \emph{only} make one particular type of requests.  For
-example, unlike SA-ACC, the vehicles that make anchor requests will
-not issue any constant-velocity requests.  If the vehicle fails to
-get a reservation, it can still pass the intersection without any 
-reservations but obey the traffic signal.
+whole-row requests need vehicles with some communication devices; and
+AIM requests require the vehicle to be fully autonomous.  Note that
+these vehicles are not exactly SA-ACC, SA-CC, and SA-Com, since they
+will \emph{only} send one type of requests.  For example, unlike
+SA-ACC, the vehicles that make anchor requests will not issue any
+constant-velocity requests.  If a vehicle fails to get a reservation,
+it can still pass the intersection by obeying the traffic signal,
+without any reservations.
 
-The experiment were run twice at two traffic levels: 360
+The experiment was run twice at two traffic levels: 360
 vehicles/lane/hour and 540 vehicles/lane/hour, and the results are
 shown in Figure~\ref{fig:request360} and \ref{fig:request540},
 respectively.  As a baseline, the average delay of human-driven
 vehicles under traffic signals are shown as the ``No request'' lines
 in these figures.  Figure~\ref{fig:request360} is similar to
 Figure~\ref{fig:two360} except that the average delays of
-semi-autonomous vehicles increased since vehicles can only make one
-type of requests. Among the three request types, the whole-row
-requests performed best this time.  This result is surprising when
-compared with Type SA-Com vehicles in Figure~\ref{fig:two360}.  Since
-the whole-row requests need more tiles than the other two requests,
-our hypothesis that requests that reserve less tiles will perform
-better is false.  However, at a higher traffic level, the whole-row
-requests perform worst (see Figure~\ref{fig:request540}).  This result
-implies that apart from the number of tiles being reserved, there are
-other factors that affect the performance of a request type.
+semi-autonomous vehicles is larger. It is because vehicles can only
+make one type of requests, thus losing some opportunities to enter an
+intersection in red signals.  Among the three request types, the
+whole-row requests performed best this time.  This result is
+unexpected and is different from the result with Type SA-Com vehicles in
+Figure~\ref{fig:two360}.  Since the whole-row requests need more tiles
+than the other two requests, our hypothesis that requests that reserve
+less tiles will perform better is false.  However, at a higher traffic
+level, the whole-row requests perform worst (see
+Figure~\ref{fig:request540}).  This result implies that apart from the
+number of tiles being reserved, there are other factors that affect
+the performance of a request type.
 
 \begin{figure}
 \centering
