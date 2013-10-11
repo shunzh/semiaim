@@ -201,11 +201,17 @@ particular trajectory, a constraint-based request is an
 \emph{incomplete} description of the trajectory.  Therefore, the IM
 interprets a constraint-based request as a description of a set of
 \emph{possible} trajectories that the vehicle may follow, and reserves
-all the tiles on the possible trajectories. Our hypothesis is that
-constraint-based requests with more restrictive will perform better
-because SemiAIM reserves less tiles for them, meaning that some types
-of semi-autonomous vehicles will work better with SemiAIM.  We will
-test this hypothesis in Section~\ref{sec:simulation}.
+all the tiles on the possible trajectories.  Once the IM receives a
+request, it will conduct an internal simulation of the vehicle
+movement, as described in \cite{bib:Dresner08Multiagent}, to determine
+the tiles on the possible trajectories, and determine whether the
+tiles are available.
+
+Our hypothesis is that constraint-based requests with more restrictive
+will perform better because SemiAIM reserves less tiles for them,
+meaning that some types of semi-autonomous vehicles will work better
+with SemiAIM.  We will test this hypothesis in
+Section~\ref{sec:simulation}.
 
 \subsection{Anchor Requests}
 \label{sec:anchor}
