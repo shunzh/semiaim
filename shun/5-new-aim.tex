@@ -3,13 +3,16 @@
 
 SemiAIM extends AIM by allowing human-driven vehicles and
 semi-autonomous vehicles to make reservations in the same way as
-autonomous vehicles.  The key idea of SemiAIM is to turn AIM into a
+fully autonomous vehicles.  The key idea of SemiAIM is to turn AIM into a
 \emph{constraint-based reservation system}, which allows vehicles to
 make reservations in terms of constraints over (1) their driving
 profile such as their arrival time and arrival velocity, and (2) the
 relationships with other vehicles.
 
-\subsection{Constraint-Based Requests}
+% In this section, we will
+% describe this system in detail.
+% \subsection{Foundations}
+% \subsection{Constraint-Based Requests}
 
 In AIM, a reservation request is a $5$-tuple $\langle l_1, l_2, t_0,
 v_0, p\rangle$, where $l_1$ is the entry lane, $l_2$ is the exit lane,
@@ -25,9 +28,70 @@ able to control certain aspects of their trajectories.  Therefore, we
 need a new kind of reservation requests that do not rely on this
 assumption.
 
-We define \emph{constraint-based} reservation requests as follows.
-A request message consists of four components:
+\subsection{Maneuverability Profile} 
+
+Semi-autonomous vehicles only have limited self-driving automation.
+For example, adaptive cruise control can only provide autonomous
+longitudinal control, and still depend on the human driver to use the
+steering wheel to maintain the lateral control.  Hence the
+longitudinal control of Type SA-ACC vehicles can be very precise, but
+the lateral control cannot as precise.  In fact, the human driver
+cannot make a sharp turn when the adaptive cruise control is
+activated, because human must slow down the vehicle a lot in order to
+be able to make a sharp turn precisely.  In our system, we use a
+\emph{maneuverability profile} to encode the limitations of the
+control of human drivers an autonomy device is activated.
+In case of simple cruise control, the maneuverability profile is
+written in Lisp's syntax as follows:
+{\small
+\begin{verbatim}
+(cc-profile (v angle)
+  (is-auto-speed-control)
+  (not is-auto-steering)
+  (< velocity v) (> velocity -v)
+  (< steer-angle angle) (> steer-angle -angle))
+\end{verbatim}
+}
+where \texttt{v} is the target velocity and and \texttt{angle} is the
+maximum feasible steering angle for the human driver when the cruise
+control is turned on.  The maneuverability profile for adaptive cruise
+control is
+{\small
+\begin{verbatim}
+(acc-profile (vin d derror angle)
+  (is-auto-speed-control)
+  (not is-auto-steering)
+  (< (dist-from vin) (+ d derror))
+  (> (dist-from vin) (- d derror))
+  (< steer-angle angle) (> steer-angle -angle))
+\end{verbatim}
+}
+where \texttt{vin} is the vehicle number of the vehicle ahead,
+\texttt{d} is the target distance from \texttt{vin}, \texttt{derror}
+is the maximum error for acc to maintain the target distance from
+\texttt{vin}, and \texttt{angle} is the maximum feasible steering
+angle for the human driver.
+
+Other types of semi-autonomous vehicle have their own maneuverability
+profile.  When a driver agent makes a reservation request, it needs to
+make sure that the trajectories encoded by the reservation request
+\emph{satisfies} all constraints in the maneuverability profile.
+
+\subsection{Constraint-Based Requests}
+
+Different maneuverability profile can have different sets of
+constraints.  To facilitate communication with all kinds of
+semi-autonomous vehicles, SemiAIM uses a \emph{unified}
+language for vehicles to express their constraints in the same format
+in their requests.  We define \emph{constraint-based} reservation
+requests as follows.  A request message consists of four components:
 \begin{enumerate}
+\setlength{\rightmargin}{0em}
+\setlength{\leftmargin}{1em}
+\setlength{\itemsep}{0em}
+\setlength{\topsep}{0em}
+\setlength{\parsep}{0em}
+\setlength{\parskip}{0pt}
 \item{\bf Intention}. The direction in which the vehicle intends to
   move.
 \item{\bf Vehicle Type}. The type of the vehicle.
@@ -84,42 +148,86 @@ the vehicle will use from time $t_i$ until time $t_{t+1}$.  Note that
 the vehicle may or may not provide the acceleration profile of all
 possible trajectories in a request message.  If the acceleration
 profile is missing, the IM will generate an acceleration profile based
-on a simulation of the movement of the vehicle given the vehicle type.
-The most trivial acceleration profile is one that gives the vehicle
-zero acceleration, indicating that the vehicle will maintain a
-constant speed.  Another acceleration profile the IM considers is a
-constant acceleration profile.  The IM will consider these
-acceleration profiles one by one in order to find one that leads to a
-successful reservation.  Ultimately, the reservation includes a
-required acceleration profile to be followed by the vehicle once it
-enters the intersection.
+on a simulation of the movement of the vehicle given the vehicle type
+and the entry condition.
 
+% The most trivial acceleration profile is one that gives the vehicle
+% zero acceleration, indicating that the vehicle will maintain a
+% constant speed.  Another acceleration profile the IM considers is a
+% constant acceleration profile.  The IM will consider these
+% acceleration profiles one by one in order to find one that leads to a
+% successful reservation.  Ultimately, the reservation includes a
+% required acceleration profile to be followed by the vehicle once it
+% enters the intersection.
+
+Each vehicle has its own algorithm to generate constraint-based
+requests that satisfy its maneuverability profile. In this paper, we
+do not elaborate how to generate the requests since the algorithms are
+different in different vehicles.  However, we define the following two
+requests that will be used by Type SA-CC and Type SA-Com vehicles,
+respectively:
+
+\begin{small_ind_s_itemize}
+\item A \textbf{constant-velocity request}
+is $\langle {\sf Intent}, {\sf Type}, {\sf Entry},$ ${\sf AccProfile} \rangle$,
+where
+${\sf Intent} = \{ l_1 \vee l_2 \vee \ldots \vee l_n \}$
+in which $l_i$ is a possible lane from which the vehicle 
+enter the intersection;
+${\sf Type}$ is the vehicle type;
+${\sf Entry} = ({\sf Intent}, [t_1,\ t_2], [v_1,\ v_2])$
+is the entry statement; and
+${\sf AccProfile} = \langle (t_1, 0) \rangle$
+is the acceleration profile.
+Since the acceleration is always zero, the vehicle
+will move at a constant velocity.
+
+\item A \textbf{whole-row request}:
+is $\langle {\sf Intent}, {\sf Type}, {\sf Entry},$ ${\sf AccProfile} \rangle$,
+where
+${\sf Intent} = \{ l_1 \vee l_2 \vee \ldots \vee l_n \}$
+in which $l_i$ is a possible lane from which the vehicle 
+enter the intersection;
+${\sf Type}$ is the vehicle type;
+${\sf Entry} = ({\sf Intent}, [t_1,\ t_2], [v_1,\ v_2])$
+is the entry statement; and
+${\sf AccProfile}$ is an acceleration profile.
+In order to reserve the entire row in an intersection,
+the difference between $t_1$ and $t_2$ 
+as well as the difference between $v_1$ and $v_2$
+must be large enough to cover the entire row.
+\end{small_ind_s_itemize}
+
+Unlike AIM's reservation requests which always correspond to a
+particular trajectory, a constraint-based request is an
+\emph{incomplete} description of the trajectory.  Therefore, the IM
+interprets a constraint-based request as a description of a set of
+\emph{possible} trajectories that the vehicle may follow, and reserves
+all the possible trajectories for the vehicle. Our hypothesis is that
+constraint-based requests with more restrictive will perform better,
+meaning that some types of semi-autonomous vehicles will work better
+with SemiAIM. We will test this hypothesis in
+Section~\ref{sec:simulation}.
 
 \subsection{Anchor Requests}
 \label{sec:anchor}
 
 Semi-autonomous vehicles with adaptive cruise control use a special
-constraint-based reservation request called an \emph{anchor request}.
-An anchor request states the intention of following another vehicle.
-a vehicle $\veh$ with adaptive cruise control can make an anchor
-request such as $\Anchor(\vin, d, T)$, which means that $\veh$ will
-start following another vehicle with the VIN number $\vin$ at time
-$T$, and then maintain a following distance less than or equal to $d$.
-For example, an anchor request $\Anchor(\texttt{GXC345}, {\tt 5m},
-\texttt{3:15pm})$ states that the vehicle will follow the vehicle with
-a vehicle tag {\tt GXC345} in front of it and maintains a following
-distance of $5m$ at \texttt{3:15pm}.
-
-The following distance constraint causes the IM to consider the two
-vehicles as being a single, longer vehicle, with no free space between
-them.  To determine the set of tiles for this vehicle, the IM in
-SemiAIM has to derive the trajectories from the reservation request of
-the vehicle GXC345.  Hence, the IM in SemiAIM will retain all
-reservation requests in symbolic forms, such that it can compute the
-trajectory of the vehicle issuing anchor requests.  Furthermore, if
-the vehicle GXC345 in the above example is also a semi-autonomous
-vehicle whose request depends on other requests, the IM has to deduce
-the trajectories of $\veh$ by constraint propagation.
+constraint-based request called an \emph{anchor request} to make
+reservations. An anchor request is $\langle {\sf Type}, \texttt{vin},
+d \rangle$, where ${\sf Type}$ is the vehicle type, \texttt{vin} is
+the vehicle number of the vehicle ahead, and $d$ is the following
+distance from the vehicle of \texttt{vin}.  
+For example, an anchor request $\langle \texttt{truck-with-acc},
+\texttt{GXC345}, {\tt 5m} \rangle$ states that the vehicle will
+follow the vehicle with a vehicle tag {\tt GXC345} in front of it
+and maintains a following distance of $5m$.
+This request is special because this request depends on the confirmed
+reservation of the vehicle $\veh$ of \texttt{vin}
+If $\veh$ does not have a reservation, the IM will reject the anchor
+request; otherwise, the IM will copy
+the request of $\veh$ and modify the request with the following
+distance $d$. 
 
 In their current form, anchor requests are designed specifically for
 semi-autonomous vehicles with adaptive cruise control.  This
@@ -127,167 +235,33 @@ formulation is general enough to include other kinds of cooperative
 maneuver such as platooning~\cite{bib:Sheikholeslam90Longitudinal}.
 
 
-\subsection{Interpretation of Constraint-based Requests}
+% Effectively, the IM considers the two
+% vehicles as being a single, longer vehicle.
+% To determine the set of tiles for this vehicle, the IM in
+% SemiAIM has to derive the trajectories from the reservation request of
+% the vehicle GXC345.  Hence, the IM in SemiAIM will retain all
+% reservation requests in symbolic forms, such that it can compute the
+% trajectory of the vehicle issuing anchor requests.  Furthermore, if
+% the vehicle GXC345 in the above example is also a semi-autonomous
+% vehicle whose request depends on other requests, the IM has to deduce
+% the trajectories of $\veh$ by constraint propagation.
 
-Unlike AIM's reservation requests which are precise description of a
-particular trajectory, a constraint-based request in SemiAIM is an
-\emph{incomplete} description of a trajectory through an intersection.
-Therefore, the IM interprets a constraint-based request as a
-description of a set of \emph{possible} trajectories that the vehicle
-may follow, and reserves all the possible trajectories for the
-vehicle.
-
-In many cases, the reservation requests are case-by-case.
-However, it follows the same template....
-
-
-For each, we summarize how the
-semi-autonomous vehicle can interact with the IM when authorized to do
-so by the driver.  
-
-constant-velocity request
-
-whole-row request
-
-
-% \begin{small_ind_s_itemize}
-
-% \item \textbf{Adaptive cruise control} 
-% A vehicle with this feature
-% can propose an \textit{anchor request} that will be discussed in
-% Section~\ref{sec:anchor}.  The IM considers whether it can safely
-% traverse the intersection by following the vehicle in front of it.
-
-% \item \textbf{Simple Cruise control} A vehicle with this feature can
-% propose a \textit{constant-velocity request}. The IM considers whether
-% it can traverse the intersection by keeping a constant velocity.
-
-% \item \textbf{Communication device} This is a device, which can be a
-% smart-phone or on-board navigation system, that can communicate with
-% the Intersection Manager.  It can gather data from the vehicle, and
-% communicate instructions to the driver when necessary.  For example,
-% at a red signal, the IM could inform the driver that it is now safe to
-% enter the intersection.  A vehicle with such a feature could propose a
-% \textit{whole-row request} to reserve an entire lane in the
-% intersection for the vehicle.  This is a very strong request and is
-% only likely to be confirmed in very light traffic in which an entire
-% ``row'' is available.
-
-% \end{small_ind_s_itemize}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-% \noindent \textbf{Type SA-ACC Vehicles} can utilize all of the above
-% equipment to make a reservation:
-% \begin{enumerate}
-%   \setlength{\itemsep}{1pt}
-%   \setlength{\parskip}{0pt}
-%   \setlength{\parsep}{0pt}
-
-% \item Such a vehicle can propose an anchor request. If the vehicle in
-% front of it is autonomous or semi-autonomous and is going in the same
-% direction, then if they can both get reservations, the request is
-% confirmed. The vehicle can follow the front vehicle and enter the
-% intersection.
-
-% \item If the anchor request is denied, it can propose a
-% constant-velocity request. If keeping the current velocity it can
-% safely traverse the intersection, the request is confirmed.
-
-% \item If the constant-velocity request is denied, it can propose a
-% whole-row request. If there is no conflict and the vehicle can enter
-% the intersection directly, the request is confirmed.
-
-% \item If denied again, the car must decelerate enough to be able to
-% stop before the intersection.  It can retry step 3 or pass control to
-% the human.
-
-% \end{enumerate}
-
-% \noindent
-% \textbf{Type SA-CC Vehicles} mainly utilize simple cruise control as follows.
-% \begin{enumerate}
-%   \setlength{\itemsep}{1pt}
-%   \setlength{\parskip}{0pt}
-%   \setlength{\parsep}{0pt}
-% \item Such a vehicle can propose a constant-velocity request. If it
-% can enter the intersection by keeping the current velocity, the
-% request is confirmed.
-
-% \item If the constant-velocity request is denied, it can propose a whole-row
-%   request. If the entire lane is available, the request is confirmed.
-
-% \item If denied again, the car must decelerate enough to be able to
-% stop before the intersection.  It can retry step 2 or pass control to
-% the human.
-
-% \end{enumerate}
-
-% \noindent
-% \textbf{Type SA-Com Vehicles} utilize only communication devices
-% to make reservations:
-% \begin{enumerate}
-%   \setlength{\itemsep}{1pt}
-%   \setlength{\parskip}{0pt}
-%   \setlength{\parsep}{0pt}
-% \item Such a vehicle can propose a whole-row request.  If the entire
-% lane is available, the request is confirmed.
-
-% \item If denied again, the car must decelerate enough to be able to
-% stop before the intersection.  It can retry step 1 or pass control to
-% the human.
-
-% \end{enumerate}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-% \begin{small_ind_s_itemize}
-
-% \item \textbf{Autonomous vehicles (Type A).} These are fully
-% autonomous vehicles that can be totally controlled by computers.
-
-% \item \textbf{Semi-autonomous vehicles (Type SA).}
-% Although they are driven by humans, they have some devices that can
-% assist human drivers and can communicate with the IM. In this paper,
-% we consider three concrete types of SA vehicles, as specified in this
-% section.
-
-% \item \textbf{Human-driven vehicles (Type H).}
-% These vehicles are exactly the same as the ones on today's roads. They
-% are completely controlled by humans and have no communication with the
-% IM.
-
-% \end{small_ind_s_itemize}
+% An anchor request states the intention of following another vehicle.
+% a vehicle $\veh$ with adaptive cruise control can make an anchor
+% request such as $\Anchor(\vin, d, T)$, which means that $\veh$ will
+% start following another vehicle with the VIN number $\vin$ at time
+% $T$, and then maintain a following distance less than or equal to $d$.
 
 
 
 
-
-
-
-
-
-% In AIM, a reservation request is a $5$-tuple $\langle l_1, l_2, t_0,
-% v_0, p\rangle$, where $l_1$ is the entry lane, $l_2$ is the exit lane,
-% $t_0$ is the arrival time, $v_0$ is the arrival velocity, and $p$ is
-% the physical characteristics of the vehicle.  This information allows
-% the Intersection Manager (IM) to compute the exact trajectory of the
-% vehicle in the intersection and reserve tiles for the vehicle on the
-% trajectory.  However, this computation assumes the vehicle can be
-% controlled \emph{precisely} in the intersection so that it can meet
-% the reservation constraints exactly.  Human drivers cannot control
-% their vehicles as precisely, and semi-autonomous vehicles may only be
-% able to control certain aspects of their trajectories.  Therefore, we
-% need a new kind of reservation requests that do not rely on this
-% assumption.
-
-% \subsection{Examples of Constraint-based Requests and their Interpretations}
-
-
+% Cyclic dependencies may occur if vehicles send
+% requests simultaneously.
+% \commentp{Won't it be clear which car is
+% behind the other?  There should never be a proposal to go in *front*
+% of another car, right?} 
+% The IM must break the cycle to prevent
+% deadlock and let all vehicles enter the intersection eventually.
 
 
 
@@ -331,19 +305,6 @@ whole-row request
 % will be an advantage to the driver.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-% Cyclic dependencies may occur if vehicles send
-% requests simultaneously.
-% \commentp{Won't it be clear which car is
-% behind the other?  There should never be a proposal to go in *front*
-% of another car, right?} 
-% The IM must break the cycle to prevent
-% deadlock and let all vehicles enter the intersection eventually.
-
-
 % \begin{figure}[t]
 % \centering \fbox{\sf \footnotesize
 % \begin{minipage}{3.2in}
@@ -354,16 +315,6 @@ whole-row request
 % \end{minipage}}
 % \caption{This is an algorithm.}
 % \label{fig:algm}
-% \end{figure}
-
-% \begin{figure}[t]
-%   \centering
-%   \includegraphics[width=2.45in]{figures/figure1}
-%   \caption{Average delay vs. the ratio of autonomous vehicles
-% to human-controlled vehicles. Traffic
-%     level = 720 veh./hour/lane.}
-%   \label{fig:original}
-%   \vspace{-.3in}
 % \end{figure}
 
 
