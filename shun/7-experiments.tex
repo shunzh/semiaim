@@ -5,56 +5,54 @@ To demonstrate the feasibility of SemiAIM as well as evaluate the
 hypothesis that SemiAIM can offer substantial improvements over
 traffic signals and FCFS-Signal, we conducted a series of experiments
 with the modified AIM4 simulator that simulates the behavior of
-vehicles in the constraint-based reservation system.
-The implementation of fully autonomous vehicles (Type A) and
-human-driven vehicles (Type H) can be referenced from
-\cite{bib:Dresner08Multiagent}.  The concrete implementations of the
-semi-autonomous vehicles, as described in Section~\ref{sec:vehicles},
-are as follows.
+vehicles using the constraint-based reservation system.  The
+implementations of fully autonomous vehicles (Type A) and human-driven
+vehicles (Type H) are as provided with the simulator and described
+in~\cite{bib:Dresner08Multiagent}.  The concrete implementations of
+the semi-autonomous vehicles, as described in
+Section~\ref{sec:vehicles}, are as follows.
 
 \begin{small_ind_s_itemize}
 
-\item \textbf{Type SA-ACC Vehicles}:
-If there exists a vehicle ahead which is either autonomous or
-semi-autonomous and is going in the same direction, it sends an anchor
-request to the IM.  If the request is confirmed, the vehicle follow
-the vehicle ahead and enter the intersection.  If the request is
-denied or there is no such vehicle ahead, the vehicle sends a
-constant-velocity request to the IM when it is close enough to the
-intersection. If it can enter the intersections by keeping the current
-velocity, the request is confirmed; otherwise, the vehicle resend the
-constant-velocity request after a few seconds, and at the same time
-decelerate enough to be able to stop before the intersection. If it
-keep failing to obtain a reservation it will stop at the intersection
-and pass the control the human driver. After that, it goes through the
-intersection according to the traffic signal.
+\item \textbf{Type SA-ACC Vehicles}: If there exists a vehicle ahead
+which is either autonomous or semi-autonomous and is going in the same
+direction, it sends an anchor request to the IM.  If the request is
+confirmed, the vehicle follows the vehicle ahead and enters the
+intersection.  If the request is denied or there is no such vehicle
+ahead, the vehicle sends a constant-velocity request to the IM when it
+is close enough to the intersection. If it can enter the intersection
+by keeping the current velocity, the request is confirmed; otherwise,
+the vehicle resends the constant-velocity request after a few seconds,
+and at the same time decelerates enough to be able to stop before the
+intersection. If it keeps failing to obtain a reservation it stops at
+the intersection and returns control to the human driver, who must
+then obey the traffic signal.
 
 \item \textbf{Type SA-CC Vehicles}:
-Send a constant-velocity request to the IM when it is close
+Sends a constant-velocity request to the IM when it is close
 enough to the intersection. If it can enter the intersections by
 keeping the current velocity, the request is confirmed; otherwise, the
-vehicle resend the request after a few seconds, and at the same time
-decelerate enough to be able to stop before the intersection. If it
-keep failing to obtain a reservation it will stop at the intersection
-and pass the control the human driver. After that, it goes through the
-intersection according to the traffic signal.
+vehicle resends the request after a few seconds, and at the same time
+decelerates enough to be able to stop before the intersection. 
+If it keeps failing to obtain a reservation it stops at
+the intersection and returns control to the human driver, who must
+then obey the traffic signal.
 
 \item \textbf{Type SA-Com Vehicles}:
-Send a whole-row request to the IM.  If the entire lane is
-available, the request is confirmed; otherwise, the vehicle resend the
-request after a few seconds, and at the same time decelerate enough to
-be able to stop before the intersection. If it keep failing to obtain
-a reservation it will stop at the intersection and pass the control
-the human driver. After that, it goes through the intersection
-according to the traffic signal.
+Sends a whole-row request to the IM.  If the entire lane is
+available, the request is confirmed; otherwise, the vehicle resends the
+request after a few seconds, and at the same time decelerates enough to
+be able to stop before the intersection. 
+If it keeps failing to obtain a reservation it stops at
+the intersection and returns control to the human driver, who must
+then obey the traffic signal.
 \end{small_ind_s_itemize}
 
 Our experiments were conducted in a $3 \times 3$ intersection (3 lanes
-in each direction) as shown in Figure~\ref{fig:simulator}.  In all but
-one simulations, the simulator spawns vehicles in each lane according
-to a Poisson distribution with the expectation of 360 vehicles per
+in each direction) as shown in Figure~\ref{fig:simulator}.  Unless otherwise specifice, the simulator spawns vehicles in each lane according
+to a Poisson distribution with an expectation of 360 vehicles per
 hour.  We denote this setting as traffic level = 360
-vehicles/hour/lane.  We choose this traffic level as being high enough
+vehicles/hour/lane.  We chose this traffic level as being heavy enough
 to cause significant delays at signals, but light enough to allow for
 benefits even if cars are not precisely
 controlled. Figure~\ref{fig:request540} examines higher traffic
@@ -70,16 +68,17 @@ in \cite{bib:Dresner08Multiagent}. For all the vehicles, both the
 static buffer and the edge time buffer are 0.25 meters (see
 \cite{bib:Dresner08Multiagent} for details), when auto-controlled.
 
-Traffic signals are being used as a fallback strategy when
-(semi-)autonomous cannot get a reservation.  We used an
+Traffic signals are used as a fallback strategy when
+(semi-)autonomous vehicles cannot get a reservation.  We used an
 \emph{optimized} phase plan for traffic signals in
-Table~\ref{table:phase}, which is generated by SYNCHRO, a professional
-traffic optimization software.  According to this plan, there is a 30
+Table~\ref{table:phase}, which is generated by SYNCHRO, a commercial 
+traffic optimization package.  According to this plan, there is a 30
 second green phase for traffic coming from East and West, followed by
 a 3 second yellow phase and a 5 second red phase.  Then, there is a 8
 second green phase for traffic from South direction only, followed by
 a 3 second yellow phase and a 5 second red phase, etc.  The timing of
-other phases are shown in Table~\ref{table:phase}.
+all phases is shown in Table~\ref{table:phase}.
+\commentp{I still don't understand why the optimized phase plan is assymetric.  If there is the same traffic level in all directions, then why would a phase be longer in some directions than others???}
 
 \begin{table}
 \caption{The optimized phase plan for traffic signals.}
@@ -100,13 +99,13 @@ Direction & Green Phase & Yellow Phase & Red Phase \\
 \end{tabular}
 \end{table}
 
-\subsection{Experiment 1: Penetration}
+\subsection{Experiment 1: Technology Penetration}
 
-Our first experiment studies the effect of an increasing penetration
+Our first experiment studies the effect of an increasing penetration rate
 of vehicular automation technology.  Suppose human-driven vehicles are
-gradually replaced by a particular type of semi-autonomous vehicles or
-fully autonomous vehicles till all vehicles become that type, how
-better does SemiAIM perform?
+gradually replaced by a particular type of semi-autonomous vehicle or
+fully autonomous vehicle until all vehicles become that type.  We examine how
+much benefit SemiAIM provides during the transition period.
 
 In the first experiment, the traffic consisted of all three types of
 vehicles we defined in Section~\ref{sec:vehicles} as well as Type A
@@ -120,8 +119,7 @@ H's.  When the ratio is 1, the traffic has 100\% SA-ACC vehicles and
 0\% human-driven vehicles, and the average delay is 22.4s.
 When the ratio is 0.6, the traffic has 60\% SA-ACC vehicles and 40\%
 human-driven vehicles, and the average delay is 32.9s.  We
-repeated the simulation 30 times, and the simulation time in each of
-the 30 runs is 1800s.  In each run, we measured the average
+repeated the simulation 30 times for 1800s during each time.  For each run, we measured the average
 delay of all vehicles.  Each data point in Figure~\ref{fig:two360} is
 an average of 30 values, and the error bar on each data point is the
 95\% confident interval of the average delay.
@@ -140,29 +138,29 @@ when the ratio to human-driven vehicles is below 40\%.  However, when
 the ratio increases beyond 40\%, fully autonomous vehicles
 increasingly outperform semi-autonomous vehicles.  Previous studies
 showed that FCFS-Signal needs at least 90\% of fully autonomous
-vehicles in the traffic in order to be
+vehicles in the traffic in order to be fully 
 effective~\cite{bib:Dresner07Sharing}.  We successfully replicate the
-result by showing that the average delay drops rapidly when the
-traffic has more than 90\% of fully autonomous vehicles, and closes to
+result, observing that the average delay drops rapidly when the
+traffic has more than 90\%  fully autonomous vehicles, and approaches
 zero when all vehicles are fully autonomous.  Semi-autonomous vehicles
 cannot achieve the same dramatic decrease in traffic delay, but they,
 with the help of SemiAIM, manage to reduce the delay by 46\% (from
-39.9s to 22.4s at 1.0 ratio).  As we expected, in the presence of
-semi-autonomous vehicles, SemiAIM will provide significant advantages
+39.9s to 22.4s at 1.0 ratio) compared to human-driven vehicles.  As expected, in the presence of
+semi-autonomous vehicles, SemiAIM provides significant advantages
 even when there are no fully autonomous vehicles on the road.
-Semi-autonomous traffic cannot perform as well as fully autonomous
-traffic under SemiAIM, but it is reasonable because the goal of
-SemiAIM is not to replace AIM, but rather to provide many of its
-benefits prior in the time period between today, when most cars are
-driven fully manually, and the time when all cars are fully
-autonomous.  To do so, it leverages features of semi-autonomy, that we
-expect will be widespread much sooner than full autonomy.
+%Semi-autonomous traffic cannot perform as well as fully autonomous
+%traffic under SemiAIM, but it is reasonable because the goal of
+%SemiAIM is not to replace AIM, but rather to provide many of its
+%benefits prior in the time period between today, when most cars are
+%driven fully manually, and the time when all cars are fully
+%autonomous.  To do so, it leverages features of semi-autonomy, that we
+%expect will be widespread much sooner than full autonomy.
 
 Another observation is that both Type SA-ACC and Type SA-CC vehicles
 have a significantly lower average delay than Type SA-Com vehicles.
 The difference is consistent with our hypothesis that the use of more
 constrained requests can increase the performance of intersections
-since the footprint of the vehicles are smaller and more vehicles can
+since the footprints of the vehicles are smaller and more vehicles can
 enter the intersection at the same time.  Nonetheless, the difference
 is small because the simulated human drivers in the simulator can
 control their vehicles quite well.
