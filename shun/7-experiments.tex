@@ -3,93 +3,66 @@
 
 To demonstrate the feasibility of SemiAIM as well as evaluate the
 hypothesis that SemiAIM can offer substantial improvements over
-traffic signals and FCFS-Signal, we modified the AIM4 simulator at
-\url{http://www.cs.utexas.edu/~aim} to simulate the behavior of
-vehicles in the constraint-based reservation system and measured the
-average delays of vehicles under (1) AIM, (2) SemiAIM, and (3) traffic
-signals with optimized signal timing.  In all experiments,
-we spawn vehicles in each lane according to a Poisson distribution with the
-expectation of 360 vehicles per hour.  We denote this setting as
-traffic level = 360 vehicles/hour/lane.\footnote{We choose this
-traffic level as being high enough to cause significant delays at
-signals, but light enough to allow for benefits even if cars are not
-precisely controlled. Figure~\ref{fig:request540} examines higher traffic
-levels.} We assume the intersection is fully observable to the intersection
-manager.
+traffic signals and FCFS-Signal, we conducted a series of experiments
+with the modified AIM4 simulator that simulates the behavior of
+vehicles in the constraint-based reservation system.
 
 The implementation of fully autonomous vehicles (Type A) and
 human-driven vehicles (Type H) can be referenced from
-\cite{bib:Dresner08Multiagent}. The semi-autonomous vehicles can be
-implemented according to their description in
-Section~\ref{sec:vehicles}. The concrete implementation is as follows.
+\cite{bib:Dresner08Multiagent}.  The concrete implementations of the
+semi-autonomous vehicles, as described in Section~\ref{sec:vehicles},
+are as follows.
 
-\noindent \textbf{Type SA-ACC Vehicles}:
-\begin{enumerate}
-  \setlength{\itemsep}{1pt}
-  \setlength{\parskip}{0pt}
-  \setlength{\parsep}{0pt}
+\begin{small_ind_s_itemize}
 
-\item Type SA-ACC vehicle proposes an anchor request. If the vehicle
-  ahead is autonomous or semi-autonomous and is going in the same
-direction.
+\item \textbf{Type SA-ACC Vehicles}:
+If there exists a vehicle ahead which is either autonomous or
+semi-autonomous and is going in the same direction, it sends an anchor
+request to the IM.  If the request is confirmed, the vehicle follow
+the vehicle ahead and enter the intersection.  If the request is
+denied or there is no such vehicle ahead, the vehicle sends a
+constant-velocity request to the IM when it is close enough to the
+intersection. If it can enter the intersections by keeping the current
+velocity, the request is confirmed; otherwise, the vehicle resend the
+constant-velocity request after a few seconds, and at the same time
+decelerate enough to be able to stop before the intersection. If it
+keep failing to obtain a reservation it will stop at the intersection
+and pass the control the human driver. After that, it goes through the
+intersection according to the traffic signal.
 
-if they can both get reservations, the request is
-confirmed. The vehicle can follow the front vehicle and enter the
-intersection.
+\item \textbf{Type SA-CC Vehicles}:
+Send a constant-velocity request to the IM when it is close
+enough to the intersection. If it can enter the intersections by
+keeping the current velocity, the request is confirmed; otherwise, the
+vehicle resend the request after a few seconds, and at the same time
+decelerate enough to be able to stop before the intersection. If it
+keep failing to obtain a reservation it will stop at the intersection
+and pass the control the human driver. After that, it goes through the
+intersection according to the traffic signal.
 
-\item If the anchor request is denied, it can propose a
-constant-velocity request. If keeping the current velocity it can
-safely traverse the intersection, the request is confirmed.
+\item \textbf{Type SA-Com Vehicles}:
+Send a whole-row request to the IM.  If the entire lane is
+available, the request is confirmed; otherwise, the vehicle resend the
+request after a few seconds, and at the same time decelerate enough to
+be able to stop before the intersection. If it keep failing to obtain
+a reservation it will stop at the intersection and pass the control
+the human driver. After that, it goes through the intersection
+according to the traffic signal.
+\end{small_ind_s_itemize}
 
-\item If the constant-velocity request is denied, it can propose a
-whole-row request. If there is no conflict and the vehicle can enter
-the intersection directly, the request is confirmed.
+Our experiments were conducted in a $3 \times 3$ intersection (3 lanes
+in each direction) as shown in Figure~\ref{fig:simulator}.  In all but
+one simulations, the simulator spawns vehicles in each lane according
+to a Poisson distribution with the expectation of 360 vehicles per
+hour.  We denote this setting as traffic level = 360
+vehicles/hour/lane.\footnote{We choose this traffic level as being
+high enough to cause significant delays at signals, but light enough
+to allow for benefits even if cars are not precisely
+controlled. Figure~\ref{fig:request540} examines higher traffic
+levels.} We assume the intersection is fully observable to the
+intersection manager.
 
-\item If denied again, the car must decelerate enough to be able to
-stop before the intersection.  It can retry step 3 or pass control to
-the human.
-
-\end{enumerate}
-
-\noindent
-\textbf{Type SA-CC Vehicles} mainly utilize simple cruise control as follows.
-\begin{enumerate}
-  \setlength{\itemsep}{1pt}
-  \setlength{\parskip}{0pt}
-  \setlength{\parsep}{0pt}
-\item Such a vehicle can propose a constant-velocity request. If it
-can enter the intersection by keeping the current velocity, the
-request is confirmed.
-
-\item If the constant-velocity request is denied, it can propose a whole-row
-  request. If the entire lane is available, the request is confirmed.
-
-\item If denied again, the car must decelerate enough to be able to
-stop before the intersection.  It can retry step 2 or pass control to
-the human.
-
-\end{enumerate}
-
-\noindent
-\textbf{Type SA-Com Vehicles} utilize only communication devices
-to make reservations:
-\begin{enumerate}
-  \setlength{\itemsep}{1pt}
-  \setlength{\parskip}{0pt}
-  \setlength{\parsep}{0pt}
-\item Such a vehicle can propose a whole-row request.  If the entire
-lane is available, the request is confirmed.
-
-\item If denied again, the car must decelerate enough to be able to
-stop before the intersection.  It can retry step 1 or pass control to
-the human.
-
-\end{enumerate}
-
-
-All experiments are conducted in a $3 \times 3$ intersection (3 lanes
-in each direction) as shown in Figure~\ref{fig:simulator}.  The
-performance of an intersection is measured by the \emph{average
+The performance of an intersection is measured by the \emph{average
 delay}, where delay is computed as the increase in travel time
 compared to traversing the intersection without slowing down at all,
 as if no other vehicles were on the road. Thus, lower delays
@@ -98,28 +71,9 @@ in \cite{bib:Dresner08Multiagent}. For all the vehicles, both the
 static buffer and the edge time buffer are 0.25 meters (see
 \cite{bib:Dresner08Multiagent} for details), when auto-controlled.
 
-
-
-% \begin{enumerate}
-
-% \item Type SA-ACC: the IM reserves the tiles the vehicle needs to
-% occupy directly following the vehicle in front of it, if they are
-% heading for same exit lane. If the tiles are successfully reserved,
-% the IM confirms the reservation.
-
-% \item Type SA-CC: the IM tries to reserve the tiles the vehicle needs
-% to occupy if it moves in a constant velocity without making a turn.
-% If the tiles are successfully reserved, the IM confirms the
-% reservation.
- 
-% \item Type SA-Com: the IM tries to reserve all the tiles in the
-% trajectory that a vehicle would occupy.  If the tiles are successfully
-% reserved, the IM confirms the reservation.
-
-% \end{enumerate}
-
-When traffic signals are used, we used an \emph{optimized} phase plan
-for traffic signals in Table~\ref{table:phase}, which is generated by
+Traffic signals are being used as a fallback when (semi-)autonomous
+cannot get a reservation.  We used an \emph{optimized} phase plan for
+traffic signals in Table~\ref{table:phase}, which is generated by
 SYNCHRO, a professional traffic optimization software.  According to
 this plan, there is a 30 second green phase for traffic coming from
 East and West, followed by a 3 second yellow phase and a 5 second red
@@ -146,8 +100,6 @@ Direction & Green Phase & Yellow Phase & Red Phase \\
 \hline
 \end{tabular}
 \end{table}
-
-% \subsection{Experiment 1: Dichotomous Traffic}
 
 \subsection{Experiment 1: Penetration}
 
