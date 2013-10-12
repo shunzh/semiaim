@@ -5,8 +5,8 @@ SemiAIM extends AIM by allowing human-driven vehicles and
 semi-autonomous vehicles to make reservations in the same way as
 fully autonomous vehicles.  The key idea of SemiAIM is to turn AIM into a
 \emph{constraint-based reservation system}, which allows vehicles to
-make reservations in terms of constraints over (1) their driving
-profiles such as their arrival time and arrival velocity, and (2) the
+make reservations in terms of constraints over 1) their driving
+profiles such as their arrival time and arrival velocity, and 2) the
 relationships with other vehicles.
 
 In AIM, a reservation request is a $5$-tuple $\langle l_1, l_2, t_0,
@@ -40,7 +40,7 @@ For simple cruise control, the maneuverability profile is
 written in Lisp syntax as follows:
 {\small
 \begin{verbatim}
-(cc-profile (v verror angle )
+(cc-profile (v verror angle)
   (is-auto-speed-control)
   (not is-auto-steering)
   (< velocity (+ v verror))
@@ -65,15 +65,15 @@ control is
 \end{verbatim}
 }
 \noindent
-where \texttt{vin} is the vehicle number of the vehicle ahead,
-\texttt{d} is the target distance from \texttt{vin}, \texttt{derror}
+where \texttt{vin} is the vehicle id of the vehicle ahead,
+\texttt{d} is the target distance from the vehicle ahead, \texttt{derror}
 is the maximum error for acc to maintain the target distance from
 \texttt{vin}, and \texttt{angle} is the maximum feasible steering
 angle for the human driver.
 
 Other types of semi-autonomous vehicles have their own maneuverability
 profiles.  When a driver agent makes a reservation request, it is
-responsible for ensuring that the trajectories encoded by the
+their responsibility for ensuring that the trajectories encoded by the
 reservation request \emph{satisfy} all constraints in the
 maneuverability profile.
 
@@ -92,12 +92,12 @@ requests as follows.  A request message consists of four components:
 \setlength{\topsep}{0em}
 \setlength{\parsep}{0em}
 \setlength{\parskip}{0pt}
-\item{\bf Intention}. The direction in which the vehicle intends to
+\item{\bf Intention}: The direction in which the vehicle intends to
   move.
-\item{\bf Vehicle Type}. The type of vehicle.
-\item{\bf Entry Condition}. The condition under which the vehicle
+\item{\bf Vehicle Type}: The type of vehicle.
+\item{\bf Entry Condition}: The condition under which the vehicle
   will enter the intersection.
-\item{\bf Acceleration Profile List}. The list of possible schedules
+\item{\bf Acceleration Profile List}: The list of possible schedules
   of acceleration among which the vehicle will choose one to follow
   during the traversal of the intersection.
 \end{enumerate}
@@ -108,7 +108,7 @@ and road identifiers: $(l_1 \vee l_2 \ldots \vee r_1 \vee r_2)$, where
 $l_i$ is an exit lane and $r_i$ is an exit road. For every lane $l_i$,
 there exists only one $r_j$ such that $l_i \in r_j$. 
 Examples of legal intentions are $(l_1 \vee l_3)$ or
-$(r_1)$.\footnote{An intention in the form of $r_i \vee r_j$ is also possible,
+$(r_1)$.\footnote{An intention in the form of $(r_i \vee r_j)$ is also possible,
 especially for multiple-intersection management, which involves path
 planning. In this case, the vehicle is proposing two directions to go
 and the IM will respond with a confirmation message for either one. We
@@ -127,8 +127,8 @@ a database of vehicle types.
 
 The entry condition is the condition under which a vehicle enters an
 intersection.  An \emph{entry statement} is used to describe the entry
-condition. An entry statement consists of three parts: the arrival
-lane condition, the arrival time constraint and the arrival velocity
+condition. An entry statement consists of three parts: an arrival
+lane condition, an arrival time constraint, and an arrival velocity
 constraint.  An \emph{arrival lane condition} states the possible lanes
 from which the vehicle will enter the intersection.  It is a disjunction of
 labels: $(l_1 \vee l_2 \vee \ldots \vee l_n)$ where $l_i$ is a
@@ -140,7 +140,7 @@ a vehicle will be between $v_1$ and $v_2$.  An entry statement is a
 $3$-tuple $\langle (l_1 \vee l_2 \vee \ldots \vee l_n), [t_1,\ t_2],
 [v_1,\ v_2] \rangle$.
 
-An \emph{acceleration profile} is the schedule of accelerations the
+An \emph{acceleration profile} is the schedule of acceleration the
 vehicle will use to accelerate through the intersection on a
 trajectory. An acceleration profile is a list of pairs $\langle (t_1,
 a_1), (t_2, a_2), \ldots, (t_n, a_n) \rangle \in A$, where $A$ denotes
@@ -169,34 +169,34 @@ Type SA-CC and Type SA-Com vehicles, respectively:
 
 \begin{small_ind_s_itemize}
 \item A \textbf{constant-velocity request}
-is $\langle {\sf Intent}, {\sf Type}, {\sf Entry}, {\sf AccProf} \rangle$,
+is $\langle {\sf Intent}, {\sf Type}, {\sf Entry}, {\sf AP} \rangle$,
 where
 ${\sf Intent} = ( l_1 \vee l_2 \vee \ldots \vee l_n )$
 in which $l_i$ is a possible lane from which the vehicle 
-enters the intersection;
+exits the intersection;
 ${\sf Type}$ is the vehicle type;
-${\sf Entry} = ({\sf Intent}, [t_1,\ t_2], [v_1,\ v_2])$
+${\sf Entry} = (( l'_1 \vee l'_2 \vee \ldots \vee l'_n ), [t_1,\ t_2], [v_1,\ v_2])$
 is the entry statement; and
-${\sf AccProf} = ( \langle (t_1, 0) \rangle )$
+${\sf AP} = ( \langle (t_1, 0) \rangle )$
 is the acceleration profile list.
-Since the acceleration in ${\sf AccProf}$
+Since the acceleration in ${\sf AP}$
 is always zero, the vehicle will move at a constant velocity.
 
 \item A \textbf{whole-row request}
-is $\langle {\sf Intent}, {\sf Type}, {\sf Entry}, {\sf AccProf} \rangle$,
+is $\langle {\sf Intent}, {\sf Type}, {\sf Entry}, {\sf AP} \rangle$,
 where
 ${\sf Intent} = ( l_1 \vee l_2 \vee \ldots \vee l_n )$
 in which $l_i$ is a possible lane from which the vehicle 
-enters the intersection;
+exits the intersection;
 ${\sf Type}$ is the vehicle type;
-${\sf Entry} = ({\sf Intent}, [t_1,\ t_2], [v_1,\ v_2])$
+${\sf Entry} = (( l'_1 \vee l'_2 \vee \ldots \vee l'_n ), [t_1,\ t_2], [v_1,\ v_2])$
 is the entry statement; and
-${\sf AccProf}$ is the acceleration profile list.
+${\sf AP}$ is the acceleration profile list.
 In order to reserve the entire row in an intersection,
 the difference between $t_1$ and $t_2$ 
 as well as the difference between $v_1$ and $v_2$
 must be large enough to cover the entire row,
-regardless of the acceleration profile.
+regardless of the acceleration profiles.
 \end{small_ind_s_itemize}
 
 Unlike AIM's reservation requests which always correspond to a
@@ -223,7 +223,7 @@ Semi-autonomous vehicles with adaptive cruise control can use a special
 constraint-based request called \emph{anchor requests} to make
 reservations. An anchor request is $\langle {\sf Type}, \texttt{vin},
 d \rangle$, where ${\sf Type}$ is the vehicle type, \texttt{vin} is
-the vehicle number of the vehicle ahead, and $d$ is the following
+the vehicle id of the vehicle ahead, and $d$ is the following
 distance from the vehicle of \texttt{vin}.  For example, an anchor
 request $\langle \texttt{truck-with-acc}, \texttt{GXC345}, {\tt 5m}
 \rangle$ states that the vehicle will follow the vehicle with a

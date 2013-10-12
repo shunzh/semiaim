@@ -70,13 +70,12 @@ in \cite{bib:Dresner08Multiagent}. For all the vehicles, both the
 static buffer and the edge time buffer are 0.25 meters (see
 \cite{bib:Dresner08Multiagent} for details), when auto-controlled.
 
-Traffic signals are used as a fallback strategy when (semi-)autonomous
-vehicles cannot get a reservation.  We used an \emph{optimized}
-6-phase signal schedule that includes relatively long green times
-(roughly 35 seconds) for East-West and North-South phases, and shorter
-phases for each of the four single direction phases (roughly 9
-seconds). It was optimized using SYNCHRO, a commercial traffic
-optimization package.
+Traffic signals are used as a fallback strategy when vehicles cannot
+get a reservation.  We used an \emph{optimized} 6-phase signal
+schedule that includes relatively long green times (roughly 35
+seconds) for East-West and North-South phases, and shorter phases for
+each of the four single direction phases (roughly 9 seconds). It was
+optimized using SYNCHRO, a commercial traffic optimization package.
 
 % According to this plan, there is a 30
 % second green phase for traffic coming from East and West, followed by
@@ -134,13 +133,14 @@ level at 360 vehicles/hour/lane. As an example, consider the line for
 Type SA-ACC vehicles. At the origin, there are 0\% SA-ACC vehicles and
 100\% human-driven vehicles, and the average delay is the same as Type
 H's.  When the ratio is 1, the traffic has 100\% SA-ACC vehicles and
-0\% human-driven vehicles, and the average delay is 22.4s.
-When the ratio is 0.6, the traffic has 60\% SA-ACC vehicles and 40\%
-human-driven vehicles, and the average delay is 32.9s.  We
-repeated the simulation 30 times for 1800s during each time.  For each run, we measured the average
-delay of all vehicles.  Each data point in Figure~\ref{fig:two360} is
-an average of 30 values, and the error bar on each data point is the
-95\% confident interval of the average delay.
+0\% human-driven vehicles, and the average delay is 22.4s.  When the
+ratio is 0.6, the traffic has 60\% SA-ACC vehicles and 40\%
+human-driven vehicles, and the average delay is 32.9s.  We repeated
+the simulation 30 times for 1800s during each time.  For each run, we
+measured the average delay of all vehicles.  Each data point in
+Figure~\ref{fig:two360} is an average of 30 values, and the error bar
+on each data point is the 95\% confident interval of the average
+delay.
 
 \begin{figure}
 \centering
