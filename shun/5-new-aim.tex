@@ -97,8 +97,9 @@ requests as follows.  A request message consists of four components:
 \item{\bf Vehicle Type}. The type of vehicle.
 \item{\bf Entry Condition}. The condition under which the vehicle
   will enter the intersection.
-\item{\bf Acceleration Profile List}. The schedule of acceleration
-  the vehicle plans to use to enter an intersection.
+\item{\bf Acceleration Profile List}. The list of possible schedules
+  of acceleration among which the vehicle will choose one to follow
+  during the traversal of the intersection.
 \end{enumerate}
 The intention of a vehicle is the direction in which the vehicle wants
 to exit from an intersection.  The intention is expressed as an
@@ -168,7 +169,7 @@ Type SA-CC and Type SA-Com vehicles, respectively:
 
 \begin{small_ind_s_itemize}
 \item A \textbf{constant-velocity request}
-is $\langle {\sf Intent}, {\sf Type}, {\sf Entry},$ ${\sf AccProfile} \rangle$,
+is $\langle {\sf Intent}, {\sf Type}, {\sf Entry}, {\sf AccProf} \rangle$,
 where
 ${\sf Intent} = ( l_1 \vee l_2 \vee \ldots \vee l_n )$
 in which $l_i$ is a possible lane from which the vehicle 
@@ -176,13 +177,13 @@ enters the intersection;
 ${\sf Type}$ is the vehicle type;
 ${\sf Entry} = ({\sf Intent}, [t_1,\ t_2], [v_1,\ v_2])$
 is the entry statement; and
-${\sf AccProfile} = \langle (t_1, 0) \rangle$
-is the acceleration profile.
-Since the acceleration in ${\sf AccProfile}$
+${\sf AccProf} = ( \langle (t_1, 0) \rangle )$
+is the acceleration profile list.
+Since the acceleration in ${\sf AccProf}$
 is always zero, the vehicle will move at a constant velocity.
 
 \item A \textbf{whole-row request}
-is $\langle {\sf Intent}, {\sf Type}, {\sf Entry},$ ${\sf AccProfile} \rangle$,
+is $\langle {\sf Intent}, {\sf Type}, {\sf Entry}, {\sf AccProf} \rangle$,
 where
 ${\sf Intent} = ( l_1 \vee l_2 \vee \ldots \vee l_n )$
 in which $l_i$ is a possible lane from which the vehicle 
@@ -190,7 +191,7 @@ enters the intersection;
 ${\sf Type}$ is the vehicle type;
 ${\sf Entry} = ({\sf Intent}, [t_1,\ t_2], [v_1,\ v_2])$
 is the entry statement; and
-${\sf AccProfile}$ is an acceleration profile.
+${\sf AccProf}$ is the acceleration profile list.
 In order to reserve the entire row in an intersection,
 the difference between $t_1$ and $t_2$ 
 as well as the difference between $v_1$ and $v_2$
