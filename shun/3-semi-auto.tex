@@ -116,15 +116,18 @@ vehicle can utilize several devices at the same time.  In general,
 having additional equipment provides additional potential advantages
 over manually driven cars.  Since adaptive cruise control can work as
 simple cruise control, Type SA-ACC vehicles subsume Type SA-CC
-vehicles, which in turn subsume Type SA-Com vehicles because the human
-driver can always opt to simply follow the traffic signals without
-using cruise control if engaging the equipment is too distracting at
-any given time.
+vehicles, which in turn subsume Type SA-Com vehicles.  Of course, all
+these vehicles can be manual-driven, because the human driver can
+always opt to simply follow the traffic signals without using cruise
+control, especially when engaging the equipment is too distracting.
+
+% at any given time.
 
 \begin{table}
 \centering
 \caption{Features of semi-autonomous vehicles.}
 \label{table:type}
+\small
 \begin{tabular}{|c|c|c|c|}
   \hline
   Vehicle Type & Communication & Cruise & Adaptive \\
@@ -141,14 +144,15 @@ any given time.
 \end{table}
 
 Figure~\ref{fig:simulator} shows a screenshot of the SemiAIM simulator
-we developed to simulate semi-autonomous vehicles at intersections.\footnote{Modified from the open-source AIM4 simulator: \url{http://www.cs.utexas.edu/~aim}}.
-In this figure, the yellow vehicles are fully autonomous, the green
-vehicles are Type SA-ACC, the blue vehicles are Type SA-CC, the white
-vehicles are Type SA-Com, and the magenta vehicles are human-driven
-vehicles.  Notice that although the traffic signals at the
-intersection are red (see the red dots at the edges of the
-intersection), fully autonomous vehicles can still enter the
-intersection. In fact, all vehicles except the human-driven vehicles
+we developed to simulate semi-autonomous vehicles at
+intersections.\footnote{Modified from the open-source AIM4 simulator:
+\url{http://www.cs.utexas.edu/~aim}}.  In this figure, the yellow
+vehicles are fully autonomous, the green vehicles are Type SA-ACC, the
+blue vehicles are Type SA-CC, the white vehicles are Type SA-Com, and
+the magenta vehicles are human-driven vehicles.  Although the traffic
+signals at the intersection are red (see the red dots at the edges of
+the intersection), fully autonomous vehicles can still enter the
+intersection. Actually, all vehicles except the human-driven vehicles
 are eligible to enter the intersection as long as they get
 reservations from the IM.
 

@@ -19,8 +19,9 @@ which is either autonomous or semi-autonomous and is going in the same
 direction, it sends an anchor request to the IM.  If the request is
 confirmed, the vehicle follows the vehicle ahead and enters the
 intersection.  If the request is denied or there is no such vehicle
-ahead, the vehicle sends a constant-velocity request to the IM when it
-is close enough to the intersection. If it can enter the intersection
+ahead, the vehicle sends a constant-velocity request to the IM instead.
+% when it is close enough to the intersection.  
+If it can enter the intersection
 by keeping the current velocity, the request is confirmed; otherwise,
 the vehicle resends the constant-velocity request after a few seconds,
 and at the same time decelerates enough to be able to stop before the
@@ -124,49 +125,58 @@ gradually replaced by a particular type of semi-autonomous vehicle or
 fully autonomous vehicle until all vehicles become that type.  We examine how
 much benefit SemiAIM provides during the transition period.
 
-In the first experiment, the traffic consisted of all three types of
+In this experiment, the traffic consisted of one of the three types of
 vehicles we defined in Section~\ref{sec:vehicles} as well as Type A
-and Type H vehicles.  The results are in Figure~\ref{fig:two360}.  In
-this experiment, we gradually increased the ratio of (semi-)autonomous
-vehicles to human-driven vehicles (Type H) while keeping the traffic
-level at 360 vehicles/hour/lane. As an example, consider the line for
-Type SA-ACC vehicles. At the origin, there are 0\% SA-ACC vehicles and
-100\% human-driven vehicles, and the average delay is the same as Type
-H's.  When the ratio is 1, the traffic has 100\% SA-ACC vehicles and
-0\% human-driven vehicles, and the average delay is 22.4s.  When the
-ratio is 0.6, the traffic has 60\% SA-ACC vehicles and 40\%
-human-driven vehicles, and the average delay is 32.9s.  We repeated
-the simulation 30 times for 1800s during each time.  For each run, we
-measured the average delay of all vehicles.  Each data point in
-Figure~\ref{fig:two360} is an average of 30 values, and the error bar
-on each data point is the 95\% confident interval of the average
-delay.
+and Type H vehicles.  We measured the traffic delay as we gradually
+increased the ratio of (semi-)autonomous vehicles to human-driven
+vehicles (Type H) while keeping the traffic level at 360
+vehicles/hour/lane.  As an example, consider the ratio of Type SA-ACC
+vehicles.  At the beginning, there are 0\% Type SA-ACC vehicles and
+100\% human-driven vehicles, and the ratio is 0.  As the number of
+Type SA-ACC vehicles increases, the ratio increases and eventually
+becomes 1, which means there are 100\% Type SA-ACC vehicles and 0\%
+human-driven vehicles.  We repeated the simulation 30 times for 1800s
+during each time.  For each run, we measured the average delay of all
+vehicles.  The average delays are shown in Figure~\ref{fig:two360}.
+Each data point in the figure is an average of 30 values, and the
+error bar is the 95\% confident interval of the average delay.
+ 
+% , and the average delay is the same as Type
+% H's.  When the ratio is 1, the traffic has 100\% SA-ACC vehicles and
+% 0\% human-driven vehicles, and the average delay is 22.4s.
+
+% When the
+% ratio is 0.6, the traffic has 60\% SA-ACC vehicles and 40\%
+% human-driven vehicles, and the average delay is 32.9s.  
+
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\columnwidth]{figures/figure_1.png}
+\includegraphics[width=0.9\columnwidth]{figures/figure_1.png}
 \caption{(Semi-)Autonomous vehicles vs. Human-Driven vehicles. Traffic
 level = 360 vehicles/lane/hour.}
 \label{fig:two360}
 \vspace{-.2in}
 \end{figure}
 
-In Figure~\ref{fig:two360}, we observe that the performance of
+According to Figure~\ref{fig:two360}, the performance of
 semi-autonomous vehicles is very similar to fully autonomous vehicles
 when the ratio to human-driven vehicles is below 40\%.  However, when
 the ratio increases beyond 40\%, fully autonomous vehicles
 increasingly outperform semi-autonomous vehicles.  Previous studies
 showed that FCFS-Signal needs at least 90\% of fully autonomous
-vehicles in the traffic in order to be fully 
+vehicles in the traffic in order to be fully
 effective~\cite{bib:Dresner07Sharing}.  We successfully replicate the
 result, observing that the average delay drops rapidly when the
 traffic has more than 90\% fully autonomous vehicles, and approaches
 zero when all vehicles are fully autonomous.  Semi-autonomous vehicles
 cannot achieve the same dramatic decrease in traffic delay, but they,
 with the help of SemiAIM, manage to reduce the delay by 46\% (from
-39.9s to 22.4s at 1.0 ratio) compared to human-driven vehicles.  As expected, in the presence of
-semi-autonomous vehicles, SemiAIM provides significant advantages
-even when there are no fully autonomous vehicles on the road.
+39.9s to 22.4s) compared to human-driven vehicles.  As expected, in
+the presence of semi-autonomous vehicles, SemiAIM provides significant
+advantages even when there are no fully autonomous vehicles on the
+road.
+
 %Semi-autonomous traffic cannot perform as well as fully autonomous
 %traffic under SemiAIM, but it is reasonable because the goal of
 %SemiAIM is not to replace AIM, but rather to provide many of its
@@ -338,7 +348,7 @@ themselves.
 \begin{figure}[t]
 
 \centering
-\includegraphics[width=0.8\columnwidth]{figures/figure_3.png}
+\includegraphics[width=0.9\columnwidth]{figures/figure_3.png}
 \caption{The average delay according to the 
 deployment schedule in Table~\ref{table:3}.
 Traffic level = 360 vehicles/lane/hour.}
@@ -347,7 +357,7 @@ Traffic level = 360 vehicles/lane/hour.}
 \mbox{}
 
 \centering
-\includegraphics[width=0.8\columnwidth]{figures/figure_4.png}
+\includegraphics[width=0.9\columnwidth]{figures/figure_4.png}
 \caption{The average delay according to the 
 deployment schedule in Table~\ref{table:4}.
 Traffic level = 360 vehicles/lane/hour.}
@@ -390,22 +400,21 @@ Section~\ref{sec:constraint} will be common if SemiAIM is deployed in
 the real world.  Our third experiment compares the performance of
 different types of requests and checks the hypothesis that requests
 that reserve fewer tiles will perform better.  The setup of this
-experiment is the same as Experiment~1 except that 1) a vehicle can
-only use one particular types of request when making reservations; and
-2) two traffic levels are examined.  The three request types we
-considered are: anchor requests, constant-velocity requests, and
-whole-row requests. As a comparison, we included \emph{AIM requests}
-which are used by fully autonomous vehicles to make reservations under
-AIM. Each request type needs a (semi-)autonomous vehicle as a
-substrate.  Anchor requests require vehicles to be equipped with ACC;
-constant-velocity requests need vehicles with simple cruise control;
-whole-row requests need vehicles with some communication devices; and
-AIM requests require the vehicle to be fully autonomous.  Note that
-these vehicles are not exactly SA-ACC, SA-CC, and SA-Com, since they
-use the same fallback mechanism.  In particular, unlike SA-ACC, the
-vehicles that make anchor requests will not issue any
-constant-velocity requests if it keeps failing to obtain a
-reservation.
+experiment is the same as Experiment~1 except that 1) the architecture
+of the driver agents are the same in all simulations; and 2) two
+traffic levels are examined.  The three request types we considered
+are: anchor requests, constant-velocity requests, and whole-row
+requests. As a comparison, we included \emph{AIM requests} which are
+used by fully autonomous vehicles to make reservations under AIM. Each
+request type needs a (semi-)autonomous vehicle as a substrate.  Anchor
+requests require vehicles to be equipped with ACC; constant-velocity
+requests need vehicles with simple cruise control; whole-row requests
+need vehicles with some communication devices; and AIM requests
+require the vehicle to be fully autonomous.  Note that these vehicles
+are not exactly SA-ACC, SA-CC, and SA-Com, since they use the same
+fallback mechanism.  In particular, unlike SA-ACC, the vehicles that
+make anchor requests will not issue any constant-velocity requests if
+it keeps failing to obtain a reservation.
 
 The experiment was run twice at two traffic levels: 360
 vehicles/lane/hour and 540 vehicles/lane/hour, and the results are
@@ -430,7 +439,7 @@ the performance of a request type.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\columnwidth]{figures/figure_2.png}
+\includegraphics[width=0.9\columnwidth]{figures/figure_2.png}
 \caption{Comparisons of request types.
 Traffic level = 360 vehicles/lane/hour.}
 \label{fig:request360}
@@ -438,7 +447,7 @@ Traffic level = 360 vehicles/lane/hour.}
 \mbox{}
 
 \centering
-\includegraphics[width=0.8\columnwidth]{figures/figure_5.png}
+\includegraphics[width=0.9\columnwidth]{figures/figure_5.png}
 \caption{Comparisons of request types.
 Traffic level = 540 vehicles/lane/hour.}
 \label{fig:request540}

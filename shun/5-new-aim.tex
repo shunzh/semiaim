@@ -13,15 +13,14 @@ In AIM, a reservation request is a $5$-tuple $\langle l_1, l_2, t_0,
 v_0, p\rangle$, where $l_1$ is the entry lane, $l_2$ is the exit lane,
 $t_0$ is the arrival time, $v_0$ is the arrival velocity, and $p$ is
 the physical characteristics of the vehicle.  This information allows
-the IM to compute the exact trajectory of the vehicle in the
-intersection and reserve tiles for the vehicle on the trajectory.
-However, this computation assumes the vehicle can be controlled
-\emph{precisely} in the intersection so that it can meet the
-reservation constraints exactly.  Human drivers cannot control their
-vehicles as precisely, and semi-autonomous vehicles may only be able
-to control certain aspects of their trajectories.  Therefore, we need
-a new kind of reservation requests that do not rely on this
-assumption.
+the IM to compute the exact trajectory of the vehicle and reserve
+tiles for the vehicle on the trajectory.  However, this computation
+assumes the vehicle can be controlled \emph{precisely} in the
+intersection so that it can meet the reservation constraints exactly.
+Human drivers cannot control their vehicles as precisely, and
+semi-autonomous vehicles may only be able to control certain aspects
+of their trajectories.  Therefore, we need a new kind of reservation
+requests that do not rely on this assumption.
 
 \subsection{Maneuverability Profiles} 
 
@@ -30,15 +29,15 @@ For example, adaptive cruise control can only provide autonomous
 longitudinal control, but still depends on the human driver to use the
 steering wheel to maintain the lateral control.  Hence the
 longitudinal control of Type SA-ACC vehicles can be very precise, but
-the lateral control cannot be as precise.  In fact, the human driver
-cannot make a sharp turn while the adaptive cruise control is
+the lateral control cannot be as precise.  Furthermore, the human
+driver cannot make a sharp turn while the adaptive cruise control is
 active, because the human must slow down the vehicle a lot in order to
 be able to make a sharp turn precisely.  In our system, we use a
 \emph{maneuverability profile} to encode the limitations of the
 control of human drivers when the automation devices are activated.
-For simple cruise control, the maneuverability profile is
-written in Lisp syntax as follows:
-{\small
+For simple cruise control, the maneuverability profile is written in
+Lisp syntax as follows:
+\begin{small}
 \begin{verbatim}
 (cc-profile (v verror angle)
   (is-auto-speed-control)
@@ -47,14 +46,14 @@ written in Lisp syntax as follows:
   (> velocity (- v verror))
   (< steer-angle angle) (> steer-angle -angle))
 \end{verbatim}
-}
+\end{small}
 \noindent
 where \texttt{v} is the target velocity, \texttt{verror} is the
 maximum error of the target velocity, and \texttt{angle} is the
 maximum feasible steering angle for the human driver when the cruise
 control is turned on.  The maneuverability profile for adaptive cruise
 control is
-{\small
+\begin{small}
 \begin{verbatim}
 (acc-profile (vin d derror angle)
   (is-auto-speed-control)
@@ -63,7 +62,7 @@ control is
   (> (dist-from vin) (- d derror))
   (< steer-angle angle) (> steer-angle -angle))
 \end{verbatim}
-}
+\end{small}
 \noindent
 where \texttt{vin} is the vehicle id of the vehicle ahead,
 \texttt{d} is the target distance from the vehicle ahead, \texttt{derror}
@@ -73,7 +72,7 @@ angle for the human driver.
 
 Other types of semi-autonomous vehicles have their own maneuverability
 profiles.  When a driver agent makes a reservation request, it is
-their responsibility for ensuring that the trajectories encoded by the
+his or her responsibility for ensuring that the trajectories encoded by the
 reservation request \emph{satisfy} all constraints in the
 maneuverability profile.
 
@@ -85,13 +84,11 @@ semi-autonomous vehicles, SemiAIM uses a \emph{unified}
 language for vehicles to express their constraints in the same format
 in their requests.  We define \emph{constraint-based} reservation
 requests as follows.  A request message consists of four components:
-\begin{enumerate}
-\setlength{\rightmargin}{0em}
-\setlength{\leftmargin}{1em}
-\setlength{\itemsep}{0em}
-\setlength{\topsep}{0em}
-\setlength{\parsep}{0em}
-\setlength{\parskip}{0pt}
+% \begin{enumerate}
+% \setlength{\itemsep}{0em}
+% \setlength{\topsep}{0em}
+% \setlength{\parsep}{0em}
+\begin{compactenum}
 \item{\bf Intention}: The direction in which the vehicle intends to
   move.
 \item{\bf Vehicle Type}: The type of vehicle.
@@ -100,7 +97,8 @@ requests as follows.  A request message consists of four components:
 \item{\bf Acceleration Profile List}: The list of possible schedules
   of acceleration among which the vehicle will choose one to follow
   during the traversal of the intersection.
-\end{enumerate}
+\end{compactenum}
+% \end{enumerate}
 The intention of a vehicle is the direction in which the vehicle wants
 to exit from an intersection.  The intention is expressed as an
 \emph{intention statement}, which is formally a disjunction of lane
