@@ -72,7 +72,7 @@ angle for the human driver.
 
 Other types of semi-autonomous vehicles have their own maneuverability
 profiles.  When a driver agent makes a reservation request, it is
-his or her responsibility for ensuring that the trajectories encoded by the
+his or her responsibility to ensure that the trajectories encoded by the
 reservation request \emph{satisfy} all constraints in the
 maneuverability profile.
 
@@ -94,8 +94,8 @@ requests as follows.  A request message consists of four components:
 \item{\bf Vehicle Type}: The type of vehicle.
 \item{\bf Entry Condition}: The condition under which the vehicle
   will enter the intersection.
-\item{\bf Acceleration Profile List}: The list of possible schedules
-  of acceleration among which the vehicle will choose one to follow
+\item{\bf Acceleration Profile List}: The list of possible acceleration schedules
+  from among which the vehicle will choose one to follow
   during the traversal of the intersection.
 \end{compactenum}
 % \end{enumerate}
@@ -138,7 +138,7 @@ a vehicle will be between $v_1$ and $v_2$.  An entry statement is a
 $3$-tuple $\langle (l_1 \vee l_2 \vee \ldots \vee l_n), [t_1,\ t_2],
 [v_1,\ v_2] \rangle$.
 
-An \emph{acceleration profile} is the schedule of acceleration the
+An \emph{acceleration profile} is the acceleration schedule the
 vehicle will use to accelerate through the intersection on a
 trajectory. An acceleration profile is a list of pairs $\langle (t_1,
 a_1), (t_2, a_2), \ldots, (t_n, a_n) \rangle \in A$, where $A$ denotes
