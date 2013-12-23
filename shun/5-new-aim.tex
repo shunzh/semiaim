@@ -9,53 +9,53 @@ make reservations in terms of constraints over 1) their driving
 profiles such as their arrival time and arrival velocity, and 2) the
 relationships with other vehicles.
 
-In AIM, a reservation request is a $5$-tuple $\langle l_1, l_2, t_0,
-v_0, p\rangle$, where $l_1$ is the entry lane, $l_2$ is the exit lane,
-$t_0$ is the arrival time, $v_0$ is the arrival velocity, and $p$ is
-the physical characteristics of the vehicle.  This information allows
-the IM to compute the exact trajectory of the vehicle and reserve
-tiles for the vehicle on the trajectory.  However, this computation
-assumes the vehicle can be controlled \emph{precisely} in the
-intersection so that it can meet the reservation constraints exactly.
-Human drivers cannot control their vehicles as precisely, and
-semi-autonomous vehicles may only be able to control certain aspects
-of their trajectories.  Therefore, we need a new kind of reservation
-requests, which we call it as \textit{maneuverability profile} that do
-not rely on this assumption. For simple cruise control, the
-maneuverability profile is written in Lisp syntax as follows:
-\begin{small}
-\begin{verbatim}
-(cc-profile (v verror angle)
-  (is-auto-speed-control)
-  (not is-auto-steering)
-  (< velocity (+ v verror))
-  (> velocity (- v verror))
-  (< steer-angle angle) (> steer-angle -angle))
-\end{verbatim}
-\end{small}
-\noindent
-where \texttt{v} is the target velocity, \texttt{verror} is the
-maximum error of the target velocity, and \texttt{angle} is the
-maximum feasible steering angle for the human driver when the cruise
-control is turned on.  The maneuverability profile for adaptive cruise
-control is
-\begin{small}
-\begin{verbatim}
-(acc-profile (vin d derror angle)
-  (is-auto-speed-control)
-  (not is-auto-steering)
-  (< (dist-from vin) (+ d derror))
-  (> (dist-from vin) (- d derror))
-  (< steer-angle angle) (> steer-angle -angle))
-\end{verbatim}
-\end{small}
-\noindent
-where \texttt{vin} is the vehicle id of the vehicle ahead,
-\texttt{d} is the target distance from the vehicle ahead, \texttt{derror}
-is the maximum error for acc to maintain the target distance from
-\texttt{vin}, and \texttt{angle} is the maximum feasible steering
-angle for the human driver.
-
+% In AIM, a reservation request is a $5$-tuple $\langle l_1, l_2, t_0,
+% v_0, p\rangle$, where $l_1$ is the entry lane, $l_2$ is the exit lane,
+% $t_0$ is the arrival time, $v_0$ is the arrival velocity, and $p$ is
+% the physical characteristics of the vehicle.  This information allows
+% the IM to compute the exact trajectory of the vehicle and reserve
+% tiles for the vehicle on the trajectory.  However, this computation
+% assumes the vehicle can be controlled \emph{precisely} in the
+% intersection so that it can meet the reservation constraints exactly.
+% Human drivers cannot control their vehicles as precisely, and
+% semi-autonomous vehicles may only be able to control certain aspects
+% of their trajectories.  Therefore, we need a new kind of reservation
+% requests, which we call it as \textit{maneuverability profile} that do
+% not rely on this assumption. For simple cruise control, the
+% maneuverability profile is written in Lisp syntax as follows:
+% \begin{small}
+% \begin{verbatim}
+% (cc-profile (v verror angle)
+%   (is-auto-speed-control)
+%   (not is-auto-steering)
+%   (< velocity (+ v verror))
+%   (> velocity (- v verror))
+%   (< steer-angle angle) (> steer-angle -angle))
+% \end{verbatim}
+% \end{small}
+% \noindent
+% where \texttt{v} is the target velocity, \texttt{verror} is the
+% maximum error of the target velocity, and \texttt{angle} is the
+% maximum feasible steering angle for the human driver when the cruise
+% control is turned on.  The maneuverability profile for adaptive cruise
+% control is
+% \begin{small}
+% \begin{verbatim}
+% (acc-profile (vin d derror angle)
+%   (is-auto-speed-control)
+%   (not is-auto-steering)
+%   (< (dist-from vin) (+ d derror))
+%   (> (dist-from vin) (- d derror))
+%   (< steer-angle angle) (> steer-angle -angle))
+% \end{verbatim}
+% \end{small}
+% \noindent
+% where \texttt{vin} is the vehicle id of the vehicle ahead,
+% \texttt{d} is the target distance from the vehicle ahead, \texttt{derror}
+% is the maximum error for acc to maintain the target distance from
+% \texttt{vin}, and \texttt{angle} is the maximum feasible steering
+% angle for the human driver.
+% 
 % Other types of semi-autonomous vehicles have their own maneuverability
 % profiles.  When a driver agent makes a reservation request, it is
 % his or her responsibility to ensure that the trajectories encoded by the
