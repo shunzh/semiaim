@@ -36,7 +36,7 @@
 
 % This is the document class for full camera ready papers and extended abstracts repsectively 
 
-\documentclass{aamas2014}
+\documentclass{llncs}
 \usepackage{times,helvet,courier}
 \usepackage{amssymb,amsmath,latexsym}
 \usepackage{graphics,graphicx}
@@ -114,8 +114,6 @@ Systems}
 %         {\tt\small pmisra@cs.wright.edu}}
 %}
 
-\numberofauthors{3}
-\author{
 % You can go ahead and credit any number of authors here,
 % e.g. one 'row of three' or two rows (consisting of one row of three
 % and a second row of one, two or three).
@@ -126,26 +124,24 @@ Systems}
 % affiliation/address with \affaddr, and tag the
 % e-mail address with \email.
 % 1st. author
-Tsz-Chiu Au\\
-       \affaddr{School of Electrical and Computer Eng.}\\
-       \affaddr{Ulsan National Institute of Sci. and Tech.}\\
-       \affaddr{Ulsan, Korea 689-798}\\
+\author{Tsz-Chiu Au\inst{1} \and Shun Zhang\inst{2} \and Peter
+Stone\inst{3}}
+\institute{School of Electrical and Computer Eng.\\
+       Ulsan National Institute of Sci.\ and Tech.\\
+       Ulsan, South Korea 689-798\\
        \email{chiu@unist.ac.kr}
 % 2nd. author
-\alignauthor
-Shun Zhang\\
-       \affaddr{Dept.\ of Computer Science}\\
-       \affaddr{The Univ.\ of Texas at Austin}\\
-       \affaddr{Austin, TX 78712 USA}\\
+	   \and
+       Dept.\ of Computer Science\\
+       The Univ.\ of Texas at Austin\\
+       Austin, TX 78712 USA\\
        \email{jensen.zhang@utexas.edu}
 % 3rd. author
-\alignauthor
-Peter Stone\\
-       \affaddr{Dept.\ of Computer Science}\\
-       \affaddr{The Univ.\ of Texas at Austin}\\
-       \affaddr{Austin, TX 78712 USA}\\
-       \email{pstone@cs.utexas.edu}
-}
+	   \and
+       Dept.\ of Computer Science\\
+       The Univ.\ of Texas at Austin\\
+       Austin, TX 78712 USA\\
+       \email{pstone@cs.utexas.edu}}
 
 
 % \author{Huibert Kwakernaak$^{1}$ and Pradeep Misra$^{2}$% <-this % stops a space
@@ -200,21 +196,12 @@ vehicles.
 
 
 
-% Note that the category section should be completed after reference to the ACM Computing Classification Scheme available at
-% http://www.acm.org/about/class/1998/.
-
-\category{I.2.11}{Artificial Intelligence}{Distributed Artificial Intelligence---Multiagent systems}
-\vspace{-.05in}
-
 % \category{H.4}{Information Systems Applications}{Miscellaneous}
 
 %A category including the fourth, optional field follows...
 %\category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
 
 %General terms should be selected from the following 16 terms: Algorithms, Management, Measurement, Documentation, Performance, Design, Economics, Reliability, Experimentation, Security, Human Factors, Standardization, Languages, Theory, Legal Aspects, Verification.
-
-\terms{Algorithms, Performance, Economics, Experimentation, Theory}
-\vspace{-.05in}
 
 % \terms{Delphi theory}
 
