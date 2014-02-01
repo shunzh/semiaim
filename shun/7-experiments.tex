@@ -19,25 +19,13 @@ which is either autonomous or semi-autonomous and is going in the same
 direction, it sends an anchor request to the IM.  If the request is
 confirmed, the vehicle follows the vehicle ahead and enters the
 intersection.  If the request is denied or there is no such vehicle
-ahead, the vehicle sends a constant-velocity request to the IM instead.
-% when it is close enough to the intersection.  
-If it can enter the intersection
-by keeping the current velocity, the request is confirmed; otherwise,
-the vehicle resends the constant-velocity request after a few seconds,
-and at the same time decelerates enough to be able to stop before the
-intersection. If it keeps failing to obtain a reservation it stops at
-the intersection and returns control to the human driver, who must
-then obey the traffic signal.
+ahead, the vehicle follows rules for Type SA-CC Vehicles, shown below.
 
 \item \textbf{Type SA-CC Vehicles}:
 Sends a constant-velocity request to the IM when it is close
 enough to the intersection. If it can enter the intersections by
 keeping the current velocity, the request is confirmed; otherwise, the
-vehicle resends the request after a few seconds, and at the same time
-decelerates enough to be able to stop before the intersection. 
-If it keeps failing to obtain a reservation it stops at
-the intersection and returns control to the human driver, who must
-then obey the traffic signal.
+vehicle follows rules for Type SA-C-om Vehicles, shown below.
 
 \item \textbf{Type SA-Com Vehicles}:
 Sends a whole-row request to the IM.  If the entire lane is
@@ -56,8 +44,7 @@ hour.  We denote this setting as traffic level = 360
 vehicles/hour/lane.  We chose this traffic level as being heavy enough
 to cause significant delays at signals, but light enough to allow for
 benefits even if cars are not precisely
-controlled. Figure~\ref{fig:request540} examines higher traffic
-levels.
+controlled. 
 
 % We assume the intersection is fully observable to the
 % intersection manager.
