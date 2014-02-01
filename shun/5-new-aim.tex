@@ -22,17 +22,7 @@ semi-autonomous vehicles may only be able to control certain aspects
 of their trajectories.  Therefore, we need a new kind of reservation
 requests that do not rely on this assumption.
 
-\subsection{Maneuverability Profiles} 
-
-Semi-autonomous vehicles only have limited self-driving automation.
-For example, adaptive cruise control can only provide autonomous
-longitudinal control, but still depends on the human driver to use the
-steering wheel to maintain the lateral control.  Hence the
-longitudinal control of Type SA-ACC vehicles can be very precise, but
-the lateral control cannot be as precise.  Furthermore, the human
-driver cannot make a sharp turn while the adaptive cruise control is
-active, because the human must slow down the vehicle a lot in order to
-be able to make a sharp turn precisely.  In our system, we use a
+In our system, we use a
 \emph{maneuverability profile} to encode the limitations of the
 control of human drivers when the automation devices are activated.
 For simple cruise control, the maneuverability profile is written in
@@ -51,30 +41,7 @@ Lisp syntax as follows:
 where \texttt{v} is the target velocity, \texttt{verror} is the
 maximum error of the target velocity, and \texttt{angle} is the
 maximum feasible steering angle for the human driver when the cruise
-control is turned on.  The maneuverability profile for adaptive cruise
-control is
-\begin{small}
-\begin{verbatim}
-(acc-profile (vin d derror angle)
-  (is-auto-speed-control)
-  (not is-auto-steering)
-  (< (dist-from vin) (+ d derror))
-  (> (dist-from vin) (- d derror))
-  (< steer-angle angle) (> steer-angle -angle))
-\end{verbatim}
-\end{small}
-\noindent
-where \texttt{vin} is the vehicle id of the vehicle ahead,
-\texttt{d} is the target distance from the vehicle ahead, \texttt{derror}
-is the maximum error for acc to maintain the target distance from
-\texttt{vin}, and \texttt{angle} is the maximum feasible steering
-angle for the human driver.
-
-Other types of semi-autonomous vehicles have their own maneuverability
-profiles.  When a driver agent makes a reservation request, it is
-his or her responsibility to ensure that the trajectories encoded by the
-reservation request \emph{satisfy} all constraints in the
-maneuverability profile.
+control is turned on.
 
 \subsection{Constraint-Based Requests}
 
@@ -116,12 +83,7 @@ vehicle might use.
 
 The vehicle type is the information with which the IM can
 determine how the vehicle will move inside an intersection.  Different
-types of vehicles have different sizes, shapes, and kinematics.  For
-example, the motion of a bus is very different from the motion of a
-passenger car.  By knowing the type of the vehicle, the IM will be
-able to compute the trajectories of the vehicle under various conditions
-such as the arrival times and velocities. We assume the IM maintains
-a database of vehicle types.
+types of vehicles have different sizes, shapes, and kinematics.
 
 The entry condition is the condition under which a vehicle enters an
 intersection.  An \emph{entry statement} is used to describe the entry
@@ -202,17 +164,7 @@ particular trajectory, a constraint-based request is an
 \emph{incomplete} description of the trajectory.  Therefore, the IM
 interprets a constraint-based request as a description of a set of
 \emph{possible} trajectories that the vehicle may follow, and reserves
-all the tiles on the possible trajectories.  Once the IM receives a
-request, it conducts an internal simulation of the vehicle
-movement, as described in \cite{bib:Dresner08Multiagent}, to determine
-the tiles on the possible trajectories, and determine whether the
-tiles are available.
-
-Our hypothesis is that more restrictive constraint-based requests 
-will perform better because SemiAIM reserves fewer tiles for them,
-meaning that some types of semi-autonomous vehicles will work better
-with SemiAIM.  We test this hypothesis in
-Section~\ref{sec:simulation}.
+all the tiles on the possible trajectories.
 
 \subsection{Anchor Requests}
 \label{sec:anchor}
@@ -222,16 +174,7 @@ constraint-based request called \emph{anchor requests} to make
 reservations. An anchor request is $\langle {\sf Type}, \texttt{vin},
 d \rangle$, where ${\sf Type}$ is the vehicle type, \texttt{vin} is
 the vehicle id of the vehicle ahead, and $d$ is the following
-distance from the vehicle of \texttt{vin}.  For example, an anchor
-request $\langle \texttt{truck-with-acc}, \texttt{GXC345}, {\tt 5m}
-\rangle$ states that the vehicle will follow the vehicle with a
-vehicle id {\tt GXC345} and maintain a following distance of $5m$.
-This request is different from the previous types because it depends on the confirmed
-reservation of the vehicle $\veh$ with id \texttt{vin}. If $\veh$ does not
-have a reservation, the IM will reject the anchor request; otherwise,
-the IM will copy the request of $\veh$ and modify the request with 
-following distance $d$.
-
+distance from the vehicle of \texttt{vin}. 
 Currently anchor requests are designed specifically for
 semi-autonomous vehicles with adaptive cruise control.  However, this
 formulation is general enough to enable some sophisticated cooperative

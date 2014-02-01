@@ -23,21 +23,21 @@ congestion and safety, while the analysis of Jerath and Brennan is
 focused on highways.  Second, we study five types of vehicles,
 compared to the three types considered by Jerath and Brennan.
 
-Although we are not aware of any other work that is directly concerned
-with the interaction of semi-autonomous and autonomous vehicles,
-research on vehicular autonomy in general has made significant
-progress in recent years.  This was in part due to a series of robotic
-car competitions such as the \emph{DARPA Grand
-Challenges}~\cite{DARPAGrandChallenge}.  These competitions
-accelerated the development of autonomous vehicles to the point where
-the technical challenge of open-road autonomous driving is considered
-by some to be essentially solved~\cite{bib:Dresner08Multiagent}.  When
-pushed to extremes, autonomous vehicles can even outperform many
-human drivers in carrying out intricate
-maneuvers~\cite{Squatriglia2010}. The non-technical barrier for the
-adaptation of autonomous vehicles are largely traffic laws and
-regulations, though progress is also being made in these
-areas~\cite{calo2011-nevada}.
+% Although we are not aware of any other work that is directly concerned
+% with the interaction of semi-autonomous and autonomous vehicles,
+% research on vehicular autonomy in general has made significant
+% progress in recent years.  This was in part due to a series of robotic
+% car competitions such as the \emph{DARPA Grand
+% Challenges}~\cite{DARPAGrandChallenge}.  These competitions
+% accelerated the development of autonomous vehicles to the point where
+% the technical challenge of open-road autonomous driving is considered
+% by some to be essentially solved~\cite{bib:Dresner08Multiagent}.  When
+% pushed to extremes, autonomous vehicles can even outperform many
+% human drivers in carrying out intricate
+% maneuvers~\cite{Squatriglia2010}. The non-technical barrier for the
+% adaptation of autonomous vehicles are largely traffic laws and
+% regulations, though progress is also being made in these
+% areas~\cite{calo2011-nevada}.
 
 The vast majority of research on autonomous vehicles focuses on how to
 ensure they run on existing road infrastructure; there is limited
@@ -54,22 +54,22 @@ intersection handles these requests, granting or rejecting
 reservations using a grid-based collision detection scheme. This
 protocol is enhanced to reduce network traffic and increase safety
 using spatial-temporal buffers surrounding the vehicles~\cite{bib:Fajardo12Automated}.
-
-Vehicle-to-Vehicle (V2V) forms of autonomous intersection management
-have also been investigated~\cite{naumann97:intersection,
+Another popular form of autonomous intersection management
+is Vehicle-to-Vehicle (V2V), which has been investigated~\cite{naumann97:intersection,
 ATT08-vanmiddlesworth}.  In this form, no centralized server is
 required (i.e., there is no single point of failure) and vehicles
 coordinate in a peer-to-peer fashion when crossing the
-intersection. Naumann {\em et al.} investigated a distributed policy
-that uses virtual ``tokens'' that a vehicle must possess to cross
-certain contested areas of the
-intersection~\cite{naumann97:intersection} and formally evaluated it
-using petri-nets.  VanMiddlesworth {\em et al.} developed an
-AIM-inspired protocol that enables vehicles to ``call ahead'' to
-reserve space-time in the
-intersection~\cite{ATT08-vanmiddlesworth}. Their protocol outperformed
-the traditional stop sign in light traffic. The anchor requests 
-introduced in this paper can be implemented using V2V communications.
+intersection.
+% Naumann {\em et al.} investigated a distributed policy
+% that uses virtual ``tokens'' that a vehicle must possess to cross
+% certain contested areas of the
+% intersection~\cite{naumann97:intersection} and formally evaluated it
+% using petri-nets.  VanMiddlesworth {\em et al.} developed an
+% AIM-inspired protocol that enables vehicles to ``call ahead'' to
+% reserve space-time in the
+% intersection~\cite{ATT08-vanmiddlesworth}. Their protocol outperformed
+% the traditional stop sign in light traffic. The anchor requests 
+% introduced in this paper can be implemented using V2V communications.
 
 % We implemented a slightly
 % simplified version of the protocol in~\cite{ATT08-vanmiddlesworth}
