@@ -14,14 +14,14 @@ v_0, p\rangle$, where $l_1$ is the entry lane, $l_2$ is the exit lane,
 $t_0$ is the arrival time, $v_0$ is the arrival velocity, and $p$ is
 the physical characteristics of the vehicle.  This information allows
 the IM to compute the exact trajectory of the vehicle and reserve
-tiles for the vehicle on the trajectory.  However, this computation
-assumes the vehicle can be controlled \emph{precisely} in the
-intersection so that it can meet the reservation constraints exactly.
-Human drivers cannot control their vehicles as precisely, and
-semi-autonomous vehicles may only be able to control certain aspects
-of their trajectories.  Therefore, we need a new kind of reservation
-requests that do not rely on this assumption.
-
+tiles for the vehicle on the trajectory.
+% However, this computation
+% assumes the vehicle can be controlled \emph{precisely} in the
+% intersection so that it can meet the reservation constraints exactly.
+% Human drivers cannot control their vehicles as precisely, and
+% semi-autonomous vehicles may only be able to control certain aspects
+% of their trajectories.  Therefore, we need a new kind of reservation
+% requests that do not rely on this assumption.
 In our system, we use a
 \emph{maneuverability profile} to encode the limitations of the
 control of human drivers when the automation devices are activated.
@@ -159,12 +159,12 @@ must be large enough to cover the entire row,
 regardless of the acceleration profiles.
 \end{small_ind_s_itemize}
 
-Unlike AIM's reservation requests which always correspond to a
-particular trajectory, a constraint-based request is an
-\emph{incomplete} description of the trajectory.  Therefore, the IM
-interprets a constraint-based request as a description of a set of
-\emph{possible} trajectories that the vehicle may follow, and reserves
-all the tiles on the possible trajectories.
+% Unlike AIM's reservation requests which always correspond to a
+% particular trajectory, a constraint-based request is an
+% \emph{incomplete} description of the trajectory.  Therefore, the IM
+% interprets a constraint-based request as a description of a set of
+% \emph{possible} trajectories that the vehicle may follow, and reserves
+% all the tiles on the possible trajectories.
 
 \subsection{Anchor Requests}
 \label{sec:anchor}
