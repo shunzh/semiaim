@@ -7,21 +7,66 @@ experimental results indicated that a mixture of human-driven vehicles
 and autonomous vehicles is possible, and leads to better performance
 than having all human-driven vehicles, which is the current status
 quo.  However, their experiments indicated that the impact of
-autonomous vehicles is expected to be relatively small until almost all (90-95\%) of
-the vehicles on the road are autonomous.  Our extension to embrace
+autonomous vehicles is expected to be relatively small until almost
+all (90-95\%) of the vehicles on the road are
+autonomous~\cite{bib:Dresner07Sharing}.  Our extension to embrace
 semi-autonomous vehicles shows significant performance benefits all
 along the technology penetration curve.
 
 Our work is similar to the analysis of adaptive cruise control
 performance by Jerath and Brennan, who showed that by introducing
 adaptive cruise control vehicles into traffic, the vehicles would have
-a more \textit{condensed} formation, thus increasing the efficiency
-of traffic~\cite{bib:Jerath10adaptive}.
-% When compared to our work,
-% there are two key differences.  First, we are focusing on the
-% intersection---a place more critical both from the points of view of
-% congestion and safety, while the analysis of Jerath and Brennan is
-% focused on highways.  Second, we study five types of vehicles,
+a more \textit{condensed} formation, thus increasing the efficiency of
+traffic~\cite{bib:Jerath10adaptive}.  While the analysis of Jerath and
+Brennan is focused on highways, we are focusing on the
+intersection---a place more critical both from the points of view of
+congestion and safety.
+
+There is limited literature on understanding changes to road
+infrastructure that can facilitate vehicular autonomy.  One such
+project on jointly optimizing autonomous vehicles and road
+infrastructure is the PATH program, which relies on magnetic markers
+in the roadway for measuring steering angle and vehicle
+movements~\cite{bib:Shladover91Automated}.  Kolodko and Vlacic used
+golf-cart-like Imara vehicles in evaluating an autonomous
+intersection~\cite{Kolodko03:INRIA}.  Our work differs from these
+previous research by incorporating semi-autonomous vehicles into the
+mix, along with autonomous and human-driven vehicles.
+
+Another way to manage autonomous vehicles at intersections is based on
+Vehicle-to-Vehicle (V2V) communication, such that vehicles coordinate
+in a peer-to-peer fashion when crossing the
+intersection~\cite{naumann97:intersection,ATT08-vanmiddlesworth}.
+Naumann {\em et al.} investigated a distributed policy that uses
+virtual ``tokens'' that a vehicle must possess to cross certain
+contested areas of the intersection~\cite{naumann97:intersection} and
+formally evaluated it using petri-nets.  VanMiddlesworth {\em et al.}
+developed an AIM-inspired protocol that enables vehicles to ``call
+ahead'' to reserve space-time in the
+intersection~\cite{ATT08-vanmiddlesworth}.  The anchor requests in
+Section~\ref{sec:anchor} can be implemented using V2V communications.
+
+
+% no
+% centralized server is required 
+% (i.e., there is no single point of
+% failure) and 
+
+
+
+% The vast majority of research on autonomous vehicles focuses on how to
+% ensure they run on existing road infrastructure; 
+
+% Other researchers have investigated autonomous intersections using
+% real systems involving multiple mobile vehicles.  
+% For example, 
+
+% Their protocol outperformed
+% the traditional stop sign in light traffic. 
+
+
+% there are two key differences.  First, 
+% Second, we study five types of vehicles,
 % compared to the three types considered by Jerath and Brennan.
 
 % Although we are not aware of any other work that is directly concerned
@@ -40,47 +85,26 @@ of traffic~\cite{bib:Jerath10adaptive}.
 % regulations, though progress is also being made in these
 % areas~\cite{calo2011-nevada}.
 
-The vast majority of research on autonomous vehicles focuses on how to
-ensure they run on existing road infrastructure; there is limited
-literature on understanding changes to road infrastructure that can
-facilitate vehicular autonomy.  One such project on jointly optimizing
-autonomous vehicles and road infrastructure is the PATH program, which
-relies on magnetic markers in the roadway for measuring steering angle
-and vehicle movements~\cite{bib:Shladover91Automated}.  The
-AIM protocol~\cite{bib:Dresner08Multiagent, bib:Fajardo12Automated,
-bib:Quinlan10Bringing} is a vehicle-to-infrastructure (V2I) mechanism in
-which vehicles request space-time in the intersection for their
-trajectories prior to arriving at the intersection; a server at the
-intersection handles these requests, granting or rejecting
-reservations using a grid-based collision detection scheme. This
-protocol is enhanced to reduce network traffic and increase safety
-using spatial-temporal buffers surrounding the vehicles~\cite{bib:Fajardo12Automated}.
-Another popular form of autonomous intersection management
-is Vehicle-to-Vehicle (V2V), which has been investigated~\cite{naumann97:intersection,
-ATT08-vanmiddlesworth}.  In this form, no centralized server is
-required (i.e., there is no single point of failure) and vehicles
-coordinate in a peer-to-peer fashion when crossing the
-intersection.
-% Naumann {\em et al.} investigated a distributed policy
-% that uses virtual ``tokens'' that a vehicle must possess to cross
-% certain contested areas of the
-% intersection~\cite{naumann97:intersection} and formally evaluated it
-% using petri-nets.  VanMiddlesworth {\em et al.} developed an
-% AIM-inspired protocol that enables vehicles to ``call ahead'' to
-% reserve space-time in the
-% intersection~\cite{ATT08-vanmiddlesworth}. Their protocol outperformed
-% the traditional stop sign in light traffic. The anchor requests 
-% introduced in this paper can be implemented using V2V communications.
+
+% The AIM protocol~\cite{bib:Dresner08Multiagent, mybib:Fajardo12Automated,
+% mybib:Quinlan10Bringing} is a vehicle-to-infrastructure (V2I) mechanism in
+% which vehicles request space-time in the intersection for their
+% trajectories prior to arriving at the intersection; a server at the
+% intersection handles these requests, granting or rejecting
+% reservations using a grid-based collision detection scheme. This
+% protocol is enhanced to reduce network traffic and increase safety
+% using spatial-temporal buffers surrounding the
+% vehicles~\cite{mybib:Fajardo12Automated}.
 
 % We implemented a slightly
 % simplified version of the protocol in~\cite{ATT08-vanmiddlesworth}
 % that does not use estimated time of arrival and demonstrated that it
 % also outperforms a stop sign in light traffic.
 
-Other researchers have investigated autonomous intersections using
-real systems involving multiple mobile vehicles.  For example, Kolodko
-and Vlacic used golf-cart-like Imara vehicles in evaluating an
-autonomous intersection~\cite{Kolodko03:INRIA}. 
+% Other researchers have investigated autonomous intersections using
+% real systems involving multiple mobile vehicles.  For example, Kolodko
+% and Vlacic used golf-cart-like Imara vehicles in evaluating an
+% autonomous intersection~\cite{Kolodko03:INRIA}. 
 % In their study, all
 % vehicles must come to a complete stop at the intersection irrespective
 % of traffic conditions.  Our work differs from this, and all other

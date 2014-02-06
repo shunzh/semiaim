@@ -3,51 +3,48 @@
 
 To demonstrate the feasibility of SemiAIM as well as evaluate the
 hypothesis that SemiAIM can offer substantial improvements over
-traffic signals and FCFS-Signal, we conducted a series of experiments
-with the modified AIM4 simulator that simulates the behavior of
-vehicles using the constraint-based reservation system.  The
+traffic signals and FCFS-Signal, we conducted several experiments
+using a modified AIM4 simulator that simulates the behavior of
+vehicles in our constraint-based reservation system.  The
 implementations of fully autonomous vehicles (Type A) and human-driven
-vehicles (Type H) are as provided with the simulator and described
-in~\cite{bib:Dresner08Multiagent}.  The concrete implementations of
-the semi-autonomous vehicles, as described in
-Section~\ref{sec:vehicles}, are as follows.
+vehicles (Type H), as described in~\cite{bib:Dresner08Multiagent}, are
+provided in the simulator. The concrete implementations of the
+semi-autonomous vehicles in Section~\ref{sec:vehicles} are as follows.
 
 \begin{small_ind_s_itemize}
 
-\item \textbf{Type SA-ACC Vehicles}: If there exists a vehicle ahead
+\item \textbf{Type SA-Com vehicles}:
+Send a whole-row request to the IM.  If the entire lane is available,
+the request is confirmed; otherwise, the vehicle resends the request
+after a few seconds and decelerates enough to be able to stop before
+the intersection.  If it keeps failing to obtain a reservation it
+stops at the intersection and returns control to the human driver, who
+must then obey the traffic signal.
+
+\item \textbf{Type SA-CC vehicles}:
+Send a constant-velocity request to the IM when it is close
+enough to the intersection. If it can enter the intersections by
+keeping the current velocity, the request is confirmed; otherwise, the
+vehicle follows rules for Type SA-Com vehicles.
+
+\item \textbf{Type SA-ACC vehicles}: If there exists a vehicle ahead
 which is either autonomous or semi-autonomous and is going in the same
 direction, it sends an anchor request to the IM.  If the request is
 confirmed, the vehicle follows the vehicle ahead and enters the
 intersection.  If the request is denied or there is no such vehicle
-ahead, the vehicle follows rules for Type SA-CC Vehicles, shown below.
+ahead, the vehicle follows rules for Type SA-CC vehicles.
 
-\item \textbf{Type SA-CC Vehicles}:
-Sends a constant-velocity request to the IM when it is close
-enough to the intersection. If it can enter the intersections by
-keeping the current velocity, the request is confirmed; otherwise, the
-vehicle follows rules for Type SA-C-om Vehicles, shown below.
-
-\item \textbf{Type SA-Com Vehicles}:
-Sends a whole-row request to the IM.  If the entire lane is
-available, the request is confirmed; otherwise, the vehicle resends the
-request after a few seconds, and at the same time decelerates enough to
-be able to stop before the intersection. 
-If it keeps failing to obtain a reservation it stops at
-the intersection and returns control to the human driver, who must
-then obey the traffic signal.
 \end{small_ind_s_itemize}
 
-Our experiments were conducted in a 3x3 intersection (3 lanes
-in each direction) as shown in Figure~\ref{fig:simulator}.  Unless otherwise specified, the simulator spawns vehicles in each lane according
-to a Poisson distribution with an expectation of 360 vehicles per
-hour.  We denote this setting as traffic level = 360
-vehicles/hour/lane.  We chose this traffic level as being heavy enough
-to cause significant delays at signals, but light enough to allow for
-benefits even if cars are not precisely
-controlled. 
-
-% We assume the intersection is fully observable to the
-% intersection manager.
+\noindent
+Our experiments were conducted in a 3x3 intersection (3 lanes in each
+direction) as shown in Figure~\ref{fig:simulator}.  Unless otherwise
+specified, the simulator spawns vehicles in each lane according to a
+Poisson distribution with an expectation of 360 vehicles per hour
+(i.e., traffic level = 360 vehicles/hour/lane).  We chose this traffic
+level as being heavy enough to cause significant delays at signals,
+but light enough to allow for benefits even if cars are not precisely
+controlled.
 
 The performance of an intersection is measured by the \emph{average
 delay}, where delay is computed as the increase in travel time
@@ -104,7 +101,7 @@ optimized using SYNCHRO, a commercial traffic optimization package.
 % \end{tabular}
 % \end{table}
 
-\subsection{Experiment 1: Technology Penetration}
+\subsection{Technology Penetration}
 
 Our first experiment studies the effect of an increasing penetration rate
 of vehicular automation technology.  Suppose human-driven vehicles are
@@ -139,40 +136,30 @@ error bar is the 95\% confident interval of the average delay.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.9\columnwidth]{figures/figure_1.png}
+\includegraphics[width=0.8\columnwidth]{figures/figure_1.png}
 \caption{(Semi-)Autonomous vehicles vs. Human-Driven vehicles. Traffic
 level = 360 vehicles/lane/hour.}
 \label{fig:two360}
-\vspace{-.2in}
+\vspace{-.3in}
 \end{figure}
 
 According to Figure~\ref{fig:two360}, the performance of
 semi-autonomous vehicles is very similar to fully autonomous vehicles
 when the ratio to human-driven vehicles is below 40\%.  However, when
 the ratio increases beyond 40\%, fully autonomous vehicles
-increasingly outperform semi-autonomous vehicles.
-% Previous studies
-% showed that FCFS-Signal needs at least 90\% of fully autonomous
-% vehicles in the traffic in order to be fully
-% effective~\cite{bib:Dresner07Sharing}.  We successfully replicate the
-% result, observing that the average delay drops rapidly when the
-% traffic has more than 90\% fully autonomous vehicles, and approaches
-% zero when all vehicles are fully autonomous.  Semi-autonomous vehicles
-%cannot achieve the same dramatic decrease in traffic delay
-We can also observe that 
+increasingly outperform semi-autonomous vehicles.  Previous studies
+showed that FCFS-Signal needs at least 90\% of fully autonomous
+vehicles in the traffic in order to be fully
+effective~\cite{bib:Dresner07Sharing}.  We successfully replicate the
+result, observing that the average delay drops rapidly when the
+traffic has more than 90\% fully autonomous vehicles, and approaches
+zero when all vehicles are fully autonomous.  Semi-autonomous vehicles
+cannot achieve the same dramatic decrease in traffic delay, but they,
 with the help of SemiAIM, manage to reduce the delay by 46\% (from
 39.9s to 22.4s) compared to human-driven vehicles.  As expected, in
 the presence of semi-autonomous vehicles, SemiAIM provides significant
 advantages even when there are no fully autonomous vehicles on the
 road.
-
-%Semi-autonomous traffic cannot perform as well as fully autonomous
-%traffic under SemiAIM, but it is reasonable because the goal of
-%SemiAIM is not to replace AIM, but rather to provide many of its
-%benefits prior in the time period between today, when most cars are
-%driven fully manually, and the time when all cars are fully
-%autonomous.  To do so, it leverages features of semi-autonomy, that we
-%expect will be widespread much sooner than full autonomy.
 
 Another observation is that both Type SA-ACC and Type SA-CC vehicles
 have a significantly lower average delay than Type SA-Com vehicles.
@@ -182,6 +169,33 @@ since the footprints of the vehicles are smaller and more vehicles can
 enter the intersection at the same time.  Nonetheless, the difference
 is small because the simulated human drivers in the simulator can
 control their vehicles quite well.
+
+
+% Previous studies
+% showed that FCFS-Signal needs at least 90\% of fully autonomous
+% vehicles in the traffic in order to be fully
+% effective~\cite{bib:Dresner07Sharing}.  We successfully replicate the
+% result, observing that the average delay drops rapidly when the
+% traffic has more than 90\% fully autonomous vehicles, and approaches
+% zero when all vehicles are fully autonomous.  Semi-autonomous vehicles
+%cannot achieve the same dramatic decrease in traffic delay
+
+
+% We can also observe that 
+% with the help of SemiAIM, manage to reduce the delay by 46\% (from
+% 39.9s to 22.4s) compared to human-driven vehicles.  As expected, in
+% the presence of semi-autonomous vehicles, SemiAIM provides significant
+% advantages even when there are no fully autonomous vehicles on the
+% road.
+
+%Semi-autonomous traffic cannot perform as well as fully autonomous
+%traffic under SemiAIM, but it is reasonable because the goal of
+%SemiAIM is not to replace AIM, but rather to provide many of its
+%benefits prior in the time period between today, when most cars are
+%driven fully manually, and the time when all cars are fully
+%autonomous.  To do so, it leverages features of semi-autonomy, that we
+%expect will be widespread much sooner than full autonomy.
+
 
 % In reality the difference actually depends on some human drivers needs
 % to reserve a large number of tiles, causing a decrease of the traffic
@@ -248,20 +262,94 @@ control their vehicles quite well.
 % traffic signals and FCFS-Signal,
 
 
-\subsection{Experiment 2: Incremental Deployment}
+\subsection{Incremental Deployment}
 
-Our second experiment considers realistic scenario of
+Our second experiment considered realistic scenarios of
 \emph{incremental deployment} of autonomous vehicle technology.  We
 believe that the adoption of semi-autonomous vehicles will be much
 faster than fully autonomous vehicles since the cost of ownership of
-semi-autonomous vehicles are lower.
-% Thus we anticipate there will be
-% a period of time during which semi-autonomous vehicles dominate the roads.
-% However, this domination will be short-lived---eventually fully autonomous
-% vehicles will displace semi-autonomous vehicles due to their greater
-%  convenience.  This section studies the
-% effects of different levels of incremental deployment of
-% (semi-)autonomous vehicles over time.
+semi-autonomous vehicles are lower.  Thus we foresee there will be
+a period of time during which semi-autonomous vehicles dominate the
+roads.  However, this domination will be short-lived---eventually
+fully autonomous vehicles will displace semi-autonomous vehicles due
+to their greater convenience.  This section studies the effects of
+different levels of incremental deployment of (semi-)autonomous
+vehicles over time.
+
+\begin{table}[t]
+%\caption{The deployment schedule in Figure~\ref{fig:figure3}.}
+\caption{}
+\label{table:3}
+\centering
+\small
+\vspace{-.1in}
+\begin{tabular}{|l|ccccc|}
+\hline
+\multicolumn{1}{|c|}{Vehicle Type} & \multicolumn{5}{c|}{Deployment Schedule in Figure~\ref{fig:figure3}.} \\
+\hline
+Type H & 90\% & 87\% & 84\% & ... & 0\% \\
+Type SA-\{ACC,CC,Com\} & 9\% & 11\% & 13\% & ... & 69\% \\
+Type A & 1\% & 2\% & 3\% & ... & 31\% \\
+\hline
+\end{tabular}
+
+\mbox{}
+
+%\caption{The deployment schedule in Figure~\ref{fig:figure4}.}
+\caption{}
+\label{table:4}
+\centering
+\small
+\vspace{-.1in}
+\begin{tabular}{|l|ccccc|}
+\hline
+\multicolumn{1}{|c|}{Vehicle Type} & \multicolumn{5}{c|}{Deployment Schedule in Figure~\ref{fig:figure4}.} \\
+\hline
+Type H & 10\% & 10\% & 10\% & ... & 10\% \\
+Type SA-\{ACC,CC,Com\} & 85\% & 80\% & 75\% & ... & 5\% \\
+Type A & 5\% & 10\% & 15\% & ... & 85\% \\
+\hline
+\end{tabular}
+
+\vspace{-.3in}
+\end{table}
+
+
+% \mbox{}
+
+% \caption{The deployment schedule in Figure~\ref{fig:figure3}.}
+% \label{table:3}
+% \centering
+% \small
+% \begin{tabular}{|c|c|c|}
+%     \hline
+%     Type H&  Type SA-ACC / SA-CC / SA-Com &    Type A\\
+%     \hline
+%     90\% &      \ 9\% &   \ 1\% \\
+%     87\% &     11\% &    \ 2\% \\
+%     84\% &     13\% &    \ 3\% \\
+%      ... &   ...&   ...\\
+%     \ 0\%&     69\% &  31\% \\
+%     \hline
+% \end{tabular}
+
+% \mbox{}
+
+% \caption{The deployment schedule in Figure~\ref{fig:figure4}.}
+% \label{table:4}
+% \centering
+% \small
+% \begin{tabular}{|c|c|c|}
+%     \hline
+%      Type H&  Type SA-ACC / SA-CC / SA-Com &    Type A\\
+%     \hline
+%      10\%&     85\%&   \ 5\% \\
+%      10\%&     80\%&  10\% \\
+%      10\%&     75\%&  15\% \\
+%       ...&  ... &  ...\\
+%      10\%&       5\%&  85\% \\
+%     \hline
+% \end{tabular}
 
 We consider two plausible deployment schedules, one for the period of
 time before the domination of semi-autonomous vehicles, and the other
@@ -273,72 +361,27 @@ semi-autonomous vehicles rather than a fully autonomous vehicle.  Then
 eventually about two thirds of vehicles on the road will be
 semi-autonomous, and one third will be fully autonomous.
 Table~\ref{table:4} shows the second deployment schedule under which
-semi-autonomous vehicles are gradually replaced by fully autonomous
+semi-autonomous vehicles are gradually displaced by fully autonomous
 vehicles. We assume that even when most vehicles are fully autonomous,
 a small number of drivers still prefer driving themselves.
 
-\begin{table}[t]
-
-\caption{The deployment schedule in Figure~\ref{fig:figure3}.}
-\label{table:3}
-\centering
-\small
-\begin{tabular}{|c|c|c|}
-    \hline
-    Type H&  Type SA-ACC / SA-CC / SA-Com &    Type A\\
-    \hline
-    90\% &      \ 9\% &   \ 1\% \\
-    \hline
-    87\% &     11\% &    \ 2\% \\
-    \hline
-    84\% &     13\% &    \ 3\% \\
-    \hline
-     ...&   ...&   ...\\
-    \hline
-    \ 0\%&     69\% &  31\% \\
-    \hline
-\end{tabular}
-
-\mbox{}
-
-\caption{The deployment schedule in Figure~\ref{fig:figure4}.}
-\label{table:4}
-\centering
-\small
-\begin{tabular}{|c|c|c|}
-    \hline
-     Type H&  Type SA-ACC / SA-CC / SA-Com &    Type A\\
-    \hline
-     10\%&     85\%&   \ 5\% \\
-    \hline
-     10\%&     80\%&  10\% \\
-    \hline
-     10\%&     75\%&  15\% \\
-    \hline
-      ...&  ... &  ...\\
-    \hline
-     10\%&       5\%&  85\% \\
-    \hline
-\end{tabular}
-\vspace{-.3in}
-\end{table}
-
 Figures~\ref{fig:figure3} and \ref{fig:figure4} show the results of
 the simulations according to these deployment schedules.  The
-simulation setup is exactly the same as in Experiment 1.
-For each vehicle distribution, we ran the simulation 30 times for 1800s each run.  Thus, each data point in the figures is
-an average of 30 delay times.  The 95\% CIs of the average are shown
-as the error bars in the figures.  According to these figures, the
-average delay of the vehicles keeps decreasing as
-(semi-)autonomous vehicles are deployed, and the choice of the
-semi-autonomous vehicle technology does not matter much.  Ultimately, the
-average delay depends on the number of drivers who insist on driving
-themselves.
+simulation setup is exactly the same as in Experiment 1.  For each
+vehicle distribution, we ran the simulation 30 times for 1800s each
+run.  Thus, each data point in the figures is an average of 30 delay
+times.  The 95\% CIs of the average are shown as the error bars in the
+figures.  According to these figures, the average delay of the
+vehicles keeps decreasing as \mbox{(semi-)autonomous} vehicles are deployed,
+and the choice of the semi-autonomous vehicle technology does not
+matter much.  Ultimately, the average delay depends on the number of
+drivers who insist on driving themselves.
 
 \begin{figure}[t]
 
 \centering
-\includegraphics[width=0.9\columnwidth]{figures/figure_3.png}
+\includegraphics[width=0.8\columnwidth]{figures/figure_3.png}
+\vspace{-.1in}
 \caption{The average delay according to the 
 deployment schedule in Table~\ref{table:3}.
 Traffic level = 360 vehicles/lane/hour.}
@@ -347,11 +390,13 @@ Traffic level = 360 vehicles/lane/hour.}
 \mbox{}
 
 \centering
-\includegraphics[width=0.9\columnwidth]{figures/figure_4.png}
+\includegraphics[width=0.8\columnwidth]{figures/figure_4.png}
+\vspace{-.1in}
 \caption{The average delay according to the 
 deployment schedule in Table~\ref{table:4}.
 Traffic level = 360 vehicles/lane/hour.}
 \label{fig:figure4}
+\vspace{-.15in}
 \end{figure}
 
 

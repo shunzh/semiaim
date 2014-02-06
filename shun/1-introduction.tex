@@ -16,9 +16,9 @@ drivers.  The AIM protocol exploits the fine control of autonomous
 vehicles to allow more vehicles simultaneously to cross an
 intersection, thus effectively reducing the delay of vehicles by
 orders of magnitude compared to traffic
-signals~\cite{bib:Fajardo12Automated}.
+signals~\cite{mybib:Fajardo12Automated}.
 
-AIM is designed for the time when vehicles are autonomous.  We,
+AIM is designed for the time when all vehicles are fully autonomous.  We,
 however, anticipate that there will be a long transition period during
 which most vehicles have some but not all capabilities of fully
 autonomous vehicles.  In fact, this transition period has already
@@ -53,23 +53,29 @@ advantages of this trend and allows autonomous intersections to handle
 a traffic mixture with different types of vehicles.
 
 The main contributions of this paper are 1) the introduction of the
-concept of SemiAIM; 2) a full specification of the reservation
-requests for SemiAIM; and 3) detailed empirical results demonstrating
-the effectiveness of this protocol, especially in moderate traffic
-levels with a mix of human-driven, semi-autonomous, and fully
-autonomous vehicles.  The remainder of the paper is organized as
-follows.  Section~\ref{sec:aim} outlines the architecture of AIM which
-forms the basis of SemiAIM.  Section~\ref{sec:vehicles} categorizes
-semi-autonomous vehicles that work with SemiAIM.
-Section~\ref{sec:interface} discusses the design of the user interface
-for drivers on semi-autonomous vehicles to interact with SemiAIM.
+concept of SemiAIM; 2) a specification of constraint-based reservation
+requests for semi-autonomous vehicles; and 3) detailed empirical
+results demonstrating the effectiveness of this protocol, especially
+in moderate traffic levels with a mix of human-driven,
+semi-autonomous, and fully autonomous vehicles.  The remainder of the
+paper is organized as follows.  Section~\ref{sec:aim} outlines the
+architecture of AIM which forms the basis of SemiAIM.
+Section~\ref{sec:vehicles} and Section~\ref{sec:interface} categorize
+semi-autonomous vehicles and discuss the interaction between human
+drivers and semi-autonomous vehicles in SemiAIM.
 Section~\ref{sec:constraint} describes the constraint-based
-reservation system, a generalization of AIM for semi-autonomous
-vehicles.  Section~\ref{sec:simulation} presents the results of the
-simulation experiments we used to evaluates SemiAIM.  The related work
-and the conclusion are given in Section~\ref{sec:related} and
-\ref{sec:conclusions}, respectively.
+reservation system in SemiAIM.  Section~\ref{sec:simulation} presents
+the results of the simulation experiments we used to evaluates
+SemiAIM.  The related work and the conclusion are given in
+Section~\ref{sec:related} and \ref{sec:conclusions}, respectively.
 
+
+% , a generalization of AIM for semi-autonomous
+% vehicles.
+
+
+% the design of the user interface
+% for drivers on semi-autonomous vehicles to interact with SemiAIM.
 
 % In this paper, semi-autonomous vehicles meet the criteria of limited
 % self-driving automation (Level 3).

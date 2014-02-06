@@ -1,39 +1,33 @@
 \section{Semi-Autonomous Vehicles}
 \label{sec:vehicles}
 
-An apparent drawback of FCFS is that it is designed for fully autonomous
-vehicles only---it does not work with any vehicles that require human
-operations.
-Dresner and Stone proposed the FCFS-signal (a.k.a. FCFS-Light) policy which makes AIM
-compatible with human drivers~\cite{bib:Dresner07Sharing}. According
-to their study, when more than 5-10\% of traffic is comprised of
-human-driven vehicles, the average delay time of all vehicles
-increases significantly.
-% The reason for this phenomenon is twofold.
-% First, human-driven vehicles cannot enter the intersection during red
-% signal phases, because they are \emph{not allowed} to make any
-% reservation.  Second, as a consequence of the first, autonomous
-% vehicles often fail to obtain reservations when they are
-% behind the human-driven vehicles stalled at red signals. These issues
-% stem from the fact that 
-However, FCFS-signal only allows fully autonomous
-vehicles to enter intersections during red signal phases.
-SemiAIM sets out to overcome these issues by allowing
-\emph{semi-autonomous vehicles} to use the reservation system
-to enter an intersection during red signal phases.
+A drawback of FCFS is that it does not work with any vehicles that
+require human operations.  Dresner and Stone proposed FCFS-signal
+(a.k.a. FCFS-Light) to make AIM compatible with human
+drivers~\cite{bib:Dresner07Sharing}.  According to their study,
+however, when more than 5-10\% of traffic is comprised of human-driven
+vehicles, the average delay time of all vehicles increases
+significantly under FCFS-signal.  The reason for this phenomenon is
+twofold.  First, human-driven vehicles cannot enter the intersection
+during red signal phases, because they are \emph{not} allowed to make
+any reservation.  Second, as a consequence of the first, autonomous
+vehicles often fail to obtain reservations when they are behind the
+human-driven vehicles stalled at red signals. These issues stem from
+the fact that FCFS-signal prohibits human-driven vehicles to enter
+intersections during red signal phases. SemiAIM sets out to overcome
+these issues by allowing \emph{semi-autonomous vehicles}---vehicles
+with limited autonomous driving and wireless communication
+capabilities---to use the AIM reservation system to enter an
+intersection during red signal phases.  While these vehicles are not
+fully autonomous, they are able to follow a \emph{limited} number of
+predictable trajectories at intersections more precisely than human
+drivers.  This ability allows them to utilize our constraint-based
+reservation system to make reservations in the same manner as fully
+autonomous vehicles and enter an intersection at red signals.
 
-% In this paper, we use the term \emph{semi-autonomous vehicles} to
-% refer to vehicles with limited autonomous driving and wireless
-% communication capabilities.  While these vehicles are not fully
-% autonomous, they are assumed to be able to follow a \emph{limited}
-% number of predictable trajectories at intersections more precisely
-% than human drivers.  This ability allows them to utilize our
-% constraint-based reservation system to make reservations in the same
-% manner as fully autonomous vehicles.
-% 
-% Our proposed reservation system is general enough to accept
-% reservation requests from \emph{any} semi-autonomous vehicles that are
-% capable of following some trajectories and communicating with the IM.
+Our proposed reservation system is general enough to accept
+reservation requests from \emph{any} semi-autonomous vehicles that are
+capable of following some trajectories and communicating with the IM.
 To facilitate our discussion, we will focus on semi-autonomous
 vehicles which use the following set of equipment that is readily
 available today.
@@ -104,9 +98,15 @@ retain some control of the vehicles.  We can equip a semi-autonomous
 vehicle with more than one of these devices.  Next, we introduce three
 types of semi-autonomous vehicles that we envision utilizing this
 equipment: \textit{Type SA-ACC Vehicles}, \textit{Type SA-CC Vehicles}
-and \textit{Type SA-Com Vehicles}.
-Table~\ref{table:type} summarizes the equipment being used on
-different types of these semi-autonomous vehicles.
+and \textit{Type SA-Com Vehicles}.  Table~\ref{table:type} summarizes
+the equipment being used on different types of these semi-autonomous
+vehicles.  Figure~\ref{fig:simulator} shows a screenshot of the
+SemiAIM simulator we developed to simulate semi-autonomous vehicles at
+intersections. In this figure, the yellow vehicles are fully
+autonomous, the green vehicles are Type SA-ACC, the blue vehicles are
+Type SA-CC, the white vehicles are Type SA-Com, and the magenta
+vehicles are human-driven vehicles.
+
 
 % \begin{small_ind_s_itemize}
 % \item \textbf{Type SA-ACC Vehicles}: Utilizing adaptive cruise
@@ -125,19 +125,18 @@ different types of these semi-autonomous vehicles.
 \caption{Features of semi-autonomous vehicles.}
 \label{table:type}
 \small
+\vspace{-.1in}
 \begin{tabular}{|c|c|c|c|}
   \hline
   Vehicle Type & Communication & Cruise & Adaptive \\
                & Device & Control & Cruise Control \\
   \hline
   SA-ACC & X & X & X  \\
-  \hline
   SA-CC & X & X &  \\
-  \hline
   SA-Com & X & &  \\
   \hline
 \end{tabular}
-\vspace{-.25in}
+\vspace{-.3in}
 \end{table}
 
 % As can be seen, a
@@ -149,13 +148,15 @@ different types of these semi-autonomous vehicles.
 % these vehicles can be manual-driven, because the human driver can
 % always opt to simply follow the traffic signals without using cruise
 % control, especially when engaging the equipment is too distracting.
-Figure~\ref{fig:simulator} shows a screenshot of the SemiAIM simulator
-we developed to simulate semi-autonomous vehicles at
-intersections.\footnote{Modified from the open-source AIM4 simulator:
-\url{http://www.cs.utexas.edu/~aim}}.  In this figure, the yellow
-vehicles are fully autonomous, the green vehicles are Type SA-ACC, the
-blue vehicles are Type SA-CC, the white vehicles are Type SA-Com, and
-the magenta vehicles are human-driven vehicles.
+% Figure~\ref{fig:simulator} shows a screenshot of the SemiAIM simulator
+% we developed to simulate semi-autonomous vehicles at
+% intersections.
+% \footnote{Modified from the open-source AIM4 simulator:
+% \url{http://www.cs.utexas.edu/~aim}}.
+% In this figure, the yellow
+% vehicles are fully autonomous, the green vehicles are Type SA-ACC, the
+% blue vehicles are Type SA-CC, the white vehicles are Type SA-Com, and
+% the magenta vehicles are human-driven vehicles.
 % Although the traffic
 % signals at the intersection are red (see the red dots at the edges of
 % the intersection), fully autonomous vehicles can still enter the
