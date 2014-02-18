@@ -86,5 +86,6 @@ xlabel('Autonomous Vehicles Ratio');
 ylabel('Average Delay (s)');
 axis([0, 1, 10, 45]);
 legend('Mix of A, SA-ACC, H', 'Mix of A, SA-CC, H', 'Mix of A, SA-Com, H', 'SIGNAL', 'location', 'southwest');
-print(['mixture_2_', num2str(trafficLevel), '.png'], '-S700,500');
+%print(['mixture_2_', num2str(trafficLevel), '.png'], '-S700,500');
+print('figure_3.eps', '-color', '-S400,250');
 close;
