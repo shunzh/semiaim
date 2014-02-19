@@ -1,0 +1,30 @@
+% \section{Constraint-based Reservation Systems}
+% \label{sec:constraint}
+
+SemiAIM extends AIM by allowing human-driven vehicles and
+semi-autonomous vehicles to make reservations in the same way as
+fully autonomous vehicles.  The key idea of SemiAIM is to turn AIM into a
+\emph{constraint-based reservation system}, which allows vehicles to
+make reservations in terms of constraints over 1) their driving
+profiles such as their arrival time and arrival velocity, and 2) the
+relationships with other vehicles.
+To facilitate communication with all kinds of
+semi-autonomous vehicles, SemiAIM uses a \emph{unified}
+language for vehicles to express their constraints in the same format
+in their requests.  We define \emph{constraint-based} reservation
+requests as follows.  A request message consists of four components:
+\begin{small_ind_s_itemize}
+\item{\bf Intention}: The direction in which the vehicle intends to
+  move.
+\item{\bf Vehicle Type}: The type of vehicle.
+\item{\bf Entry Condition}: The condition under which the vehicle
+  will enter the intersection.
+\item{\bf Acceleration Profile List}: The list of possible acceleration schedules
+  from among which the vehicle will choose one to follow
+  during the traversal of the intersection.
+\end{small_ind_s_itemize}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:

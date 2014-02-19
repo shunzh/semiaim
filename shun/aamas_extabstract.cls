@@ -1,4 +1,4 @@
-% IFAAMAS-SUBMISSION.CLS
+% IFAAMAS-SUBMISSION.CLS --> aamas-extabstracts.cls
 % trivial modification of sig-alternate.cls to use IFAAMAS copyright statement.
 % SIG-ALTERNATE.CLS - VERSION 1.9
 % "COMPATIBLE" WITH THE "ACM_PROC_ARTICLE-SP.CLS" V2.8SP
@@ -44,8 +44,8 @@
 % ---- End of 'updates' ----
 %
 \def\fileversion{v1.9}          % for ACM's tracking purposes
-\def\filedate{September 19, 2008}    % Keith Decker
-\def\docdate {Friday 19th. September 2008} % Keith Decker
+\def\filedate{November 30, 2006}    % Gerry Murray's tracking data
+\def\docdate {Thursday 30th. November 2006} % Gerry Murray (with deltas to doc}
 \usepackage{epsfig}
 \usepackage{amssymb}
 \usepackage{amsmath}
@@ -116,7 +116,6 @@
 %%%     dvips -e 0 foo.dvi >foo.ps
 %%%
 \typeout{Document Class 'ifaamas-submission'}
-\typeout{Trivial Modification of Document Class 'sig-alternate' <30th. November '06>.  Modified by Keith Decker}
 \typeout{Trivial Modification of Document Class 'sig-alternate' <30th. November '06>.  Modified by G.K.M. Tobin/Gerry Murray}
 \typeout{Based in part upon document Style `acmconf' <22 May 89>. Hacked 4/91 by}
 \typeout{shivers@cs.cmu.edu, 4/93 by theobald@cs.mcgill.ca}
@@ -262,7 +261,8 @@
 \gdef\subtitle#1{\subtitletext={#1}}
 
 %% fk: fixed subtitle for short papers 
-%\gdef\subtitle#1{\subtitletext={(Short Paper)}}
+%% ksd changed short paper to extended abstract 2009
+\gdef\subtitle#1{\subtitletext={(Extended Abstract)}}
 %\def\subtitle={[Short Paper]}
 
 
@@ -602,7 +602,7 @@
 
 \if@ll
   \NeedsTeXFormat{LaTeX2e}
-  \ProvidesClass{aamas2013} [2009/24/07 - V1.9 - based on acmproc.cls V1.3 <Nov. 30 '99>]
+  \ProvidesClass{aamas2009-extendedabs-new} [2008/16/01 - based on sig-alternate.cls V2.3 <June '08>]
   \RequirePackage{latexsym}% QUERY: are these two really needed?
   \let\dooptions\ProcessOptions
 \else
@@ -704,7 +704,10 @@
     {\ttlfnt \@title\par}       % Title set in 18pt Helvetica (Arial) bold size.
     \vskip 1.5em                % Vertical space after title.
 %This should be the subtitle.
-{\subttlfnt \the\subtitletext\par}\vskip 1.25em%\fi
+%{\subttlfnt \the\subtitletext\par}\vskip 1.25em%\fi
+% 2008/24/09 fk: fixed subtitle for short papers at AAMAS 2008
+% ksd changed short paper to extended abstract for 2009
+{\subttlfnt \ttlfnt (Extended Abstract)\par}\vskip 1.25em%\fi
     {\baselineskip 16pt\aufnt   % each author set in \12 pt Arial, in a
      \lineskip .5em             % tabular environment
      \begin{tabular}[t]{c}\@author
@@ -1418,23 +1421,25 @@
 %\global\copyrightetc{Copyright \the\copyrtyr\ IFAAMAS }
 
 % fk, Aug. 31 2008 shortenings for aamas 2008 - no user definition of conference!
-% ksd Sep 5 altered for 2009
-% acr July 24 altered for 2010
+% ksd sep 5 altered for 2009 conference
 \newtoks\copyrightetc
 \global\boilerplateBefore={{\bf Appears in:} }
-\global\boilerplateAfter={{\it Proceedings of the 13th International
-Conference on Autonomous Agents and Multiagent Systems (AAMAS 2014), 
-Lomuscio, Scerri, Bazzan, Huhns (eds.), May, 5--9, 2014, Paris, France.}}
+\global\boilerplateAfter={{\it Alessio Lomuscio, Paul Scerri, Ana Bazzan, and Michael Huhns (eds.), Proceedings of the 13th International Conference on Autonomous Agents and Multiagent Systems (AAMAS 2014), May 5-9, 2014, Paris, France.}}
 \global\copyrightetc{Copyright \copyright\ \the\copyrtyr , 
 International Foundation for Autonomous Agents and Multiagent Systems (www.ifaamas.org). All rights reserved.}
 
 %\toappear{\the\boilerplate\par
 %{\confname{\the\conf}} \the\confinfo\par \the\copyrightetc.}
 
+% fk: (Short Paper) must be written explicitly in the boilerplate
+%\toappear{\the\boilerplateBefore \the\titleForCitation\ (Short Paper), \the\authorsForCitation, \the\boilerplateAfter\par
+% BUG FIX (witwicki) : this year, "(Extended Abstract)" must instead appear
 \toappear{
 \the\boilerplateBefore 
-%\the\titleForCitation, \the\authorsForCitation, 
+%\the\titleForCitation\ (Extended Abstract), 
+%\the\authorsForCitation, 
 \the\boilerplateAfter\par
+%\toappear{\the\boilerplateBefore \the\titleForCitation, \the\authorsForCitation, \the\boilerplateAfter\par
 \the\copyrightetc}
 
 %\DeclareFixedFont{\altcrnotice}{OT1}{tmr}{m}{n}{8}  % << patch needed for accenting e.g. Montreal - Gerry, May 2007
@@ -1650,5 +1655,6 @@ International Foundation for Autonomous Agents and Multiagent Systems (www.ifaam
 
 \endinput
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% end of aamas2008-new.cls
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% end of aamas-extabstracts.cls
+
 

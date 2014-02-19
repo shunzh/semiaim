@@ -1,0 +1,242 @@
+% This is "aamas2014.tex", a revised version of aamas2013.tex
+% This file should be compiled with "aamas2014.cls" 
+% This example file demonstrates the use of the 'aamas2014.cls'
+% LaTeX2e document class file. It is for those submitting
+% articles to AAMAS 2014  conference. This file is based on
+% the sig-alternate.tex example file.
+% The 'sig-alternate.cls' file of ACM will produce a similar-looking,
+% albeit, 'tighter' paper resulting in, invariably, fewer pages.
+% than the original style ACM style.
+%
+% ----------------------------------------------------------------------------------------------------------------
+% This .tex file (and associated .cls ) produces:
+%       1) The Permission Statement
+%       2) The Conference (location) Info information
+%       3) The Copyright Line with AAMAS data
+%       4) NO page numbers
+%
+% as against the acm_proc_article-sp.cls file which
+% DOES NOT produce 1) through 3) above.
+%
+% Using 'aamas2014.cls' you don't have control
+% from within the source .tex file, over both the CopyrightYear
+% (defaulted to 200X) and the IFAAMAS Copyright Data
+% (defaulted to X-XXXXX-XX-X/XX/XX).
+% These information will be overwritten by fixed AAMAS 2014  information
+% in the style files - it is NOT as you are used with ACM style files.
+%
+% ---------------------------------------------------------------------------------------------------------------
+% This .tex source is an example which *does* use
+% the .bib file (from which the .bbl file % is produced).
+% REMEMBER HOWEVER: After having produced the .bbl file,
+% and prior to final submission, you *NEED* to 'insert'
+% your .bbl file into your source .tex file so as to provide
+% ONE 'self-contained' source file.
+%
+
+% This is the document class for full camera ready papers and extended abstracts repsectively 
+
+\documentclass{aamas_extabstract}
+\usepackage{times,helvet,courier}
+\usepackage{amssymb,amsmath,latexsym}
+\usepackage{graphics,graphicx,epstopdf}
+\usepackage{subfigure}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{paralist}
+\usepackage{layout}
+\usepackage{url}
+\usepackage{mathptmx} % assumes new font selection scheme installed
+\usepackage{epsfig} % for postscript graphics files
+\usepackage{pdfsync}
+\usepackage{subfigure}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\veh}{\ensuremath{v}}
+
+% \newcommand{\vin}{\textsf{id}}
+% \newcommand{\Anchor}{\textsf{Anchor}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Helper functions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{small_ind_s_itemize}{\begin{list}{$\bullet$}
+{\setlength{\rightmargin}{0em}
+\setlength{\leftmargin}{1em}
+\setlength{\itemsep}{0em}
+\setlength{\topsep}{0em}
+\setlength{\parsep}{0em}}}{\end{list}}
+
+\newtheorem{defn}{Definition}          % definition
+\newtheorem{thm}{Theorem}              % theorem
+
+\newcommand{\commentc}[1]{{\bf **Chiu: #1**}}
+\newcommand{\commentn}[1]{{\bf **Shun: #1**}}
+\newcommand{\commentp}[1]{{\bf **Peter: #1**}}
+
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+%\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+
+\begin{document}
+
+% \setlength\titlebox{1.8in}
+
+
+\title{Semi-Autonomous Intersection Management}
+
+%\author{ \parbox{3 in}{\centering Huibert Kwakernaak*
+%         \thanks{*Use the $\backslash$thanks command to put information here}\\
+%         Faculty of Electrical Engineering, Mathematics and Computer Science\\
+%         University of Twente\\
+%         7500 AE Enschede, The Netherlands\\
+%         {\tt\small h.kwakernaak@autsubmit.com}}
+%         \hspace*{ 0.5 in}
+%         \parbox{3 in}{ \centering Pradeep Misra**
+%         \thanks{**The footnote marks may be inserted manually}\\
+%        Department of Electrical Engineering \\
+%         Wright State University\\
+%         Dayton, OH 45435, USA\\
+%         {\tt\small pmisra@cs.wright.edu}}
+%}
+
+\numberofauthors{3}
+\author{
+% You can go ahead and credit any number of authors here,
+% e.g. one 'row of three' or two rows (consisting of one row of three
+% and a second row of one, two or three).
+%
+% The command \alignauthor (no curly braces needed) should
+% precede each author name, affiliation/snail-mail address and
+% e-mail address. Additionally, tag each line of
+% affiliation/address with \affaddr, and tag the
+% e-mail address with \email.
+% 1st. author
+Tsz-Chiu Au\\
+       \affaddr{School of Electrical and Computer Eng.}\\
+       \affaddr{Ulsan National Institute of Sci. and Tech.}\\
+       \affaddr{Ulsan, Korea 689-798}\\
+       \email{chiu@unist.ac.kr}
+% 2nd. author
+\alignauthor
+Shun Zhang\\
+       \affaddr{Dept.\ of Computer Science}\\
+       \affaddr{The Univ.\ of Texas at Austin}\\
+       \affaddr{Austin, TX 78712 USA}\\
+       \email{jensen.zhang@utexas.edu}
+% 3rd. author
+\alignauthor
+Peter Stone\\
+       \affaddr{Dept.\ of Computer Science}\\
+       \affaddr{The Univ.\ of Texas at Austin}\\
+       \affaddr{Austin, TX 78712 USA}\\
+       \email{pstone@cs.utexas.edu}
+}
+
+
+% \author{Huibert Kwakernaak$^{1}$ and Pradeep Misra$^{2}$% <-this % stops a space
+% \thanks{*This work was not supported by any organization}% <-this % stops a space
+% \thanks{$^{1}$H. Kwakernaak is with Faculty of Electrical Engineering, Mathematics and Computer Science,
+%         University of Twente, 7500 AE Enschede, The Netherlands
+%         {\tt\small h.kwakernaak at papercept.net}}%
+% \thanks{$^{2}$P. Misra is with the Department of Electrical Engineering, Wright State University,
+%         Dayton, OH 45435, USA
+%         {\tt\small p.misra at ieee.org}}%
+% }
+
+
+
+
+\maketitle
+
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+Autonomous Intersection Management
+(AIM) is a reservation-based intersection control protocol that
+leverages the capacities of autonomous vehicles to dramatically reduce
+traffic delay at intersections. AIM was designed for the time when
+all, or most, of the vehicles on the road are \emph{fully} autonomous.
+However, we anticipate that there will be a long transition
+period during which many cars are still driven by human drivers and/or
+most vehicles have some but not all capabilities of fully autonomous
+vehicles. In order to accommodate this transition, this paper
+introduces a new multiagent protocol called \emph{Semi-Autonomous
+Intersection Management} (SemiAIM), which allows vehicles with
+partially-autonomous features such as adaptive cruise control to make
+reservations in AIM.  We propose a method for vehicles with limited
+autonomy to make reservations to enter an intersection in an AIM-like
+style and conduct experiments in simulation to evaluate its
+effectiveness.  Our results show that the delay of semi-autonomous
+vehicles in SemiAIM can be greatly reduced compared to human-driven
+vehicles.
+\end{abstract}
+
+
+% Note that the category section should be completed after reference to the ACM Computing Classification Scheme available at
+% http://www.acm.org/about/class/1998/.
+
+\category{I.2.11}{Artificial Intelligence}{Distributed Artificial Intelligence---Multiagent systems}
+\vspace{-.05in}
+
+% \category{H.4}{Information Systems Applications}{Miscellaneous}
+
+%A category including the fourth, optional field follows...
+%\category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
+
+%General terms should be selected from the following 16 terms: Algorithms, Management, Measurement, Documentation, Performance, Design, Economics, Reliability, Experimentation, Security, Human Factors, Standardization, Languages, Theory, Legal Aspects, Verification.
+
+% \terms{Algorithms, Performance, Economics, Experimentation, Theory}
+% \vspace{-.05in}
+
+% \terms{Delphi theory}
+
+%Keywords are your own choice of terms you would like the paper to be indexed by.
+
+\keywords{Autonomous vehicles, multiagent systems, human-robot coordination}
+
+% \keywords{AAMAS proceedings, \LaTeX, text tagging}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\sloppy
+\input{1-introduction}
+\input{3-semi-auto}
+\input{5-new-aim} % combined with previous uncommented section
+\input{7-experiments}
+\input{9-conclusions}
+\input{10-acknowledgments}
+
+% \bibliographystyle{IEEEtran}
+\bibliographystyle{abbrv}
+\bibliography{bib/ref,bib/chiu}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
