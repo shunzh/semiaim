@@ -16,8 +16,8 @@ keeping the traffic level at 360 vehicles/hour/lane.  We repeated the
 simulation 30 times for 1800s during each time.  For each run, we
 measured the average delay of all vehicles.  The average delays are
 shown in Figure~\ref{fig:two360}.  Each data point in the figure is an
-average of 30 values, and the error bar is the 95\% confident interval
-of the average delay.
+average of 30 values, and the error bar is the 95\% confident interval.
+
  
 % , and the average delay is the same as Type H's.  When the ratio is
 % 1, the traffic has 100\% SA-ACC vehicles and 0\% human-driven
@@ -31,10 +31,11 @@ of the average delay.
 \begin{figure}
 \centering
 \includegraphics[width=0.9\columnwidth]{figures/figure_1.pdf}
+\vspace{-.07in}
 \caption{(Semi-)Autonomous vehicles vs. Human-Driven vehicles. Traffic
 level = 360 vehicles/lane/hour.}
 \label{fig:two360}
-\vspace{-.2in}
+\vspace{-.1in}
 \end{figure}
 
 According to Figure~\ref{fig:two360}, the performance of
@@ -44,7 +45,7 @@ the ratio increases beyond 40\%, fully autonomous vehicles
 increasingly outperform semi-autonomous vehicles.  Previous studies
 showed that FCFS-Signal needs at least 90\% of fully autonomous
 vehicles in the traffic in order to be fully
-effective~\cite{bib:Dresner07Sharing}.  We successfully replicate the
+effective~\cite{mybib:Dresner07Sharing}.  We successfully replicate the
 result, observing that the average delay drops rapidly when the
 traffic has more than 90\% fully autonomous vehicles, and approaches
 zero when all vehicles are fully autonomous.  Semi-autonomous vehicles
