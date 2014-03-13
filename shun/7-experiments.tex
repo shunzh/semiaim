@@ -18,7 +18,11 @@ Section~\ref{sec:vehicles}, are as follows.
 which is either autonomous or semi-autonomous and is going in the same
 direction, it sends an anchor request to the IM.  If the request is
 confirmed, the vehicle follows the vehicle ahead and enters the
-intersection.  If the request is denied or there is no such vehicle
+intersection.\footnote{A SA-ACC vehicle always try send anchor request
+first, because the performance of adaptive cruise control is better
+than that of simple cruise control. The empirical comparison will be
+discussed later in this section.}
+If the request is denied or there is no such vehicle
 ahead, the vehicle sends a constant-velocity request to the IM instead.
 % when it is close enough to the intersection.  
 If it can enter the intersection

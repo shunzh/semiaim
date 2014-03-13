@@ -109,7 +109,8 @@ The intention of a vehicle is the direction in which the vehicle wants
 to exit from an intersection.  The intention is expressed as an
 \emph{intention statement}, which is formally a disjunction of lane
 and road identifiers: $(l_1 \vee l_2 \ldots \vee r_1 \vee r_2)$, where
-$l_i$ is an exit lane and $r_i$ is an exit road. For every lane $l_i$,
+$l_i$ is an exit lane and $r_i$ is an exit road. Roads can be
+considered as sets (or disjunction) of lanes. For every lane $l_i$,
 there exists only one $r_j$ such that $l_i \in r_j$. 
 Examples of legal intentions are $(l_1 \vee l_3)$ or
 $(r_1)$.\footnote{An intention in the form of $(r_i \vee r_j)$ is also possible,
@@ -233,9 +234,12 @@ request $\langle \texttt{truck-with-acc}, \texttt{GXC345}, {\tt 5m}
 \rangle$ states that the vehicle will follow the vehicle with a
 vehicle id {\tt GXC345} and maintain a following distance of $5m$.
 This request is different from the previous types because it depends on the confirmed
-reservation of the vehicle $\veh$ with id \texttt{vin}. If $\veh$ does not
-have a reservation, the IM will reject the anchor request; otherwise,
-the IM will copy the request of $\veh$ and modify the request with 
+reservation of the vehicle $\veh$ with id \texttt{vin}. Note that a
+vehicle doesn't know the reservation request of $v$.
+Still, it can try to send an anchor request. If $\veh$ does not
+have a reservation, or have a researvation but going to a different
+direction, the IM will reject the anchor request; otherwise, the IM
+will copy the request of $\veh$ and modify the request with 
 following distance $d$.
 
 Currently anchor requests are designed specifically for
