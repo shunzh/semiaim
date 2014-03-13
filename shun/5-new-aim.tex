@@ -51,7 +51,13 @@ Lisp syntax as follows:
 where \texttt{v} is the target velocity, \texttt{verror} is the
 maximum error of the target velocity, and \texttt{angle} is the
 maximum feasible steering angle for the human driver when the cruise
-control is turned on.  The maneuverability profile for adaptive cruise
+control is turned on. For readers not familiar with Lisp, each line of
+the profile is a constraint expression, with the operator placed at
+the head of the line. For example, the velocity is smaller than
+\texttt{v + verror}. We employ Lisp syntax because of its flexibility
+in data representation.
+
+The maneuverability profile for adaptive cruise
 control is
 \begin{small}
 \begin{verbatim}
