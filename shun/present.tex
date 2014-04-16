@@ -33,8 +33,9 @@ Science\\ The University of Texas at Austin}
 	\column{.6\textwidth}
 		\begin{itemize}
 		\item Today’s transportation infrastructure is designed for
-		human drivers.
-		\item In the future: Autonomous Traffic Management\\
+		human drivers.\pause
+		\item In the future: \textbf{Autonomous Intersection
+		Management}\\
 		Utilize the capacity of autonomous vehicles to improve traffic
 		in transportation systems.
 		\end{itemize}
@@ -73,8 +74,8 @@ Science\\ The University of Texas at Austin}
 \column{.6\textwidth}
 \begin{itemize}
 \item AIM is designed for the time when vehicles are autonomous.
-\item Autonomous vehicles won’t displace manual-controlled vehicles in one
-day. Some people enjoy driving.
+\item Autonomous vehicles won't displace manual-controlled vehicles in one
+day. Some people enjoy driving.\pause
 \item One solution: FCFS-light = First-Come First-Served Policy + Traffic Signals
 \end{itemize}
 \column{.4\textwidth}
@@ -87,8 +88,8 @@ day. Some people enjoy driving.
 \begin{frame}{Observation}
 \begin{itemize}
 \item This ignores the possible equipments of human-driven vehicles
-(e.g.\ cruise control).
-\item \textbf{Goal}: find a way to make all type of vehicles to
+(e.g.\ cruise control).\pause
+\item \textbf{Goal}: find a way to make all types of vehicles to
 achieve the benefits (better than traffic signal, may not be as good
 as fully autonomous vehicles).
 \end{itemize}
@@ -146,6 +147,15 @@ ahead.
 
 \subsection{Constraint-Based Reservation Systems}
 
+\begin{frame}{Constraint-Based Reservation}
+We turn AIM into a \emph{constraint-based reservation system}, which
+allows vehicles to make reservations in terms of constraints over
+\begin{itemize}
+\item their driving profiles such as their arrival time and arrival velocity
+\item the relationships with other vehicles.
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Basic Elements}
 \begin{itemize}
 \item{\bf Intention}: The direction in which the vehicle intends to
@@ -201,18 +211,18 @@ In Lisp syntax,
 
 \section{Evaluations}
 
-\begin{frame}{Evaluation}
+\begin{frame}{Evaluation on AIM}
 	\includegraphics[width=0.8\textwidth]{old_result.png}
 \end{frame}
 
-\begin{frame}{Evaluation}
+\begin{frame}{Evaluation on SemiAIM}
 \includegraphics[width=0.9\textwidth]{figures/figure_1.pdf}
 
 (Semi-)Autonomous vehicles vs. Human-Driven vehicles. Traffic
 level = 360 vehicles/lane/hour.
 \end{frame}
 
-\begin{frame}{Evaluation}
+\begin{frame}{Evaluation on SemiAIM}
 \includegraphics[width=0.9\columnwidth]{figures/figure_3.pdf}
 
 The average delay according to a deployment schedule. Traffic level =
