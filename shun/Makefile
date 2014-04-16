@@ -44,3 +44,5 @@ clean:
 	rm -f *.idx *.ilg *.ind *.out *.toc *.aux *.log *.bbl *.blg *lof *.lot *.dvi *.ps *.pdf missfont.log texput.log *.pdfsync *.rel *~
 	rm -rf auto
 
+present:
+	pdflatex present.tex
