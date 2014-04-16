@@ -93,13 +93,31 @@ day. Some people enjoy driving.
 \subsection{Semi-Autonomous Vechiles}
 
 \begin{frame}{Definition}
-\textit{semi-autonomous vehicles}: vehicles with limited autonomous
+\textbf{semi-autonomous vehicles}: vehicles with limited autonomous
 driving and wireless communication capabilities.
 
 \hfill
 
-They are able to follow a limited number of predictable trajectories
-at intersections more precisely than human drivers.
+They are able to follow a \textit{limited number} of predictable
+trajectories at intersections more precisely than human drivers.
+\end{frame}
+
+\begin{frame}{Set of Equipments}
+\begin{itemize}
+\item \textbf{Communication Device (Com)}:
+a component in a vehicle's on-board electronic system that enables the
+vehicle to wirelessly communicate with the transportation
+infrastructure including the IM.
+\item \textbf{Simple Cruise Control (CC)}:
+An optional speed control subsystem in vehicles' drivetrain that
+automatically controls the vehicle speed by taking over the throttle
+of the vehicles. 
+\item \textbf{Adaptive Cruise Control (ACC)}:
+an advanced cruise control system that automatically adjusts the speed
+of a vehicle in order to maintain a certain distance from vehicles
+ahead.
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}{Type of Semi-Autonomous Vehicles}
@@ -130,7 +148,60 @@ level = 360 vehicles/lane/hour.
 \includegraphics[width=\textwidth]{figures/interaction}
 \end{frame}
 
-\subsection{Constraint-based Reservation Systems}
+\subsection{Constraint-Based Reservation Systems}
+
+\begin{frame}{Elements}
+\begin{itemize}
+\item{\bf Intention}: The direction in which the vehicle intends to
+move.
+\item{\bf Vehicle Type}: The type of vehicle.
+\item{\bf Entry Condition}: The condition under which the vehicle will
+enter the intersection.
+\item{\bf Acceleration Profile List}: The list of possible
+acceleration schedules from among which the vehicle will choose one to
+follow during the traversal of the intersection.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Constant-Velocity Request}
+\begin{itemize}
+\item ${\sf Intent} = ( l_1 \vee l_2 \vee \ldots \vee l_n )$
+in which $l_i$ is a possible lane from which the vehicle 
+exits the intersection;
+\item ${\sf Type}$ is the vehicle type;
+\item ${\sf Entry} = (( l'_1 \vee l'_2 \vee \ldots \vee l'_n ), [t_1,\ t_2], [v_1,\ v_2])$
+is the entry statement; and
+\item ${\sf AP} = ( \langle (t_1, 0) \rangle )$
+\end{itemize}
+
+This is particularly used by Simple Cruise Control.
+\end{frame}
+
+\begin{frame}{Whole-Row Request}
+\begin{itemize}
+\item ${\sf Intent} = ( l_1 \vee l_2 \vee \ldots \vee l_n )$ $l_i$ is a possible lane from which the vehicle exits the intersection;
+\item ${\sf Type}$ is the vehicle type;
+\item ${\sf Entry} = (( l'_1 \vee l'_2 \vee \ldots \vee l'_n ), [t_1,\ t_2], [v_1,\ v_2])$ is the entry statement; and
+\item ${\sf AP}$ is the acceleration profile list.
+\end{itemize}
+
+This is particularly used by Communication Device.
+\end{frame}
+
+\begin{frame}[fragile]{An General Request}
+In Lisp syntax,
+
+\begin{small}
+\begin{verbatim}
+(cc-profile (v verror angle)
+  (is-auto-speed-control)
+  (not is-auto-steering)
+  (< velocity (+ v verror))
+  (> velocity (- v verror))
+  (< steer-angle angle) (> steer-angle -angle))
+\end{verbatim}
+\end{small}
+\end{frame}
 
 \section{Conclusion}
 
