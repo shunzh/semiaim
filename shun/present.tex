@@ -55,19 +55,13 @@ Science\\ The University of Texas at Austin}
 		\begin{itemize}
 		\item Dramatically reduce the traffic delay.
 		\item Reduce the overhead of fuel consumption by approximately
-		two thirds.\\
-		Kurt Dresner and Peter Stone. A Multiagent Approach to
-		Autonomous Intersection Management. JAIR 2008.
+		two thirds. \cite{bib:Dresner08Multiagent}
 		\end{itemize}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Grid-Based Collision Detection}
 	\includegraphics[width=\textwidth]{grids.png}
-\end{frame}
-
-\begin{frame}{Evaluation}
-	\includegraphics[width=0.8\textwidth]{old_result.png}
 \end{frame}
 
 \section{Semi-Autonomous Intersection Manangement}
@@ -90,10 +84,20 @@ day. Some people enjoy driving.
 \end{columns}
 \end{frame}
 
+\begin{frame}{Observation}
+\begin{itemize}
+\item This ignores the possible equipments of human-driven vehicles
+(e.g.\ cruise control).
+\item \textbf{Goal}: find a way to make all type of vehicles to
+achieve the benefits (better than traffic signal, may not be as good
+as fully autonomous vehicles).
+\end{itemize}
+\end{frame}
+
 \subsection{Semi-Autonomous Vechiles}
 
 \begin{frame}{Definition}
-\textbf{semi-autonomous vehicles}: vehicles with limited autonomous
+\textbf{Semi-autonomous vehicles}: vehicles with limited autonomous
 driving and wireless communication capabilities.
 
 \hfill
@@ -117,7 +121,6 @@ an advanced cruise control system that automatically adjusts the speed
 of a vehicle in order to maintain a certain distance from vehicles
 ahead.
 \end{itemize}
-
 \end{frame}
 
 \begin{frame}{Type of Semi-Autonomous Vehicles}
@@ -133,20 +136,6 @@ ahead.
   SA-Com & X & &  \\
   \hline
 \end{tabular}
-\end{frame}
-
-\begin{frame}{Evaluations}
-\includegraphics[width=0.9\textwidth]{figures/figure_1.pdf}
-
-(Semi-)Autonomous vehicles vs. Human-Driven vehicles. Traffic
-level = 360 vehicles/lane/hour.
-\end{frame}
-
-\begin{frame}{Evaluations}
-\includegraphics[width=0.9\columnwidth]{figures/figure_3.pdf}
-
-The average delay according to a deployment schedule. Traffic level =
-360 vehicles/lane/hour.
 \end{frame}
 
 \subsection{Interaction Model}
@@ -210,7 +199,41 @@ In Lisp syntax,
 \end{small}
 \end{frame}
 
+\section{Evaluations}
+
+\begin{frame}{Evaluation}
+	\includegraphics[width=0.8\textwidth]{old_result.png}
+\end{frame}
+
+\begin{frame}{Evaluation}
+\includegraphics[width=0.9\textwidth]{figures/figure_1.pdf}
+
+(Semi-)Autonomous vehicles vs. Human-Driven vehicles. Traffic
+level = 360 vehicles/lane/hour.
+\end{frame}
+
+\begin{frame}{Evaluation}
+\includegraphics[width=0.9\columnwidth]{figures/figure_3.pdf}
+
+The average delay according to a deployment schedule. Traffic level =
+360 vehicles/lane/hour.
+\end{frame}
+
 \section{Conclusion}
+
+\begin{frame}{Related Works}
+\begin{itemize}
+\item The main context of our work is an extension to the FCFS policy
+proposed by Dresner and Stone \cite{bib:Dresner08Multiagent}.
+\item Similar to the analysis of adaptive cruise control performance
+by Jerath and Brennan \cite{bib:Jerath10adaptive}.
+\item Part of a series of robotic car competitions such as the
+\emph{DARPA Grand Challenges}~\cite{DARPAGrandChallenge}.
+\item Autonomous vehicles can even outperform many human drivers in
+carrying out intricate maneuvers~\cite{Squatriglia2010}.
+\item etc.
+\end{itemize}
+\end{frame}
 
 \begin{frame}{Conclusion}
 \begin{itemize}
@@ -220,6 +243,11 @@ between human-driven, fully autonomous, and semiautonomous vehicles.
 trafﬁc delay when most vehicles are semiautonomous, even when few
 (if any) are fully autonomous.
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Bibliography}
+\tiny{\bibliographystyle{apalike}
+\bibliography{bib/ref,bib/chiu,bib/intelligent_vehicles,bib/intersection,bib/peter}}
 \end{frame}
 
 \end{document}

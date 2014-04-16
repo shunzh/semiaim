@@ -46,3 +46,6 @@ clean:
 
 present:
 	pdflatex present.tex
+	bibtex present
+	pdflatex present.tex
+	pdflatex present.tex
