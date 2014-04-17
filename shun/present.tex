@@ -4,8 +4,11 @@
 \usetheme{Warsaw}
 \title{Intersection Management with Constraint-Based Reservation
 System}
-\author{Tsz-Chiu Au, Shun Zhang, Peter Stone\\ Department of Computer
-Science\\ The University of Texas at Austin}
+\date{}
+
+\newcommand{\goal}{find a way to make all types of vehicles to
+achieve the benefits (better than traffic signal, may not be as good
+as 100\% fully autonomous vehicles)}
 
 \defbeamertemplate*{footline}{shadow theme}
 {%
@@ -22,41 +25,50 @@ Science\\ The University of Texas at Austin}
 
 \begin{frame}
 \titlepage
+Tsz-Chiu Au\footnotemark[2], Shun Zhang\footnotemark[1], and Peter
+Stone\footnotemark[1]
+\footnotetext[1]{Department of Computer Science. The University of
+Texas at Austin.}
+\footnotetext[2]{School of Electrical and Computer Engineering.
+Ulsan National Institute of Science and Technology.
+South Korea.}
 \end{frame}
 
 \section{Introduction}
 
 \subsection{Autonomous Intersection Management}
 
-\begin{frame}{Transportation Infrastructure: Present and Future}
+\begin{frame}{Intersection Management: Present and Future}
 \begin{columns}[c]
 	\column{.6\textwidth}
 		\begin{itemize}
-		\item Today’s transportation infrastructure is designed for
-		human drivers.\pause
+		\item Today's transportation infrastructure is designed for
+		human drivers.
 		\item In the future: \textbf{Autonomous Intersection
-		Management}\\
+		Management}.\\
 		Utilize the capacity of autonomous vehicles to improve traffic
 		in transportation systems.
 		\end{itemize}
 		
 	\column{.4\textwidth}
-		\includegraphics[width=0.8\textwidth]{42.png}
-		\hfill
 		\includegraphics[width=0.8\textwidth]{intersection.jpg}
+		\hfill
+		\includegraphics[width=0.8\textwidth]{42.png}
 \end{columns}
 \end{frame}
 
-\begin{frame}{Autonomous Intersection Management}
+\begin{frame}{Previous Work: Autonomous Intersection Management}
 \begin{columns}[c]
 	\column{.4\textwidth}
 		\includegraphics[width=\textwidth]{aim.png}
 				
 	\column{.6\textwidth}
 		\begin{itemize}
+		\item \cite{bib:Dresner08Multiagent}.
+		\item Use Grid-Based Collision Detection.\pause
 		\item Dramatically reduce the traffic delay.
 		\item Reduce the overhead of fuel consumption by approximately
-		two thirds. \cite{bib:Dresner08Multiagent}
+		two thirds.
 		\end{itemize}
 \end{columns}
 \end{frame}
@@ -74,9 +86,10 @@ Science\\ The University of Texas at Austin}
 \column{.6\textwidth}
 \begin{itemize}
 \item AIM is designed for the time when vehicles are autonomous.
-\item Autonomous vehicles won't displace manual-controlled vehicles in one
-day. Some people enjoy driving.\pause
-\item One solution: FCFS-light = First-Come First-Served Policy + Traffic Signals
+\item Autonomous vehicles won't displace manual-controlled vehicles in
+one day. Some people enjoy driving.\pause
+\item One solution: FCFS-light = First-Come First-Served Policy +
+Traffic Signals \cite{bib:Dresner08Multiagent}
 \end{itemize}
 \column{.4\textwidth}
 \includegraphics[width=\textwidth]{fcfs-light-1.png}
@@ -89,9 +102,7 @@ day. Some people enjoy driving.\pause
 \begin{itemize}
 \item This ignores the possible equipments of human-driven vehicles
 (e.g.\ cruise control).\pause
-\item \textbf{Goal}: find a way to make all types of vehicles to
-achieve the benefits (better than traffic signal, may not be as good
-as fully autonomous vehicles).
+\item \textbf{Goal}: \goal.
 \end{itemize}
 \end{frame}
 
@@ -100,6 +111,7 @@ as fully autonomous vehicles).
 \begin{frame}{Definition}
 \textbf{Semi-autonomous vehicles}: vehicles with limited autonomous
 driving and wireless communication capabilities.\pause
+% spectrum with H and A on both ends
 
 \hfill
 
@@ -113,6 +125,7 @@ trajectories at intersections more precisely than human drivers.
 a component in a vehicle's on-board electronic system that enables the
 vehicle to wirelessly communicate with the transportation
 infrastructure including the IM.\pause
+% no need to change the mechanism
 \item \textbf{Simple Cruise Control (CC)}:
 An optional speed control subsystem in vehicles' drivetrain that
 automatically controls the vehicle speed by taking over the throttle
@@ -142,6 +155,9 @@ ahead.
 \subsection{Interaction Model}
 
 \begin{frame}{Interaction Model}
+For safety, we need to define a simple and clean interface between the
+human driver and the vehicle.\pause
+
 \includegraphics[width=\textwidth]{figures/interaction}
 \end{frame}
 
@@ -165,7 +181,7 @@ move.\pause
 enter the intersection.\pause
 \item{\bf Acceleration Profile List}: The list of possible
 acceleration schedules from among which the vehicle will choose one to
-follow during the traversal of the intersection.\pause
+follow during the traversal of the intersection.
 \end{itemize}
 \end{frame}
 
@@ -188,13 +204,25 @@ This is particularly used by Simple Cruise Control.
 \item ${\sf Intent} = ( l_1 \vee l_2 \vee \ldots \vee l_n )$ $l_i$ is a possible lane from which the vehicle exits the intersection;
 \item ${\sf Type}$ is the vehicle type;
 \item ${\sf Entry} = (( l'_1 \vee l'_2 \vee \ldots \vee l'_n ), [t_1,\ t_2], [v_1,\ v_2])$ is the entry statement; and
-\item ${\sf AP}$ is the acceleration profile list.
+\item ${\sf AP}$ is the acceleration profile list, and may not be
+provided.
 \end{itemize}
 
 This is particularly used by Communication Device.
 \end{frame}
 
-\begin{frame}[fragile]{An General Request}
+\begin{frame}{Anchor Request}
+Semi-autonomous vehicles with adaptive cruise control can use a special
+constraint-based request called \emph{anchor requests} to make
+reservations.\pause
+
+\hfill
+
+An anchor request is $\langle {\sf Type}, \texttt{vin},
+d \rangle$
+\end{frame}
+
+\begin{frame}[fragile]{A General Request}
 In Lisp syntax,
 
 \begin{small}
@@ -211,8 +239,34 @@ In Lisp syntax,
 
 \section{Evaluations}
 
-\begin{frame}{Evaluation on AIM}
+\begin{frame}{Evaluation on AIM (Previous Work)}
 \includegraphics[width=0.8\textwidth]{old_result.png}
+
+\cite{bib:Dresner08Multiagent}
+\end{frame}
+
+\begin{frame}{Implementation}
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  Vehicle Type & Communication & Cruise & Adaptive \\
+               & Device & Control & Cruise Control \\
+  \hline
+  SA-ACC & X & X & X  \\
+  \hline
+  SA-CC & X & X &  \\
+  \hline
+  SA-Com & X & &  \\
+  \hline
+\end{tabular}
+
+\hfill
+
+For each type of vehicle - always try the most \emph{advanced} type of
+request first.
+\end{frame}
+
+\begin{frame}{Goal}
+Recall, our \textbf{goal}: \pause \goal.
 \end{frame}
 
 \begin{frame}{Evaluation on SemiAIM}
@@ -223,11 +277,66 @@ level = 360 vehicles/lane/hour.
 \end{frame}
 
 \begin{frame}{Evaluation on SemiAIM}
-\includegraphics[width=0.9\columnwidth]{figures/figure_3.pdf}
+\begin{columns}[c]
+	\column{.6\textwidth}
+	\includegraphics[width=\columnwidth]{figures/figure_3.pdf}
+
+	\column{.4\textwidth}
+	\small
+	\begin{tabular}{|c|c|c|}
+    \hline
+    Type H&  SemiAuto &    Type A\\
+    \hline
+    90\% &      \ 9\% &   \ 1\% \\
+    \hline
+    87\% &     11\% &    \ 2\% \\
+    \hline
+    84\% &     13\% &    \ 3\% \\
+    \hline
+     ...&   ...&   ...\\
+    \hline
+    \ 0\%&     69\% &  31\% \\
+    \hline
+	\end{tabular}
+
+\end{columns}
+
+\hfill
 
 The average delay according to a deployment schedule. Traffic level =
 360 vehicles/lane/hour.
 \end{frame}
+
+\begin{frame}{Evaluation on SemiAIM}
+\begin{columns}[c]
+	\column{.6\textwidth}
+	\includegraphics[width=\columnwidth]{figures/figure_4.pdf}
+
+	\column{.4\textwidth}
+	\small
+	\begin{tabular}{|c|c|c|}
+    \hline
+     Type H&  SemiAuto &    Type A\\
+    \hline
+     10\%&     85\%&   \ 5\% \\
+    \hline
+     10\%&     80\%&  10\% \\
+    \hline
+     10\%&     75\%&  15\% \\
+    \hline
+      ...&  ... &  ...\\
+    \hline
+     10\%&       5\%&  85\% \\
+    \hline
+	\end{tabular}
+\end{columns}
+
+\hfill
+
+The average delay according to a deployment schedule. Traffic level =
+360 vehicles/lane/hour.
+\end{frame}
+
 
 \section{Conclusion}
 
@@ -239,9 +348,11 @@ proposed by Dresner and Stone \cite{bib:Dresner08Multiagent}.
 by Jerath and Brennan \cite{bib:Jerath10adaptive}.
 \item Part of a series of robotic car competitions such as the
 \emph{DARPA Grand Challenges}~\cite{DARPAGrandChallenge}.
-\item Autonomous vehicles can even outperform many human drivers in
-carrying out intricate maneuvers~\cite{Squatriglia2010}.
-\item etc.
+\item Jointly optimizing
+autonomous vehicles and road infrastructure, for example, the PATH
+program~\cite{bib:Shladover91Automated}.
+\item Vehicle-to-Vehicle (V2V) forms of autonomous intersection
+management~\cite{naumann97:intersection, ATT08-vanmiddlesworth}.
 \end{itemize}
 \end{frame}
 
@@ -250,7 +361,7 @@ carrying out intricate maneuvers~\cite{Squatriglia2010}.
 \item SemiAIM is the first multiagent protocol to enable smooth interactions
 between human-driven, fully autonomous, and semiautonomous
 vehicles.\pause
-\item Our initial experiment showed that our system can greatly decrease
+\item Our experiments showed that our system can greatly decrease
 trafﬁc delay when most vehicles are semiautonomous, even when few
 (if any) are fully autonomous.
 \end{itemize}
