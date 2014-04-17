@@ -3,7 +3,7 @@
 \usepackage{verbatim}
 \usetheme{Warsaw}
 \title{Intersection Management with Constraint-Based Reservation
-System}
+Systems}
 \date{}
 
 \newcommand{\goal}{find a way to make all types of vehicles to
@@ -61,10 +61,12 @@ South Korea.}
 \begin{columns}[c]
 	\column{.4\textwidth}
 		\includegraphics[width=\textwidth]{aim.png}
+		% change to video
 				
 	\column{.6\textwidth}
 		\begin{itemize}
-		\item \cite{bib:Dresner08Multiagent}.
+		% IM
+		\item First Come First Serve (FCFS)~\cite{bib:Dresner08Multiagent}.
 		\item Use Grid-Based Collision Detection.\pause
 		\item Dramatically reduce the traffic delay.
 		\item Reduce the overhead of fuel consumption by approximately
@@ -102,6 +104,7 @@ Traffic Signals \cite{bib:Dresner08Multiagent}
 \begin{itemize}
 \item This ignores the possible equipments of human-driven vehicles
 (e.g.\ cruise control).\pause
+% until 90%
 \item \textbf{Goal}: \goal.
 \end{itemize}
 \end{frame}
@@ -279,7 +282,7 @@ level = 360 vehicles/lane/hour.
 \begin{frame}{Evaluation on SemiAIM}
 \begin{columns}[c]
 	\column{.6\textwidth}
-	\includegraphics[width=\columnwidth]{figures/figure_3.pdf}
+	\includegraphics[width=\columnwidth]{figures/figure_4.pdf}
 
 	\column{.4\textwidth}
 	\small
@@ -310,7 +313,7 @@ The average delay according to a deployment schedule. Traffic level =
 \begin{frame}{Evaluation on SemiAIM}
 \begin{columns}[c]
 	\column{.6\textwidth}
-	\includegraphics[width=\columnwidth]{figures/figure_4.pdf}
+	\includegraphics[width=\columnwidth]{figures/figure_3.pdf}
 
 	\column{.4\textwidth}
 	\small
@@ -365,11 +368,6 @@ vehicles.\pause
 trafﬁc delay when most vehicles are semiautonomous, even when few
 (if any) are fully autonomous.
 \end{itemize}
-\end{frame}
-
-\begin{frame}{Bibliography}
-\tiny{\bibliographystyle{apalike}
-\bibliography{bib/ref,bib/chiu,bib/intelligent_vehicles,bib/intersection,bib/peter}}
 \end{frame}
 
 \end{document}
