@@ -154,9 +154,11 @@ an advanced cruise control system that automatically adjusts the speed
 of a vehicle in order to maintain a certain distance from vehicles
 ahead.
 \end{itemize}
+% already exist today!
 \end{frame}
 
 % FIXME not clear? not abbreviations..
+% Fine to remind again.
 \begin{frame}{Type of Semi-Autonomous Vehicles}
 \begin{tabular}{|c|c|c|c|}
   \hline
@@ -178,7 +180,10 @@ ahead.
 For safety, we need to define a simple and clean interface between the
 human driver and the vehicle.\pause
 
-\includegraphics[width=\textwidth]{figures/interaction}
+\begin{figure}
+	\includegraphics[width=\textwidth]{figures/interaction}
+	\caption{Adjustable Autonomy}
+\end{figure}
 \end{frame}
 
 \subsection{Constraint-Based Reservation Systems}
@@ -240,6 +245,8 @@ reservations.\pause
 
 An anchor request is $\langle {\sf Type}, \texttt{vin},
 d \rangle$
+
+For the performance of Adaptive Cruise Control.
 \end{frame}
 
 \begin{frame}[fragile]{A General Request}
@@ -275,11 +282,15 @@ Recall, our \textbf{goal}: \pause \goal.
   Vehicle Type & Communication & Cruise & Adaptive \\
                & Device & Control & Cruise Control \\
   \hline
+  A & \multicolumn{3}{|c|}{Fully Autonomous} \\
+  \hline
   SA-ACC & X & X & X  \\
   \hline
   SA-CC & X & X &  \\
   \hline
   SA-Com & X & &  \\
+  \hline
+  H & & & \\
   \hline
 \end{tabular}
 
