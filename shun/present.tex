@@ -63,9 +63,15 @@ South Korea.}
 \begin{frame}{Previous Work: Autonomous Intersection Management}
 \begin{columns}[c]
 	\column{.4\textwidth}
-	\begin{figure}[ht]
-	\includemovie{6cm}{4cm}{fcfs-insanity.avi}
-	\end{figure}
+		\begin{center}
+		\begin{figure}
+		\includemovie[
+		poster=./aim.png,
+		text={Click to start}
+		]
+		{4cm}{3cm}{./fcfs-insanity.avi}
+		\end{figure}
+		\end{center}
 				
 	\column{.6\textwidth}
 		\begin{itemize}
@@ -109,8 +115,13 @@ Traffic Signals \cite{bib:Dresner08Multiagent}
 (e.g.\ cruise control).
 \item The desirable performance is reached when 90\% of the vehicles
 are fully autonomous.\pause
-\item \textbf{Goal}: \goal.
+
+\includegraphics[width=0.6\textwidth]{bad_human.png}
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Observation}
+\textbf{Goal}: \goal.
 \end{frame}
 
 \subsection{Semi-Autonomous Vechiles}
