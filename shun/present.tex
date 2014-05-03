@@ -1,6 +1,7 @@
 \documentclass{beamer}
 \usepackage{tikz}
 \usepackage{verbatim}
+\usepackage{movie15}
 \usetheme{Warsaw}
 \title{Intersection Management with Constraint-Based Reservation
 Systems}
@@ -62,12 +63,13 @@ South Korea.}
 \begin{frame}{Previous Work: Autonomous Intersection Management}
 \begin{columns}[c]
 	\column{.4\textwidth}
-		\includegraphics[width=\textwidth]{aim.png}
-		% change to video
+	\begin{figure}[ht]
+	\includemovie{6cm}{4cm}{fcfs-insanity.avi}
+	\end{figure}
 				
 	\column{.6\textwidth}
 		\begin{itemize}
-		\item Multi-agent approach.~\cite{bib:Dresner08Multiagent}.
+		\item Multi-agent approach.\\\cite{bib:Dresner08Multiagent}.
 		\item First Come First Serve (FCFS). Use Grid-Based Collision Detection.\pause
 		\item Dramatically reduce the traffic delay.
 		\item Reduce the overhead of fuel consumption by approximately
