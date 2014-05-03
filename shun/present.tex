@@ -14,10 +14,11 @@ as 100\% fully autonomous vehicles)}
 {%
   \leavevmode%
   \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fil,rightskip=.3cm]{author in head/foot}%
-    \usebeamerfont{author in head/foot}\insertframenumber\,/\,\inserttotalframenumber\hfill\insertshortauthor
+    \usebeamerfont{author in head/foot}\insertframenumber\hfill\insertshortauthor
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
-    \usebeamerfont{title in head/foot}\insertshorttitle%
+    \usebeamerfont{title in head/foot}Tsz-Chiu Au, Shun Zhang, and Peter
+Stone%
   \end{beamercolorbox}}%
 }
 
@@ -46,9 +47,9 @@ South Korea.}
 		human drivers.
 		\item In the future: \textbf{Autonomous Intersection
 		Management}.\\
-		Utilize the capacity of autonomous vehicles to improve traffic
-		in transportation systems.
-		% multi-agent approach
+		Utilize the capacity of autonomous vehicles, as a large
+		multi-robot system, to improve traffic in transportation
+		systems.
 		\end{itemize}
 		
 	\column{.4\textwidth}
@@ -66,9 +67,8 @@ South Korea.}
 				
 	\column{.6\textwidth}
 		\begin{itemize}
-		% IM
-		\item First Come First Serve (FCFS)~\cite{bib:Dresner08Multiagent}.
-		\item Use Grid-Based Collision Detection.\pause
+		\item Multi-agent approach.~\cite{bib:Dresner08Multiagent}.
+		\item First Come First Serve (FCFS). Use Grid-Based Collision Detection.\pause
 		\item Dramatically reduce the traffic delay.
 		\item Reduce the overhead of fuel consumption by approximately
 		two thirds.
@@ -91,7 +91,7 @@ South Korea.}
 \item AIM is designed for the time when vehicles are autonomous.
 \item Autonomous vehicles won't displace manual-controlled vehicles in
 one day. Some people enjoy driving.\pause
-\item One solution: FCFS-light = First-Come First-Served Policy +
+\item One solution: FCFS-Signal = First-Come First-Served Policy +
 Traffic Signals \cite{bib:Dresner08Multiagent}
 \end{itemize}
 \column{.4\textwidth}
@@ -104,8 +104,9 @@ Traffic Signals \cite{bib:Dresner08Multiagent}
 \begin{frame}{Observation}
 \begin{itemize}
 \item This ignores the possible equipments of human-driven vehicles
-(e.g.\ cruise control).\pause
-% FIXME until 90%
+(e.g.\ cruise control).
+\item The desirable performance is reached when 90\% of the vehicles
+are fully autonomous.\pause
 \item \textbf{Goal}: \goal.
 \end{itemize}
 \end{frame}
@@ -123,7 +124,7 @@ They are able to follow a \textit{limited number} of predictable
 trajectories at intersections more precisely than human drivers.
 \end{frame}
 
-% use graphics?
+% TODO use graphics?
 \begin{frame}{Set of Equipments}
 \begin{itemize}
 \item \textbf{Communication Device (Com)}:
@@ -202,7 +203,7 @@ is the entry statement; and
 \item ${\sf AP} = ( \langle (t_1, 0) \rangle )$
 \end{itemize}
 
-This is particularly used by Simple Cruise Control.
+For the performance of Simple Cruise Control.
 \end{frame}
 
 \begin{frame}{Whole-Row Request}
@@ -214,7 +215,7 @@ This is particularly used by Simple Cruise Control.
 provided.
 \end{itemize}
 
-This is particularly used by Communication Device.
+For the performance of Communication Device.
 \end{frame}
 
 \begin{frame}{Anchor Request}
@@ -251,6 +252,10 @@ In Lisp syntax,
 \cite{bib:Dresner08Multiagent}
 \end{frame}
 
+\begin{frame}{Goal}
+Recall, our \textbf{goal}: \pause \goal.
+\end{frame}
+
 \begin{frame}{Implementation}
 \begin{tabular}{|c|c|c|c|}
   \hline
@@ -269,10 +274,6 @@ In Lisp syntax,
 
 For each type of vehicle - always try the most \emph{advanced} type of
 request first.
-\end{frame}
-
-\begin{frame}{Goal}
-Recall, our \textbf{goal}: \pause \goal.
 \end{frame}
 
 \begin{frame}{Evaluation on SemiAIM}
@@ -364,14 +365,19 @@ management~\cite{naumann97:intersection, ATT08-vanmiddlesworth}.
 \end{frame}
 
 \begin{frame}{Conclusion}
-\begin{itemize}
-\item SemiAIM is the first multiagent protocol to enable smooth interactions
-between human-driven, fully autonomous, and semiautonomous
-vehicles.\pause
-\item Our experiments showed that our system can greatly decrease
-trafﬁc delay when most vehicles are semiautonomous, even when few
-(if any) are fully autonomous.
-\end{itemize}
+\begin{columns}[c]
+\column{.4\textwidth}
+	\includegraphics[width=\textwidth]{aim.png}
+\column{.6\textwidth}
+	\begin{itemize}
+	\item SemiAIM is the first multiagent protocol to enable smooth
+	interactions between human-driven, fully autonomous, and
+	semiautonomous vehicles.\pause
+	\item Our experiments showed that our system can greatly decrease
+	trafﬁc delay when most vehicles are semiautonomous, even when few
+	(if any) are fully autonomous.
+	\end{itemize}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Bibliography}
