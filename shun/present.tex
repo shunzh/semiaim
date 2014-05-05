@@ -11,17 +11,7 @@ Systems}
 achieve the benefits (better than traffic signal, may not be as good
 as 100\% fully autonomous vehicles)}
 
-\defbeamertemplate*{footline}{shadow theme}
-{%
-  \leavevmode%
-  \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fil,rightskip=.3cm]{author in head/foot}%
-    \usebeamerfont{author in head/foot}\insertframenumber\hfill\insertshortauthor
-  \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
-    \usebeamerfont{title in head/foot}Tsz-Chiu Au, Shun Zhang, and Peter
-Stone%
-  \end{beamercolorbox}}%
-}
+\setbeamertemplate{footline}[page number]{}
 
 \begin{document}
 
@@ -77,8 +67,8 @@ South Korea.}
 		\begin{itemize}
 		\item Multi-agent approach.\\\cite{bib:Dresner08Multiagent}.
 		\item First Come First Serve (FCFS). Use Grid-Based Collision Detection.\pause
-		\item Dramatically reduce the traffic delay.
-		\item Reduce the overhead of fuel consumption by approximately
+		\item Dramatically reduces the traffic delay.
+		\item Reduces the overhead of fuel consumption by approximately
 		two thirds.
 		\end{itemize}
 \end{columns}
@@ -100,7 +90,7 @@ South Korea.}
 \item Autonomous vehicles won't displace manual-controlled vehicles in
 one day. Some people enjoy driving.\pause
 \item One solution: FCFS-Signal = First-Come First-Served Policy +
-Traffic Signals \cite{bib:Dresner08Multiagent}
+Traffic Signals.
 \end{itemize}
 \column{.4\textwidth}
 \includegraphics[width=\textwidth]{fcfs-light-1.png}
@@ -114,7 +104,7 @@ Traffic Signals \cite{bib:Dresner08Multiagent}
 \item This ignores the possible equipments of human-driven vehicles
 (e.g.\ cruise control).
 \item The desirable performance is reached when 90\% of the vehicles
-are fully autonomous.\pause
+are fully autonomous.\pause \cite{bib:Dresner08Multiagent}
 
 \includegraphics[width=0.6\textwidth]{bad_human.png}
 \end{itemize}
@@ -135,6 +125,10 @@ driving and wireless communication capabilities.\pause
 
 They are able to follow a \textit{limited number} of predictable
 trajectories at intersections more precisely than human drivers.
+
+\hfill
+
+We denote our new policy as \textbf{SemiAIM}.
 \end{frame}
 
 % TODO use graphics?
@@ -165,11 +159,15 @@ ahead.
   Vehicle Type & Communication & Cruise & Adaptive \\
                & Device & Control & Cruise Control \\
   \hline
+  A & \multicolumn{3}{|c|}{Fully Autonomous} \\
+  \hline
   SA-ACC & X & X & X  \\
   \hline
   SA-CC & X & X &  \\
   \hline
   SA-Com & X & &  \\
+  \hline
+  H & & & \\
   \hline
 \end{tabular}
 \end{frame}
@@ -221,7 +219,7 @@ is the entry statement; and
 \item ${\sf AP} = ( \langle (t_1, 0) \rangle )$
 \end{itemize}
 
-For the performance of Simple Cruise Control.
+For the performance of Simple Cruise Control, used by SA-CC.
 \end{frame}
 
 \begin{frame}{Whole-Row Request}
@@ -233,20 +231,20 @@ For the performance of Simple Cruise Control.
 provided.
 \end{itemize}
 
-For the performance of Communication Device.
+For the performance of Communication Device, used by SA-Com.
 \end{frame}
 
 \begin{frame}{Anchor Request}
 Semi-autonomous vehicles with adaptive cruise control can use a special
 constraint-based request called \emph{anchor requests} to make
-reservations.\pause
+reservations.
 
 \hfill
 
 An anchor request is $\langle {\sf Type}, \texttt{vin},
-d \rangle$
+d \rangle$.
 
-For the performance of Adaptive Cruise Control.
+For the performance of Adaptive Cruise Control, used by SA-ACC.
 \end{frame}
 
 \begin{frame}[fragile]{A General Request}
@@ -265,12 +263,6 @@ In Lisp syntax,
 \end{frame}
 
 \section{Evaluations}
-
-\begin{frame}{Evaluation on AIM (Previous Work)}
-\includegraphics[width=0.8\textwidth]{old_result.png}
-
-\cite{bib:Dresner08Multiagent}
-\end{frame}
 
 \begin{frame}{Goal}
 Recall, our \textbf{goal}: \pause \goal.
@@ -402,6 +394,9 @@ management~\cite{naumann97:intersection, ATT08-vanmiddlesworth}.
 	(if any) are fully autonomous.
 	\end{itemize}
 \end{columns}
+\end{frame}
+
+\begin{frame}{Thank you!}
 \end{frame}
 
 \begin{frame}{Bibliography}
