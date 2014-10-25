@@ -1,6 +1,7 @@
 \documentclass{beamer}
 \usepackage{tikz}
 \usepackage{verbatim}
+\usepackage{movie15}
 \usetheme{Warsaw}
 \title{Intersection Management with Constraint-Based Reservation
 Systems}
@@ -10,16 +11,7 @@ Systems}
 achieve the benefits (better than traffic signal, may not be as good
 as 100\% fully autonomous vehicles)}
 
-\defbeamertemplate*{footline}{shadow theme}
-{%
-  \leavevmode%
-  \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fil,rightskip=.3cm]{author in head/foot}%
-    \usebeamerfont{author in head/foot}\insertframenumber\,/\,\inserttotalframenumber\hfill\insertshortauthor
-  \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
-    \usebeamerfont{title in head/foot}\insertshorttitle%
-  \end{beamercolorbox}}%
-}
+\setbeamertemplate{footline}[page number]{}
 
 \begin{document}
 
@@ -46,9 +38,9 @@ South Korea.}
 		human drivers.
 		\item In the future: \textbf{Autonomous Intersection
 		Management}.\\
-		Utilize the capacity of autonomous vehicles to improve traffic
-		in transportation systems.
-		% multi-agent approach
+		Utilize the capacity of autonomous vehicles, as a large
+		multi-robot system, to improve traffic in transportation
+		systems.
 		\end{itemize}
 		
 	\column{.4\textwidth}
@@ -61,16 +53,22 @@ South Korea.}
 \begin{frame}{Previous Work: Autonomous Intersection Management}
 \begin{columns}[c]
 	\column{.4\textwidth}
-		\includegraphics[width=\textwidth]{aim.png}
-		% change to video
+		\begin{center}
+		\begin{figure}
+		\includemovie[
+		poster=./aim.png,
+		text={Click to start}
+		]
+		{4cm}{3cm}{./fcfs-insanity.avi}
+		\end{figure}
+		\end{center}
 				
 	\column{.6\textwidth}
 		\begin{itemize}
-		% IM
-		\item First Come First Serve (FCFS)~\cite{bib:Dresner08Multiagent}.
-		\item Use Grid-Based Collision Detection.\pause
-		\item Dramatically reduce the traffic delay.
-		\item Reduce the overhead of fuel consumption by approximately
+		\item Multi-agent approach.\\\cite{bib:Dresner08Multiagent}.
+		\item First Come First Serve (FCFS). Use Grid-Based Collision Detection.\pause
+		\item Dramatically reduces the traffic delay.
+		\item Reduces the overhead of fuel consumption by approximately
 		two thirds.
 		\end{itemize}
 \end{columns}
@@ -91,8 +89,8 @@ South Korea.}
 \item AIM is designed for the time when vehicles are autonomous.
 \item Autonomous vehicles won't displace manual-controlled vehicles in
 one day. Some people enjoy driving.\pause
-\item One solution: FCFS-light = First-Come First-Served Policy +
-Traffic Signals \cite{bib:Dresner08Multiagent}
+\item One solution: FCFS-Signal = First-Come First-Served Policy +
+Traffic Signals.
 \end{itemize}
 \column{.4\textwidth}
 \includegraphics[width=\textwidth]{fcfs-light-1.png}
@@ -104,10 +102,16 @@ Traffic Signals \cite{bib:Dresner08Multiagent}
 \begin{frame}{Observation}
 \begin{itemize}
 \item This ignores the possible equipments of human-driven vehicles
-(e.g.\ cruise control).\pause
-% FIXME until 90%
-\item \textbf{Goal}: \goal.
+(e.g.\ cruise control).
+\item The desirable performance is reached when 90\% of the vehicles
+are fully autonomous.\pause \cite{bib:Dresner08Multiagent}
+
+\includegraphics[width=0.6\textwidth]{bad_human.png}
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Observation}
+\textbf{Goal}: \goal.
 \end{frame}
 
 \subsection{Semi-Autonomous Vechiles}
@@ -121,9 +125,13 @@ driving and wireless communication capabilities.\pause
 
 They are able to follow a \textit{limited number} of predictable
 trajectories at intersections more precisely than human drivers.
+
+\hfill
+
+We denote our new policy as \textbf{SemiAIM}.
 \end{frame}
 
-% use graphics?
+% TODO use graphics?
 \begin{frame}{Set of Equipments}
 \begin{itemize}
 \item \textbf{Communication Device (Com)}:
@@ -140,20 +148,26 @@ an advanced cruise control system that automatically adjusts the speed
 of a vehicle in order to maintain a certain distance from vehicles
 ahead.
 \end{itemize}
+% already exist today!
 \end{frame}
 
 % FIXME not clear? not abbreviations..
+% Fine to remind again.
 \begin{frame}{Type of Semi-Autonomous Vehicles}
 \begin{tabular}{|c|c|c|c|}
   \hline
   Vehicle Type & Communication & Cruise & Adaptive \\
                & Device & Control & Cruise Control \\
   \hline
+  A & \multicolumn{3}{|c|}{Fully Autonomous} \\
+  \hline
   SA-ACC & X & X & X  \\
   \hline
   SA-CC & X & X &  \\
   \hline
   SA-Com & X & &  \\
+  \hline
+  H & & & \\
   \hline
 \end{tabular}
 \end{frame}
@@ -164,7 +178,10 @@ ahead.
 For safety, we need to define a simple and clean interface between the
 human driver and the vehicle.\pause
 
-\includegraphics[width=\textwidth]{figures/interaction}
+\begin{figure}
+	\includegraphics[width=\textwidth]{figures/interaction}
+	\caption{Adjustable Autonomy}
+\end{figure}
 \end{frame}
 
 \subsection{Constraint-Based Reservation Systems}
@@ -202,7 +219,7 @@ is the entry statement; and
 \item ${\sf AP} = ( \langle (t_1, 0) \rangle )$
 \end{itemize}
 
-This is particularly used by Simple Cruise Control.
+For the performance of Simple Cruise Control, used by SA-CC.
 \end{frame}
 
 \begin{frame}{Whole-Row Request}
@@ -214,18 +231,20 @@ This is particularly used by Simple Cruise Control.
 provided.
 \end{itemize}
 
-This is particularly used by Communication Device.
+For the performance of Communication Device, used by SA-Com.
 \end{frame}
 
 \begin{frame}{Anchor Request}
 Semi-autonomous vehicles with adaptive cruise control can use a special
 constraint-based request called \emph{anchor requests} to make
-reservations.\pause
+reservations.
 
 \hfill
 
 An anchor request is $\langle {\sf Type}, \texttt{vin},
-d \rangle$
+d \rangle$.
+
+For the performance of Adaptive Cruise Control, used by SA-ACC.
 \end{frame}
 
 \begin{frame}[fragile]{A General Request}
@@ -245,10 +264,8 @@ In Lisp syntax,
 
 \section{Evaluations}
 
-\begin{frame}{Evaluation on AIM (Previous Work)}
-\includegraphics[width=0.8\textwidth]{old_result.png}
-
-\cite{bib:Dresner08Multiagent}
+\begin{frame}{Goal}
+Recall, our \textbf{goal}: \pause \goal.
 \end{frame}
 
 \begin{frame}{Implementation}
@@ -257,11 +274,15 @@ In Lisp syntax,
   Vehicle Type & Communication & Cruise & Adaptive \\
                & Device & Control & Cruise Control \\
   \hline
+  A & \multicolumn{3}{|c|}{Fully Autonomous} \\
+  \hline
   SA-ACC & X & X & X  \\
   \hline
   SA-CC & X & X &  \\
   \hline
   SA-Com & X & &  \\
+  \hline
+  H & & & \\
   \hline
 \end{tabular}
 
@@ -269,10 +290,6 @@ In Lisp syntax,
 
 For each type of vehicle - always try the most \emph{advanced} type of
 request first.
-\end{frame}
-
-\begin{frame}{Goal}
-Recall, our \textbf{goal}: \pause \goal.
 \end{frame}
 
 \begin{frame}{Evaluation on SemiAIM}
@@ -364,14 +381,22 @@ management~\cite{naumann97:intersection, ATT08-vanmiddlesworth}.
 \end{frame}
 
 \begin{frame}{Conclusion}
-\begin{itemize}
-\item SemiAIM is the first multiagent protocol to enable smooth interactions
-between human-driven, fully autonomous, and semiautonomous
-vehicles.\pause
-\item Our experiments showed that our system can greatly decrease
-trafﬁc delay when most vehicles are semiautonomous, even when few
-(if any) are fully autonomous.
-\end{itemize}
+\begin{columns}[c]
+\column{.4\textwidth}
+	\includegraphics[width=\textwidth]{aim.png}
+\column{.6\textwidth}
+	\begin{itemize}
+	\item SemiAIM is the first multiagent protocol to enable smooth
+	interactions between human-driven, fully autonomous, and
+	semiautonomous vehicles.\pause
+	\item Our experiments showed that our system can greatly decrease
+	trafﬁc delay when most vehicles are semiautonomous, even when few
+	(if any) are fully autonomous.
+	\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Thank you!}
 \end{frame}
 
 \begin{frame}{Bibliography}
