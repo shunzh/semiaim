@@ -93,19 +93,19 @@ function retval = readResult (trafficLevel, redPhase)
 endfunction
 
 % =============== main ===============
-trafficLevel = 0.15;
+trafficLevel = 0.1;
 
 result = readResult(trafficLevel, 5); % redPhase is 5 by default
 hold on;
 
 % draw baseline - traffic signal (no autonomous vehicles at all)
-fileName = ["delay_result_5_kinds/delay_result_for_human_", format(trafficLevel), "_1.00_0.00_0.00_0.00_5.00-f.csv"];
+fileName = ["delay_result_d_restart/delay_result_for_human_", format(trafficLevel), "_1.00_0.00_0.00_0.00_5.00-f.csv"];
 fileHandle = csvread(fileName);
 fileHandle = fileHandle(:, 1);
 delayTime = average(fileHandle);
 errorVal = confidence(fileHandle);
-result = [[0: 0.05: 1]', ones(21, 1) .* 70, ones(21, 1) .* errorVal];
-plot(result(:, 1), result(:, 2), "color", "blue");
+result = [[0: 0.05: 1]', ones(21, 1) .* delayTime, ones(21, 1) .* errorVal];
+plot(result(:, 1), result(:, 2));
 save("-append", "1.csv", "result");
 
 % decorate graph
@@ -114,5 +114,5 @@ ylabel('Average Delay (s)');
 %axis([0 1 0 45]);
 legend('Fully autonomous only', 'Adaptive cruise control only', 'Cruise control only', 'Communication device only', 'Traffic signal only', 'location', 'southwest');
 %print(['feature_cmp_', num2str(trafficLevel), '.png'], '-S700,500');
-print('figure_5.eps', '-color', '-S400,250');
+print('figure_2.eps', '-color', '-S400,250');
 close;
