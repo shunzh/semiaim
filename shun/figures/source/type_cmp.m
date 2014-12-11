@@ -111,10 +111,11 @@ plot(result(:, 1), result(:, 2), "color", "blue");
 save("-append", "2.csv", "result");
 
 % decorate graph
-xlabel('(Semi-)Autonomous Vehicles Ratio');
-ylabel('Average Delay (s)');
+xlabel('(Semi-)Autonomous Vehicles Ratio','fontsize',18);
+ylabel('Average Delay (s)','fontsize',18);
 axis([0 1 0 45]);
 legend('Type A', 'Type SA-ACC', 'Type SA-CC', 'Type SA-Com', 'Type H', 'location', 'southwest');
+set(gca,'fontsize',16);
 %print('figure_1.png', '-S800,500');
 print('figure_1.eps', '-color', '-S400,250');
 close;

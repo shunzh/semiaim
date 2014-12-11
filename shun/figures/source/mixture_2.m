@@ -82,10 +82,11 @@ plot(result(:, 1), result(:, 2), "color", "blue");
 save("-append", "4.csv", "result");
 
 % decorate graph
-xlabel('Autonomous Vehicles Ratio');
-ylabel('Average Delay (s)');
+xlabel('Autonomous Vehicles Ratio','fontsize',18);
+ylabel('Average Delay (s)','fontsize',18);
 axis([0, 1, 10, 45]);
 legend('Mix of A, SA-ACC, H', 'Mix of A, SA-CC, H', 'Mix of A, SA-Com, H', 'SIGNAL', 'location', 'southwest');
+set(gca,'fontsize',16);
 %print(['mixture_2_', num2str(trafficLevel), '.png'], '-S700,500');
 print('figure_3.eps', '-color', '-S400,250');
 close;
